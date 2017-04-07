@@ -25,3 +25,11 @@ Soft <- function(z, lambda){
   else if (z < -lambda) z + lambda
   else 0
 }
+
+TruePositive <- function(b, b.true){
+  index = which(b.true != 0)
+  pos = which(b != 0)
+  tp = length(intersect(index, pos))
+  fp = length(pos) - tp
+  list(tp=tp, fp=fp)
+}

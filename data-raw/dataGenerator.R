@@ -89,8 +89,8 @@ tab= data[[2]]
 test = list(X=fae[,-1], Y=drop(tab), beta=b.true)
 
 ptm <- proc.time()
-result = CV.NetLogistic(fae[,-1], tab, r=4.5, folds=5)
-#result = CV.McpLogistic(fae[,-1], tab)
+#result = CV.NetLogistic(fae[,-1], tab, r=4.5, folds=5)
+result = CV.McpLogistic(fae[,-1], tab)
 #result = CV.ElasLogistic(fae[,-1], tab, alpha=1)
 print(proc.time() - ptm)
 
@@ -99,7 +99,8 @@ result$mcr
 result$MCR
 
 
-b = NetLogistic(fae[,-1], tab, result$lambda[1,2], result$lambda[1,1])
-#b = McpLogistic(fae[,-1], tab, result$lambda[1])
+#b = NetLogistic(fae[,-1], tab, result$lambda[1,2], result$lambda[1,1])
+b = McpLogistic(fae[,-1], tab, result$lambda[1])
 #b = ElasLogistic(fae[,-1], tab, result$lambda[1], alpha=1)
-TruePos(b)
+#TruePos(b)
+TruePositive(b,b.true)
