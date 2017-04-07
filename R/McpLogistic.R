@@ -13,8 +13,10 @@
 #' lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation.
-#' @return the optimal lambda, the corresponding misclassification rate, and a
-#' matrix contains the misclassification rates for all the values of lambda tested.
+#' @return a list with components:
+#' \item{lambda}{the optimal lambda.}
+#' \item{mcr}{the misclassification rate of the optimal lambda.}
+#' \item{MCR}{a matrix of the misclassification rates for all the values of lambda tested.}
 #'
 #' @seealso \code{\link{McpLogistic}}
 #'

@@ -24,8 +24,10 @@ as initial coefficients.}
 \item{folds}{the number of folds for cross-validation.}
 }
 \value{
-the optimal lambda, the corresponding misclassification rate, and a
-matrix contains the misclassification rates for all the values of lambda tested.
+a list with components:
+\item{lambda}{the optimal lambda.}
+\item{mcr}{the misclassification rate of the optimal lambda.}
+\item{MCR}{a matrix of the misclassification rates for all the values of lambda tested.}
 }
 \description{
 This function dose k-fold cross-validation for the MCP logistic regression and returns
