@@ -4,7 +4,8 @@
 \alias{CV.ElasLogistic}
 \title{k-folds cross-validation for Elastic-net logistic regression.}
 \usage{
-CV.ElasLogistic(X, Y, lambda = 0, alpha = 0.5, alpha.i = 1, folds = 5)
+CV.ElasLogistic(X, Y, lambda = NULL, alpha = 0.5, alpha.i = 1,
+  folds = 5)
 }
 \arguments{
 \item{X}{a matrix of predictors.}
@@ -25,7 +26,10 @@ as initial coefficients.}
 \item{folds}{the number of folds for cross-validation.}
 }
 \value{
-the estimated coefficients vector.
+a list with components:
+\item{lambda}{the optimal lambda.}
+\item{mcr}{the misclassification rate of the optimal lambda.}
+\item{MCR}{a matrix of the misclassification rates for all the values of lambda tested.}
 }
 \description{
 This function dose k-fold cross-validation for the Elastic-net logistic regression and returns

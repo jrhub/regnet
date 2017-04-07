@@ -23,8 +23,7 @@ as initial coefficients.}
 \item{folds}{the number of folds for cross-validation.}
 }
 \value{
-the optimal value of lambda, the corresponding misclassification rate, and a
-matrix contains the misclassification rates for all the values of lambda tested.
+the estimated coefficients vector.
 }
 \description{
 This function makes predictions for elastic-net logistic for a given value of lambda.

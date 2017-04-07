@@ -14,7 +14,10 @@
 #' lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation.
-#' @return the estimated coefficients vector.
+#' @return a list with components:
+#' \item{lambda}{the optimal lambda.}
+#' \item{mcr}{the misclassification rate of the optimal lambda.}
+#' \item{MCR}{a matrix of the misclassification rates for all the values of lambda tested.}
 #'
 #' @seealso \code{\link{ElasLogistic}}
 #'
@@ -22,7 +25,7 @@
 #' out = CV.ElasLogistic(regnet$X, regnet$Y)
 #' out$lambda
 #' @export
-CV.ElasLogistic <- function(X, Y, lambda=0, alpha=0.5, alpha.i=1, folds=5){
+CV.ElasLogistic <- function(X, Y, lambda=NULL, alpha=0.5, alpha.i=1, folds=5){
 
   if(is.null(lambda)) lambda = lambda.e
   n = nrow(X); p = ncol(X);
@@ -75,8 +78,7 @@ CV.ElasLogistic <- function(X, Y, lambda=0, alpha=0.5, alpha.i=1, folds=5){
 #' lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation.
-#' @return the optimal value of lambda, the corresponding misclassification rate, and a
-#' matrix contains the misclassification rates for all the values of lambda tested.
+#' @return the estimated coefficients vector.
 #'
 #' @seealso \code{\link{CV.ElasLogistic}}
 #'
