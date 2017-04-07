@@ -1,0 +1,19 @@
+Package: regnet
+Type: Package
+Title: Network-Based Regularization for Generalized Linear Models
+Version: 1.0
+Authors@R: c(
+    person("Jie", "Ren", email = "jieren@ksu.edu", role = c("aut", "cre")),
+    person("Cen", "Wu", email = "wucen@ksu.edu", role = "aut"))
+Description: This package provide procedures for fitting network-based regularization,
+	minimax concave penalty (MCP) and lasso penalty for generalized linear model. This first
+	version includes procedures for logistic regression only. We plan to add functions for 
+	survival response and gene expression as soon as we could. 
+Depends: R (>= 3.1.0)
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Imports: glmnet, stats
+URL: https://github.com/jrhub/regnet
+BugReports: https://github.com/jrhub/regnet/issues
+RoxygenNote: 6.0.1
