@@ -48,9 +48,9 @@ CV.ElasLogistic <- function(X, Y, lambda=NULL, alpha=0.5, alpha.i=1, folds=5){
     x = cbind(rep(1,n-length(test)), x)
     x2 = cbind(rep(1,length(test)), x2)
     if(alpha.i != -1) b0 = initiation(x, y, alpha.i)
-
+    n.x = nrow(x)
     for(i in 1:length(lambda)){ #Elastic net
-      b = run.elastic(x, y, lambda[i], b0, alpha, n, p)
+      b = run.elastic(x, y, lambda[i], b0, alpha, n.x, p)
       tMSE[1,i] = tMSE[1,i] + validation(b, x2, y2, n)
     }
   }

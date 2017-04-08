@@ -43,3 +43,4 @@ tp = length(intersect(index, pos))
 fp = length(pos) - tp  
 list(tp=tp, fp=fp)  
 ```
+[![Travis-CI Build Status](https://travis-ci.org/jrhub/regnet.svg?branch=master)](https://travis-ci.org/jrhub/regnet)

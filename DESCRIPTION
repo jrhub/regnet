@@ -7,8 +7,8 @@ Authors@R: c(
     person("Cen", "Wu", email = "wucen@ksu.edu", role = "aut"))
 Description: This package provide procedures for fitting network-based regularization,
 	minimax concave penalty (MCP) and lasso penalty for generalized linear model. This first
-	version includes procedures for logistic regression only. We plan to add functions for 
-	survival response and gene expression as soon as we could. 
+	version regent1.0 focus on binary outcome. Functions for continuous, survival outcome 
+	and other regularization methods will be included in the coming upgraded version. 
 Depends: R (>= 3.1.0)
 License: GPL-2
 Encoding: UTF-8

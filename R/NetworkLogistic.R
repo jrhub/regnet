@@ -21,7 +21,7 @@
 #' \item{MCR}{a matrix of the misclassification rates for all pairs of lambdas tested.}
 #'
 #' @references Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).
-#' Network-based regularization for high dimensional SNP data in the case – control study of
+#' Network-based regularization for high dimensional SNP data in the case /– control study of
 #' Type 2 diabetes. BMC Genetics.
 #'
 #' @seealso \code{\link{NetLogistic}}
@@ -50,14 +50,15 @@ CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds
     x2 = scale(x2, scale = apply(x2, 2, function(t) stats::sd(t)*sqrt((n-1)/n)))
 
     a = Adjacency(x)
-
     x = cbind(rep(1,n-length(test)), x)
     x2 = cbind(rep(1,length(test)), x2)
+
     if(alpha.i != -1) b0 = initiation(x, y, alpha.i)
+    n.x = nrow(x)
 
     for(j in 1:length(lamb.2)){
       for(i in 1:length(lamb.1)){ # Network
-        b = run.net(x, y, lamb.1[i], lamb.2[j], b0, r,a, n, p)
+        b = run.net(x, y, lamb.1[i], lamb.2[j], b0, r, a, n.x, p)
         tMSE[j,i] = tMSE[j,i] + validation(b, x2, y2, n)
       }
     }
@@ -66,7 +67,7 @@ CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds
   inds = which(tMSE == mcr, arr.ind=TRUE)
   lambda1 = lamb.1[inds[,2]]
   lambda2 = lamb.2[inds[,1]]
-  lambda = cbind(lambda2, lambda1)
+  lambda = cbind(lambda1, lambda2)
   colnames(tMSE) = signif(lamb.1, digits = 3)
   rownames(tMSE) = lamb.2
   return(list(lambda=lambda, mcr=mcr, MCR=tMSE))
@@ -91,7 +92,7 @@ CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds
 #' @return the estimated coefficients vector.
 #'
 #' @references Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).
-#' Network-based regularization for high dimensional SNP data in the case – control study of
+#' Network-based regularization for high dimensional SNP data in the case /– control study of
 #' Type 2 diabetes. BMC Genetics.
 #'
 #' @seealso \code{\link{CV.NetLogistic}}
@@ -112,14 +113,13 @@ NetLogistic <- function(X, Y, lamb.1, lamb.2, alpha.i=1, r=5, folds=5){
   b = run.net(x, y, lamb.1, lamb.2, b0, r, a, n, p)
 }
 
-
-run.net<- function(x, y, lam1, lam2, b, r, a, n, p){
+run.net <- function(x, y, lam1, lam2, b, r, a, n, p){
   count = 0
   while(count < 20){
     b.new = Network(x, y, lam1, lam2, b, r, a, n, p)
     dif = sum(abs(b - b.new))/n
     #cat("L1 Diff: ", dif, ", for lam1: ", lam1, "\n")
-    if( dif < 0.0005) break
+    if( dif < 0.001) break
     else{
       b = b.new; count = count +1
     }
@@ -146,3 +146,4 @@ Network <- function(x, y, lam1, lam2, b, r, a, n, p){
   }
   b
 }
+
