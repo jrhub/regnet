@@ -139,6 +139,7 @@ Network <- function(x, y, lam1, lam2, b, r, a, n, p){
       m = min(k,p)
       z = l*0.25 + lam2 * (t(a[(k-1),m:p]) %*% b[(m+1):(p+1)])
       u = 0.25 + lam2 * sum(abs(a[(k-1),m:p]))
+
       if(abs(z) > (r*lam1*u)) b[k] = z / u
       else b[k] = Soft(z, lam1)/ (u - 1/r)
     }

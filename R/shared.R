@@ -17,11 +17,11 @@ validation <- function(b, x2, y2, n){
   yi = x2 %*% b
   yi=1/(1+exp(-yi))
   y = ifelse(yi>0.5, 1, 0)
-  sum(abs(y2 - y))/n        # misclassification rate
+  sum(abs(y2 - y))/n
 }
 
 Soft <- function(z, lambda){
-  if (z > lambda) z - lambda                 #soft thresholding operate
+  if (z > lambda) z - lambda
   else if (z < -lambda) z + lambda
   else 0
 }
