@@ -9,7 +9,9 @@ Authors@R: c(
     person("Yinhao", "Du", role = c("ctb")),
     person("Jiang", "Yu", role = c("ctb")),
     person("Junhao", "Liu", role = c("ctb")))
-Description: This package provides procedures for fitting network-based regularization,
+Description: Network-based regularization has achieved success in variable selections for 
+  high-dimensional biological data, due to its ability to incorporate the correlations 
+  among genomic features.This package provides procedures for fitting network-based regularization,
 	minimax concave penalty (MCP) and lasso penalty for generalized linear models. This first
 	version, regent0.1.0, focuses on binary outcomes. Functions for continuous, survival outcomes 
 	and other regularization methods will be included in the forthcoming upgraded version. 
