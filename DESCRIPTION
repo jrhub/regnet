@@ -4,7 +4,11 @@ Title: Network-Based Regularization for Generalized Linear Models
 Version: 1.0
 Authors@R: c(
     person("Jie", "Ren", email = "jieren@ksu.edu", role = c("aut", "cre")),
-    person("Cen", "Wu", email = "wucen@ksu.edu", role = "aut"))
+    person("Luann", "Jung", role = c("aut")),
+    person("Cen", "Wu", email = "wucen@ksu.edu", role = "aut"),
+    person("Yinhao", "Du", role = c("ctb")),
+    person("Jiang", "Yu", role = c("ctb")),
+    person("Junhao", "Liu", role = c("ctb")))
 Description: This package provide procedures for fitting network-based regularization,
 	minimax concave penalty (MCP) and lasso penalty for generalized linear model. This first
 	version regent1.0 focus on binary outcome. Functions for continuous, survival outcome 
