@@ -22,3 +22,8 @@ This is a new release, so there are no reverse dependencies.
   None
 
 * All revdep maintainers were notified of the release on RELEASE DATE.
+
+## Resubmission
+This is a resubmission. In this version I have:
+
+* re-write the Description field. It does not start with 'This package' now.
