@@ -26,4 +26,4 @@ This is a new release, so there are no reverse dependencies.
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* re-write the Description field. It does not start with 'This package' now.
+* re-wrote the Description field. It does not start with 'This package' now.
