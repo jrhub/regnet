@@ -21,7 +21,7 @@
 #' \item{MCR}{a matrix of the misclassification rates for all pairs of lambdas tested.}
 #'
 #' @references Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).
-#' Network-based regularization for high dimensional SNP data in the case /– control study of
+#' Network-based regularization for high dimensional SNP data in the case – control study of
 #' Type 2 diabetes. BMC Genetics.
 #'
 #' @seealso \code{\link{NetLogistic}}

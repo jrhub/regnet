@@ -1,7 +1,7 @@
 Package: regnet
 Type: Package
 Title: Network-Based Regularization for Generalized Linear Models
-Version: 1.0
+Version: 0.1.0
 Authors@R: c(
     person("Jie", "Ren", email = "jieren@ksu.edu", role = c("aut", "cre")),
     person("Luann C.", "Jung", email = "luannjung01@gmail.com", role = c("aut")),

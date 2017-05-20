@@ -35,10 +35,6 @@ a list with components:
 This function dose k-fold cross-validation for the Elastic-net logistic regression and returns
 a value of lambda.
 }
-\examples{
-out = CV.ElasLogistic(regnet$X, regnet$Y)
-out$lambda
-}
 \seealso{
 \code{\link{ElasLogistic}}
 }

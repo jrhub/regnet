@@ -1,16 +1,17 @@
 ---
 title: "cran-comments"
 author: "jr"
-date: "April 4, 2017"
+date: "May 20, 2017"
 ---
 
 ## Test environments
-* x86_64-pc-linux-gnu (64-bit), R 3.3.2
+* ubuntu 12.04.5 (on travis-ci), R 3.4.0
 * win-builder (devel and release)
 
 ## R CMD check results
-There were no ERRORs, WARNINGs or NOTEs
+There were no ERRORs or WARNINGs. There was one NOTEs: New submission 
 This is a first submission
+"MCP" and "minimax" are not mis-spelled.
 
 ## Downstream dependencies
 I have also run R CMD check on downstream dependencies

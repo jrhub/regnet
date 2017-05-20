@@ -21,9 +21,6 @@
 #'
 #' @seealso \code{\link{ElasLogistic}}
 #'
-#' @examples
-#' out = CV.ElasLogistic(regnet$X, regnet$Y)
-#' out$lambda
 #' @export
 CV.ElasLogistic <- function(X, Y, lambda=NULL, alpha=0.5, alpha.i=1, folds=5){
 
