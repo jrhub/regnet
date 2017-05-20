@@ -3,7 +3,15 @@
 regnet
 ======
 
-This package provide procedures for fitting network-based regularization, minimax concave penalty (MCP) and lasso penalty for generalized linear model. This first version includes procedures for logistic regression only. We plan to add functions for survival response and gene expression as soon as we could.
+This package provides procedures for fitting network-based regularization, minimax concave penalty (MCP) and lasso penalty for generalized linear models. This first version, regent0.1.0, focuses on binary outcomes. Functions for continuous, survival outcomes and other regularization methods will be included in the forthcoming upgraded version.
+
+How to install
+--------------
+
+Run these two lines of code in R
+
+    install.packages("devtools")
+    devtools::install_github("jrhub/regnet")
 
 Examples
 --------
@@ -28,4 +36,6 @@ Examples
     pos = which(b != 0)  
     tp = length(intersect(index, pos))  
     fp = length(pos) - tp  
-    list(tp=tp, fp=fp)
+    list(tp=tp, fp=fp)  
+
+[![Travis-CI Build Status](https://travis-ci.org/jrhub/regnet.svg?branch=master)](https://travis-ci.org/jrhub/regnet)
