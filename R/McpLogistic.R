@@ -70,7 +70,7 @@ CV.McpLogistic <- function(X, Y, lambda=NULL, r=5, alpha.i=1, folds=5){
 #'
 #' @param X a matrix of predictors.
 #' @param Y a vector of the binary response.
-#' @param lambda the tunning parameter lambda imposes sparsity.
+#' @param lambda the tuning parameter lambda imposes sparsity.
 #' @param r the regularization parameter in MCP.
 #' @param alpha.i by default, the program use the lasso for choosing initial values of
 #' the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
@@ -83,7 +83,7 @@ CV.McpLogistic <- function(X, Y, lambda=NULL, r=5, alpha.i=1, folds=5){
 #'
 #' @examples
 #' b = McpLogistic(regnet$X, regnet$Y, 0.075)
-#' regnet$beta # the ture coefficient
+#' regnet$beta # the true coefficient
 #' @export
 McpLogistic <- function(X, Y, lambda, r=5, alpha.i=1, folds=5){
   n = nrow(X); p = ncol(X);

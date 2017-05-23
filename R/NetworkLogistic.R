@@ -81,8 +81,8 @@ CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds
 #'
 #' @param X a matrix of predictors.
 #' @param Y a vector of the binary response.
-#' @param lamb.1 the tunning parameter lambda1 imposes sparsity.
-#' @param lamb.2 the tunning parameter lambda2 controls the smoothness among coefficient profiles.
+#' @param lamb.1 the tuning parameter lambda1 imposes sparsity.
+#' @param lamb.2 the tuning parameter lambda2 controls the smoothness among coefficient profiles.
 #' @param alpha.i by default, the program use the elastic-net for choosing initial values of
 #' the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
 #' lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero

@@ -11,7 +11,7 @@ ElasLogistic(X, Y, lambda, alpha = 0.5, alpha.i = 1, folds = 5)
 
 \item{Y}{a vector of the binary response.}
 
-\item{lambda}{the tunning parameter lambda imposes sparsity.}
+\item{lambda}{the tuning parameter lambda imposes sparsity.}
 
 \item{alpha}{the elasticnet mixing parameter, with \eqn{0 \le \alpha \le 1}. alpha=1 is the lasso penalty, and alpha=0 the ridge penalty.}
 
@@ -32,7 +32,7 @@ the ElasLogistic function.
 }
 \examples{
 b = ElasLogistic(regnet$X, regnet$Y, 0.04)
-regnet$beta  # the ture coefficient
+regnet$beta  # the true coefficient
 }
 \seealso{
 \code{\link{CV.ElasLogistic}}

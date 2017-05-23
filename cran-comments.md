@@ -17,8 +17,8 @@
 * All revdep maintainers were notified of the release on RELEASE DATE.
 
 ## new version
-This is a update. We found several severe problmes in the description section and list of authors. 
-In this version I have:
-* re-wrritten the Description field and list of authors.
+This is an update. We found several severe problems in the description section and list of authors. 
+In this version, I have:
+* re-written the Description field and list of authors.
 
 The DESCRIPTION is the only place has been changed.

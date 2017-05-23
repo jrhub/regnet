@@ -11,7 +11,7 @@ McpLogistic(X, Y, lambda, r = 5, alpha.i = 1, folds = 5)
 
 \item{Y}{a vector of the binary response.}
 
-\item{lambda}{the tunning parameter lambda imposes sparsity.}
+\item{lambda}{the tuning parameter lambda imposes sparsity.}
 
 \item{r}{the regularization parameter in MCP.}
 
@@ -32,7 +32,7 @@ the McpLogistic function.
 }
 \examples{
 b = McpLogistic(regnet$X, regnet$Y, 0.075)
-regnet$beta # the ture coefficient
+regnet$beta # the true coefficient
 }
 \seealso{
 \code{\link{CV.McpLogistic}}
