@@ -3,7 +3,7 @@
 regnet
 ======
 
-This package provides procedures for fitting network-based regularization, minimax concave penalty (MCP) and lasso penalty for generalized linear models. This first version, regent0.1.0, focuses on binary outcomes. Functions for continuous, survival outcomes and other regularization methods will be included in the forthcoming upgraded version.
+Network-based regularization has achieved success in variable selections for high-dimensional biological data, due to its ability to incorporate the correlations among genomic features.This package provides procedures for fitting network-based regularization, minimax concave penalty (MCP) and lasso penalty for generalized linear models. This current version, regnet0.1.1, focuses on binary outcomes. Functions for continuous, survival outcomes and other regularization methods will be included in the forthcoming upgraded version.
 
 How to install
 --------------
