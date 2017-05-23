@@ -6,18 +6,18 @@
 
 0 errors | 0 warnings | 0 note
 
+* "MCP", "genomic" and "minimax" are not mis-spelled.
+
 ## Reverse dependencies
 
-* I have run R CMD check on the NUMBER downstream dependencies (glmnet and stats).
+* I have run R CMD check on the 2 downstream dependencies (glmnet and stats).
   All packages that I could install passed 
   
 * FAILURE SUMMARY
   None
 
-* All revdep maintainers were notified of the release on RELEASE DATE.
-
 ## new version
-This is an update. We found several severe problems in the description section and list of authors. 
+This is an update. We found several problems in the description section and list of authors. 
 In this version, I have:
 * re-written the Description field and list of authors.
 
