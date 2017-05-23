@@ -4,16 +4,9 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-* This is a new release.
-* "MCP" and "minimax" are not mis-spelled.
+0 errors | 0 warnings | 0 note
 
 ## Reverse dependencies
-
-This is a new release, so there are no reverse dependencies.
-
----
 
 * I have run R CMD check on the NUMBER downstream dependencies (glmnet and stats).
   All packages that I could install passed 
@@ -23,7 +16,9 @@ This is a new release, so there are no reverse dependencies.
 
 * All revdep maintainers were notified of the release on RELEASE DATE.
 
-## Resubmission
-This is a resubmission. In this version I have:
+## new version
+This is a update. We found several severe problmes in the description section and list of authors. 
+In this version I have:
+* re-wrritten the Description field and list of authors.
 
-* re-wrote the Description field. It does not start with 'This package' now.
+The DESCRIPTION is the only place has been changed.
