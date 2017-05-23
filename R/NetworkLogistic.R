@@ -92,7 +92,7 @@ CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds
 #' @return the estimated coefficients vector.
 #'
 #' @references Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).
-#' Network-based regularization for high dimensional SNP data in the case /– control study of
+#' Network-based regularization for high dimensional SNP data in the case – control study of
 #' Type 2 diabetes. BMC Genetics.
 #'
 #' @seealso \code{\link{CV.NetLogistic}}

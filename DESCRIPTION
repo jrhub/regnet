@@ -6,7 +6,7 @@ Author: Jie Ren, Luann C. Jung, Yinhao Du, Cen Wu, Yu Jiang, Junhao Liu
 Maintainer: Jie Ren <jieren@ksu.edu>
 Description: Network-based regularization has achieved success in variable selections for 
     high-dimensional biological data, due to its ability to incorporate the correlations 
-    among genomic features.This package provides procedures for fitting network-based 
+    among genomic features. This package provides procedures for fitting network-based 
     regularization, minimax concave penalty (MCP) and lasso penalty for generalized linear 
     models. This current version, regnet0.1.1, focuses on binary outcomes. Functions for 
     continuous, survival outcomes and other regularization methods will be included in the 
