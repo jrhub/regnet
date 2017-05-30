@@ -1,17 +1,17 @@
-#' k-folds cross-validation for Elastic-net logistic regression.
+#' k-folds cross-validation for Elastic-Net logistic regression.
 #'
-#' This function dose k-fold cross-validation for the Elastic-net logistic regression and returns
-#' a value of lambda.
+#' This function does k-fold cross-validation for the Elastic-Net logistic regression and returns
+#' the optimal value of lambda.
 #'
 #' @param X a matrix of predictors.
 #' @param Y a vector of the binary response.
-#' @param lambda a user-supplied sequence of lambda. Tuning parameter lambda imposes sparsity.
+#' @param lambda a user-supplied sequence of lambda values, which serves as a tuning parameter to impose sparsity.
 #' If it is left as NULL, a default sequence will be used.
-#' @param alpha the elastic-net mixing parameter, with \eqn{0 \le \alpha \le 1}. alpha=1 is the lasso penalty,
-#' and alpha=0 the ridge penalty.
-#' @param alpha.i by default, the program use the lasso for choosing initial values of
-#' the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
-#' lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
+#' @param alpha the Elastic-Net mixing parameter, with \eqn{0 \le \alpha \le 1}. alpha=1 corresponds to the lasso penalty,
+#' and alpha=0 corresponds to the ridge penalty.
+#' @param alpha.i by default, the program uses the lasso penalty for choosing initial values of
+#' the coefficient vector. alpha.i is the Elastic-Net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
+#' lasso penalty, and alpha.i=0 the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation.
 #' @return a list with components:
@@ -60,19 +60,19 @@ CV.ElasLogistic <- function(X, Y, lambda=NULL, alpha=0.5, alpha.i=1, folds=5){
   return(list(lambda=lambda.opt, mcr=mcr, MCR=tMSE))
 }
 
-#' Elastic-net logistic regression for a given lambda.
+#' Elastic-Net logistic regression for a given lambda.
 #'
-#' This function makes predictions for elastic-net logistic for a given value of lambda.
+#' This function makes predictions for Elastic-Net logistic regression for a given value of lambda.
 #' Typical usage is to have the CV.ElasLogistic function compute the optimal lambda, then provide it to
 #' the ElasLogistic function.
 #'
 #' @param X a matrix of predictors.
 #' @param Y a vector of the binary response.
-#' @param lambda the tuning parameter lambda imposes sparsity.
-#' @param alpha the elasticnet mixing parameter, with \eqn{0 \le \alpha \le 1}. alpha=1 is the lasso penalty, and alpha=0 the ridge penalty.
+#' @param lambda the tuning parameter that imposes sparsity.
+#' @param alpha the Elastic-Net mixing parameter, with \eqn{0 \le \alpha \le 1}. alpha=1 is the lasso penalty, and alpha=0 the ridge penalty.
 #' @param alpha.i by default, the program use the lasso for choosing initial values of
-#' the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
-#' lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
+#' the coefficient vector. alpha.i is the Elastic-Net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
+#' lasso penalty, and alpha.i=0 the ridge penalty. If alpha.i is assigned as -1, the program will use zeroes
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation.
 #' @return the estimated coefficients vector.

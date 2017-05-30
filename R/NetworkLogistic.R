@@ -1,27 +1,27 @@
 #' k-folds cross-validation for network-based logistic regression.
 #'
-#' This function dose k-fold cross-validation for the Network-based logistic regression and returns
+#' This function does k-fold cross-validation for the network-based logistic regression and returns
 #' a pair of lambda1 and lambda2.
 #'
 #' @param X a matrix of predictors.
 #' @param Y a vector of the binary response.
-#' @param lamb.1 a user-supplied sequence of lambda1. Tuning parameter lambda1 imposes sparsity.
+#' @param lamb.1 a user-supplied sequence of lambda1 values, which serves as a tuning parameter to impose sparsity.
 #' If it is left as NULL, a default sequence will be used.
-#' @param lamb.2 a user-supplied sequence of lambda2. Tuning parameter lambda2 controls the smoothness
+#' @param lamb.2 a user-supplied sequence of lambda2 values, which serves as a tuning parameter to control the smoothness
 #' among coefficient profiles. If it is left as NULL, a default sequence, c(0.1, 1, 10), will be used.
-#' @param r the regularization parameter in MCP, default is 5.
-#' @param alpha.i by default, the program use the lasso for choosing initial values of
-#' the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
-#' lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
+#' @param r the regularization parameter in MCP; default is 5.
+#' @param alpha.i by default, the program uses the lasso for choosing initial values of
+#' the coefficient vector. alpha.i is the Elastic-Net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
+#' lasso penalty, and alpha.i=0 the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 #' as initial coefficients.
-#' @param folds the number of folds for cross-validation, default is 5.
+#' @param folds the number of folds for cross-validation; default is 5.
 #' @return a list with components:
 #' \item{lambda}{the optimal pair of lambda1 and lambda2.}
 #' \item{mcr}{the misclassification rate of the optimal pair of lambda1 and lambda2.}
 #' \item{MCR}{a matrix of the misclassification rates for all pairs of lambdas tested.}
 #'
 #' @references Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).
-#' Network-based regularization for high dimensional SNP data in the case – control study of
+#' Network-based regularization for high dimensional SNP data in the case-control study of
 #' Type 2 diabetes. BMC Genetics.
 #'
 #' @seealso \code{\link{NetLogistic}}
@@ -73,26 +73,26 @@ CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds
   return(list(lambda=lambda, mcr=mcr, MCR=tMSE))
 }
 
-#' Network-based logistic regression for given lambda1 and lambda2.
+#' Network-based logistic regression for given lambda1 and lambda2 pair.
 #'
-#' This function makes predictions for network-based logistic for a given pair of lambda1 and lambda2.
-#' Typical usage is to have the CV.NetLogistic function compute the optimal lambdas, then provide them to
+#' This function makes predictions for network-based logistic regression for a given pair of lambda1 and lambda2 values.
+#' Typical usage is to have the CV.NetLogistic function compute the optimal lambdas, then provide them to the 
 #' NetLogistic function.
 #'
 #' @param X a matrix of predictors.
 #' @param Y a vector of the binary response.
-#' @param lamb.1 the tuning parameter lambda1 imposes sparsity.
-#' @param lamb.2 the tuning parameter lambda2 controls the smoothness among coefficient profiles.
-#' @param alpha.i by default, the program use the elastic-net for choosing initial values of
-#' the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
-#' lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
+#' @param lamb.1 the tuning parameter (lambda1) that imposes sparsity.
+#' @param lamb.2 the tuning parameter (lambda2) that controls the smoothness among coefficient profiles.
+#' @param alpha.i by default, the program uses Elastic-Net for choosing initial values of
+#' the coefficient vector. alpha.i is the Elastic-Net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
+#' lasso penalty, and alpha.i=0 is the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 #' as initial coefficients.
 #' @param r the regularization parameter in MCP.
 #' @param folds the number of folds for cross-validation.
 #' @return the estimated coefficients vector.
 #'
 #' @references Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).
-#' Network-based regularization for high dimensional SNP data in the case – control study of
+#' Network-based regularization for high dimensional SNP data in the case-control study of
 #' Type 2 diabetes. BMC Genetics.
 #'
 #' @seealso \code{\link{CV.NetLogistic}}

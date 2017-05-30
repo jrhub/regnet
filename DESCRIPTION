@@ -4,13 +4,13 @@ Title: Network-Based Regularization for Generalized Linear Models
 Version: 0.1.1
 Author: Jie Ren, Luann C. Jung, Yinhao Du, Cen Wu, Yu Jiang, Junhao Liu
 Maintainer: Jie Ren <jieren@ksu.edu>
-Description: Network-based regularization has achieved success in variable selections for 
-    high-dimensional biological data, due to its ability to incorporate the correlations 
-    among genomic features. This package provides procedures for fitting network-based 
+Description: Network-based regularization has achieved success in variable selection for 
+    high-dimensional biological data due to its ability to incorporate correlations 
+    between genomic features. This package provides procedures for fitting network-based 
     regularization, minimax concave penalty (MCP) and lasso penalty for generalized linear 
     models. This first version, regnet0.1.1, focuses on binary outcomes. Functions for 
     continuous, survival outcomes and other regularization methods will be included in the 
-    forthcoming upgraded version. 
+    forthcoming upgraded versions. 
 Depends: R (>= 3.1.0)
 License: GPL-2
 Encoding: UTF-8

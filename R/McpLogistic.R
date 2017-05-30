@@ -1,16 +1,16 @@
 #' k-folds cross-validation for MCP logistic regression.
 #'
-#' This function dose k-fold cross-validation for the MCP logistic regression and returns
-#' a value of lambda.
+#' This function does k-fold cross-validation for the MCP logistic regression and returns
+#' the optimal value of lambda.
 #'
 #' @param X a matrix of predictors.
 #' @param Y a vector of the binary response.
-#' @param lambda a user-supplied sequence of lambda. Tuning parameter lambda imposes sparsity.
+#' @param lambda a user-supplied sequence of lambda values, which serves as a tuning parameter to impose sparsity.
 #' If it is left as NULL, a default sequence will be used.
 #' @param r the regularization parameter in MCP.
-#' @param alpha.i by default, the program use the lasso for choosing initial values of
-#' the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
-#' lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
+#' @param alpha.i by default, the program uses the lasso penalty for choosing initial values of
+#' the coefficient vector. alpha.i is the Elastic-Net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
+#' lasso penalty, and alpha.i=0 is the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation.
 #' @return a list with components:
@@ -64,17 +64,17 @@ CV.McpLogistic <- function(X, Y, lambda=NULL, r=5, alpha.i=1, folds=5){
 
 #' MCP logistic regression for a given lambda.
 #'
-#' This function makes predictions for MCP logistic for a given value of lambda1.
-#' Typical usage is to have the CV.MCPLogistic function compute the optimal lambda, then provide it to
+#' This function makes predictions for MCP logistic regression for a given value of lambda.
+#' Typical usage is to have the CV.McpLogistic function compute the optimal lambda, then provide it to
 #' the McpLogistic function.
 #'
 #' @param X a matrix of predictors.
 #' @param Y a vector of the binary response.
-#' @param lambda the tuning parameter lambda imposes sparsity.
+#' @param lambda the tuning parameter that imposes sparsity.
 #' @param r the regularization parameter in MCP.
-#' @param alpha.i by default, the program use the lasso for choosing initial values of
-#' the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
-#' lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
+#' @param alpha.i by default, the program use the lasso penalty for choosing initial values of
+#' the coefficient vector. alpha.i is the Elastic-Net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
+#' lasso penalty, and alpha.i=0 is the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation.
 #' @return the estimated coefficients vector.
