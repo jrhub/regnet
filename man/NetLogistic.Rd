@@ -34,7 +34,11 @@ NetLogistic function.
 }
 \examples{
 b = NetLogistic(regnet$X, regnet$Y, 0.05, 1)
-regnet$beta
+inds = which(regnet$beta != 0)
+sel = which(b != 0)
+tp = length(intersect(inds, sel))
+fp = length(sel) - tp
+list(tp=tp, fp=fp)
 }
 \references{
 Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).

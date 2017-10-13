@@ -30,7 +30,7 @@ devtools::install_github("jrhub/regnet")
 
 ###Example.1 (CV.NetLogistic)
 ```
-result = CV.NetLogistic(regnet$X, regnet$Y, lamb.2 = 1, r = 4.5)  
+result = CV.NetLogistic(regnet$X, regnet$Y, r = 4.5)  
 result$lambda  
 b = NetLogistic(regnet$X, regnet$Y, result$lambda[1,1], result$lambda[1,2])  
 index = which(regnet$beta != 0)  

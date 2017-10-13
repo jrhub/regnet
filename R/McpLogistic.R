@@ -83,7 +83,11 @@ CV.McpLogistic <- function(X, Y, lambda=NULL, r=5, alpha.i=1, folds=5){
 #'
 #' @examples
 #' b = McpLogistic(regnet$X, regnet$Y, 0.075)
-#' regnet$beta # the true coefficient
+#' inds = which(regnet$beta != 0)
+#' sel = which(b != 0)
+#' tp = length(intersect(inds, sel))
+#' fp = length(sel) - tp
+#' list(tp=tp, fp=fp)
 #' @export
 McpLogistic <- function(X, Y, lambda, r=5, alpha.i=1, folds=5){
   n = nrow(X); p = ncol(X);

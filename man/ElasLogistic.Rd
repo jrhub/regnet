@@ -32,7 +32,11 @@ the ElasLogistic function.
 }
 \examples{
 b = ElasLogistic(regnet$X, regnet$Y, 0.04)
-regnet$beta  # the true coefficient
+inds = which(regnet$beta != 0)
+sel = which(b != 0)
+tp = length(intersect(inds, sel))
+fp = length(sel) - tp
+list(tp=tp, fp=fp)
 }
 \seealso{
 \code{\link{CV.ElasLogistic}}

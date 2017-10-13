@@ -26,6 +26,8 @@ lasso penalty, and alpha.i=0 the ridge penalty. If alpha.i is assigned to be -1,
 as initial coefficients.}
 
 \item{folds}{the number of folds for cross-validation; default is 5.}
+
+\item{verbo}{if true, output progress to the console.}
 }
 \value{
 a list with components:

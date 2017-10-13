@@ -19,6 +19,7 @@ NULL
 #' lasso penalty, and alpha.i=0 the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation; default is 5.
+#' @param verbo if true, output progress to the console.
 #' @return a list with components:
 #' \item{lambda}{the optimal pair of lambda1 and lambda2.}
 #' \item{mcr}{the misclassification rate of the optimal pair of lambda1 and lambda2.}
@@ -105,7 +106,11 @@ CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds
 #'
 #' @examples
 #' b = NetLogistic(regnet$X, regnet$Y, 0.05, 1)
-#' regnet$beta
+#' inds = which(regnet$beta != 0)
+#' sel = which(b != 0)
+#' tp = length(intersect(inds, sel))
+#' fp = length(sel) - tp
+#' list(tp=tp, fp=fp)
 #' @export
 
 NetLogistic <- function(X, Y, lamb.1, lamb.2, alpha.i=1, r=5, folds=5){
@@ -154,4 +159,3 @@ Network <- function(x, y, lam1, lam2, b, r, a, n, p){
   }
   b
 }
-

@@ -81,7 +81,11 @@ CV.ElasLogistic <- function(X, Y, lambda=NULL, alpha=0.5, alpha.i=1, folds=5){
 #'
 #' @examples
 #' b = ElasLogistic(regnet$X, regnet$Y, 0.04)
-#' regnet$beta  # the true coefficient
+#' inds = which(regnet$beta != 0)
+#' sel = which(b != 0)
+#' tp = length(intersect(inds, sel))
+#' fp = length(sel) - tp
+#' list(tp=tp, fp=fp)
 #' @export
 ElasLogistic <- function(X, Y, lambda, alpha=0.5, alpha.i=1, folds=5){
   n = nrow(X); p = ncol(X);

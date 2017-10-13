@@ -32,7 +32,11 @@ the McpLogistic function.
 }
 \examples{
 b = McpLogistic(regnet$X, regnet$Y, 0.075)
-regnet$beta # the true coefficient
+inds = which(regnet$beta != 0)
+sel = which(b != 0)
+tp = length(intersect(inds, sel))
+fp = length(sel) - tp
+list(tp=tp, fp=fp)
 }
 \seealso{
 \code{\link{CV.McpLogistic}}
