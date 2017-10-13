@@ -11,13 +11,13 @@ McpLogistic(X, Y, lambda, r = 5, alpha.i = 1, folds = 5)
 
 \item{Y}{a vector of the binary response.}
 
-\item{lambda}{the tuning parameter lambda imposes sparsity.}
+\item{lambda}{the tuning parameter that imposes sparsity.}
 
 \item{r}{the regularization parameter in MCP.}
 
-\item{alpha.i}{by default, the program use the lasso for choosing initial values of
-the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
-lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
+\item{alpha.i}{by default, the program use the lasso penalty for choosing initial values of
+the coefficient vector. alpha.i is the Elastic-Net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
+lasso penalty, and alpha.i=0 is the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 as initial coefficients.}
 
 \item{folds}{the number of folds for cross-validation.}
@@ -26,8 +26,8 @@ as initial coefficients.}
 the estimated coefficients vector.
 }
 \description{
-This function makes predictions for MCP logistic for a given value of lambda1.
-Typical usage is to have the CV.MCPLogistic function compute the optimal lambda, then provide it to
+This function makes predictions for MCP logistic regression for a given value of lambda.
+Typical usage is to have the CV.McpLogistic function compute the optimal lambda, then provide it to
 the McpLogistic function.
 }
 \examples{

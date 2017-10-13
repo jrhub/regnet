@@ -2,7 +2,7 @@
 % Please edit documentation in R/ElasticLogistic.R
 \name{CV.ElasLogistic}
 \alias{CV.ElasLogistic}
-\title{k-folds cross-validation for Elastic-net logistic regression.}
+\title{k-folds cross-validation for Elastic-Net logistic regression.}
 \usage{
 CV.ElasLogistic(X, Y, lambda = NULL, alpha = 0.5, alpha.i = 1,
   folds = 5)
@@ -12,15 +12,15 @@ CV.ElasLogistic(X, Y, lambda = NULL, alpha = 0.5, alpha.i = 1,
 
 \item{Y}{a vector of the binary response.}
 
-\item{lambda}{a user-supplied sequence of lambda. Tuning parameter lambda imposes sparsity.
+\item{lambda}{a user-supplied sequence of lambda values, which serves as a tuning parameter to impose sparsity.
 If it is left as NULL, a default sequence will be used.}
 
-\item{alpha}{the elastic-net mixing parameter, with \eqn{0 \le \alpha \le 1}. alpha=1 is the lasso penalty,
-and alpha=0 the ridge penalty.}
+\item{alpha}{the Elastic-Net mixing parameter, with \eqn{0 \le \alpha \le 1}. alpha=1 corresponds to the lasso penalty,
+and alpha=0 corresponds to the ridge penalty.}
 
-\item{alpha.i}{by default, the program use the lasso for choosing initial values of
-the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
-lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
+\item{alpha.i}{by default, the program uses the lasso penalty for choosing initial values of
+the coefficient vector. alpha.i is the Elastic-Net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
+lasso penalty, and alpha.i=0 the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 as initial coefficients.}
 
 \item{folds}{the number of folds for cross-validation.}
@@ -32,8 +32,8 @@ a list with components:
 \item{MCR}{a matrix of the misclassification rates for all the values of lambda tested.}
 }
 \description{
-This function dose k-fold cross-validation for the Elastic-net logistic regression and returns
-a value of lambda.
+This function does k-fold cross-validation for the Elastic-Net logistic regression and returns
+the optimal value of lambda.
 }
 \seealso{
 \code{\link{ElasLogistic}}

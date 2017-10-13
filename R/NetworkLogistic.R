@@ -1,3 +1,7 @@
+#' @useDynLib regnet
+#' @importFrom Rcpp sourceCpp
+NULL
+
 #' k-folds cross-validation for network-based logistic regression.
 #'
 #' This function does k-fold cross-validation for the network-based logistic regression and returns
@@ -22,13 +26,13 @@
 #'
 #' @references Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).
 #' Network-based regularization for high dimensional SNP data in the case-control study of
-#' Type 2 diabetes. BMC Genetics.
+#' Type 2 diabetes. BMC Genetics, 18(1):44.
 #'
 #' @seealso \code{\link{NetLogistic}}
 #'
 #' @export
 
-CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds=5){
+CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds=5, verbo = FALSE){
 
   if(is.null(lamb.1)) lamb.1 = lambda.n
   if(is.null(lamb.2)) lamb.2 = c(0.1, 1, 10)
@@ -40,7 +44,7 @@ CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds
   tMSE = matrix(0, length(lamb.2), length(lamb.1))
   #---------------------------------------------- Main Loop -----------------------------------------
   for(f in 1:folds){
-    cat("CrossValidation: ",f, "/", folds, "\n")
+    if(verbo) cat("CrossValidation: ",f, "/", folds, "\n")
     index = c(1: ceiling(n/folds)) + (f-1)*ceiling(n/folds)
     test = rs[intersect(index, seq(1,n,1))]
 
@@ -58,10 +62,12 @@ CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds
 
     for(j in 1:length(lamb.2)){
       for(i in 1:length(lamb.1)){ # Network
-        b = run.net(x, y, lamb.1[i], lamb.2[j], b0, r, a, n.x, p)
+        # b = run.net(x, y, lamb.1[i], lamb.2[j], b0, r, a, n.x, p)
+        b = RunNet(x, y, lamb.1[i], lamb.2[j], b0, r, a, n.x, p)
         tMSE[j,i] = tMSE[j,i] + validation(b, x2, y2, n)
       }
     }
+    # tMSE = RunNet_Grid(x, y, x2, y2, lamb.1, lamb.2, b0, r, a, n.x, p)
   }
   mcr = min(tMSE)
   inds = which(tMSE == mcr, arr.ind=TRUE)
@@ -76,7 +82,7 @@ CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds
 #' Network-based logistic regression for given lambda1 and lambda2 pair.
 #'
 #' This function makes predictions for network-based logistic regression for a given pair of lambda1 and lambda2 values.
-#' Typical usage is to have the CV.NetLogistic function compute the optimal lambdas, then provide them to the 
+#' Typical usage is to have the CV.NetLogistic function compute the optimal lambdas, then provide them to the
 #' NetLogistic function.
 #'
 #' @param X a matrix of predictors.
@@ -110,7 +116,8 @@ NetLogistic <- function(X, Y, lamb.1, lamb.2, alpha.i=1, r=5, folds=5){
   x = cbind(rep(1,n), x)
   if(alpha.i != -1) b0 = initiation(x, y, alpha.i)
   else b0 = rep(0, p+1)
-  b = run.net(x, y, lamb.1, lamb.2, b0, r, a, n, p)
+  # b = run.net(x, y, lamb.1, lamb.2, b0, r, a, n, p)
+  b = RunNet(x, y, lamb.1, lamb.2, b0, r, a, n, p)
 }
 
 run.net <- function(x, y, lam1, lam2, b, r, a, n, p){

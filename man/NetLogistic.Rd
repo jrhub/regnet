@@ -2,7 +2,7 @@
 % Please edit documentation in R/NetworkLogistic.R
 \name{NetLogistic}
 \alias{NetLogistic}
-\title{Network-based logistic regression for given lambda1 and lambda2.}
+\title{Network-based logistic regression for given lambda1 and lambda2 pair.}
 \usage{
 NetLogistic(X, Y, lamb.1, lamb.2, alpha.i = 1, r = 5, folds = 5)
 }
@@ -11,13 +11,13 @@ NetLogistic(X, Y, lamb.1, lamb.2, alpha.i = 1, r = 5, folds = 5)
 
 \item{Y}{a vector of the binary response.}
 
-\item{lamb.1}{the tuning parameter lambda1 imposes sparsity.}
+\item{lamb.1}{the tuning parameter (lambda1) that imposes sparsity.}
 
-\item{lamb.2}{the tuning parameter lambda2 controls the smoothness among coefficient profiles.}
+\item{lamb.2}{the tuning parameter (lambda2) that controls the smoothness among coefficient profiles.}
 
-\item{alpha.i}{by default, the program use the elastic-net for choosing initial values of
-the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
-lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
+\item{alpha.i}{by default, the program uses Elastic-Net for choosing initial values of
+the coefficient vector. alpha.i is the Elastic-Net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
+lasso penalty, and alpha.i=0 is the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 as initial coefficients.}
 
 \item{r}{the regularization parameter in MCP.}
@@ -28,8 +28,8 @@ as initial coefficients.}
 the estimated coefficients vector.
 }
 \description{
-This function makes predictions for network-based logistic for a given pair of lambda1 and lambda2.
-Typical usage is to have the CV.NetLogistic function compute the optimal lambdas, then provide them to
+This function makes predictions for network-based logistic regression for a given pair of lambda1 and lambda2 values.
+Typical usage is to have the CV.NetLogistic function compute the optimal lambdas, then provide them to the
 NetLogistic function.
 }
 \examples{
@@ -38,7 +38,7 @@ regnet$beta
 }
 \references{
 Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).
-Network-based regularization for high dimensional SNP data in the case – control study of
+Network-based regularization for high dimensional SNP data in the case-control study of
 Type 2 diabetes. BMC Genetics.
 }
 \seealso{

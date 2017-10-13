@@ -5,27 +5,27 @@
 \title{k-folds cross-validation for network-based logistic regression.}
 \usage{
 CV.NetLogistic(X, Y, lamb.1 = NULL, lamb.2 = NULL, r = 5, alpha.i = 1,
-  folds = 5)
+  folds = 5, verbo = FALSE)
 }
 \arguments{
 \item{X}{a matrix of predictors.}
 
 \item{Y}{a vector of the binary response.}
 
-\item{lamb.1}{a user-supplied sequence of lambda1. Tuning parameter lambda1 imposes sparsity.
+\item{lamb.1}{a user-supplied sequence of lambda1 values, which serves as a tuning parameter to impose sparsity.
 If it is left as NULL, a default sequence will be used.}
 
-\item{lamb.2}{a user-supplied sequence of lambda2. Tuning parameter lambda2 controls the smoothness
+\item{lamb.2}{a user-supplied sequence of lambda2 values, which serves as a tuning parameter to control the smoothness
 among coefficient profiles. If it is left as NULL, a default sequence, c(0.1, 1, 10), will be used.}
 
-\item{r}{the regularization parameter in MCP, default is 5.}
+\item{r}{the regularization parameter in MCP; default is 5.}
 
-\item{alpha.i}{by default, the program use the lasso for choosing initial values of
-the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
-lasso penalty, and alpha.i=0 the ridge penalty. If assign alpha.i to be -1, program will use zero
+\item{alpha.i}{by default, the program uses the lasso for choosing initial values of
+the coefficient vector. alpha.i is the Elastic-Net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
+lasso penalty, and alpha.i=0 the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 as initial coefficients.}
 
-\item{folds}{the number of folds for cross-validation, default is 5.}
+\item{folds}{the number of folds for cross-validation; default is 5.}
 }
 \value{
 a list with components:
@@ -34,13 +34,13 @@ a list with components:
 \item{MCR}{a matrix of the misclassification rates for all pairs of lambdas tested.}
 }
 \description{
-This function dose k-fold cross-validation for the Network-based logistic regression and returns
+This function does k-fold cross-validation for the network-based logistic regression and returns
 a pair of lambda1 and lambda2.
 }
 \references{
 Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).
-Network-based regularization for high dimensional SNP data in the case – control study of
-Type 2 diabetes. BMC Genetics.
+Network-based regularization for high dimensional SNP data in the case-control study of
+Type 2 diabetes. BMC Genetics, 18(1):44.
 }
 \seealso{
 \code{\link{NetLogistic}}
