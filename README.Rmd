@@ -26,7 +26,7 @@ Network-based regularization has achieved success in variable selections for
 install.packages("devtools")
 devtools::install_github("jrhub/regnet")
 ```
-* Binaries are also available on R CRAN [(link)](https://cran.r-project.org/package=regnet)
+* Binaries are available on R CRAN [(link)](https://cran.r-project.org/package=regnet)
 
 ## Examples
 
