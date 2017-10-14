@@ -16,7 +16,7 @@ CV.NetLogistic(X, Y, lamb.1 = NULL, lamb.2 = NULL, r = 5, alpha.i = 1,
 If it is left as NULL, a default sequence will be used.}
 
 \item{lamb.2}{a user-supplied sequence of lambda2 values, which serves as a tuning parameter to control the smoothness
-among coefficient profiles. If it is left as NULL, a default sequence, c(0.1, 1, 10), will be used.}
+among coefficient profiles. If it is left as NULL, a default sequence, (0.1, 1, 10), will be used.}
 
 \item{r}{the regularization parameter in MCP; default is 5.}
 
@@ -27,7 +27,7 @@ as initial coefficients.}
 
 \item{folds}{the number of folds for cross-validation; default is 5.}
 
-\item{verbo}{if true, output progress to the console.}
+\item{verbo}{output progress to the console.}
 }
 \value{
 a list with components:

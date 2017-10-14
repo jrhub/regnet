@@ -1,4 +1,4 @@
-#' @useDynLib regnet
+#' @useDynLib regnet, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 NULL
 
@@ -12,14 +12,14 @@ NULL
 #' @param lamb.1 a user-supplied sequence of lambda1 values, which serves as a tuning parameter to impose sparsity.
 #' If it is left as NULL, a default sequence will be used.
 #' @param lamb.2 a user-supplied sequence of lambda2 values, which serves as a tuning parameter to control the smoothness
-#' among coefficient profiles. If it is left as NULL, a default sequence, c(0.1, 1, 10), will be used.
+#' among coefficient profiles. If it is left as NULL, a default sequence, (0.1, 1, 10), will be used.
 #' @param r the regularization parameter in MCP; default is 5.
 #' @param alpha.i by default, the program uses the lasso for choosing initial values of
 #' the coefficient vector. alpha.i is the Elastic-Net mixing parameter, with \eqn{0 \le alpha.i \le 1}. alpha.i=1 is the
 #' lasso penalty, and alpha.i=0 the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation; default is 5.
-#' @param verbo if true, output progress to the console.
+#' @param verbo output progress to the console.
 #' @return a list with components:
 #' \item{lambda}{the optimal pair of lambda1 and lambda2.}
 #' \item{mcr}{the misclassification rate of the optimal pair of lambda1 and lambda2.}
@@ -100,7 +100,7 @@ CV.NetLogistic <- function(X, Y, lamb.1=NULL, lamb.2=NULL, r=5, alpha.i=1, folds
 #'
 #' @references Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).
 #' Network-based regularization for high dimensional SNP data in the case-control study of
-#' Type 2 diabetes. BMC Genetics.
+#' Type 2 diabetes. BMC Genetics, 18(1):44.
 #'
 #' @seealso \code{\link{CV.NetLogistic}}
 #'

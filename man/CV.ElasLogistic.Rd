@@ -5,7 +5,7 @@
 \title{k-folds cross-validation for Elastic-Net logistic regression.}
 \usage{
 CV.ElasLogistic(X, Y, lambda = NULL, alpha = 0.5, alpha.i = 1,
-  folds = 5)
+  folds = 5, verbo = FALSE)
 }
 \arguments{
 \item{X}{a matrix of predictors.}
@@ -24,6 +24,8 @@ lasso penalty, and alpha.i=0 the ridge penalty. If alpha.i is assigned to be -1,
 as initial coefficients.}
 
 \item{folds}{the number of folds for cross-validation.}
+
+\item{verbo}{output progress to the console.}
 }
 \value{
 a list with components:

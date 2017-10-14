@@ -43,7 +43,7 @@ list(tp=tp, fp=fp)
 \references{
 Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).
 Network-based regularization for high dimensional SNP data in the case-control study of
-Type 2 diabetes. BMC Genetics.
+Type 2 diabetes. BMC Genetics, 18(1):44.
 }
 \seealso{
 \code{\link{CV.NetLogistic}}

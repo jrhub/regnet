@@ -14,6 +14,7 @@
 #' lasso penalty, and alpha.i=0 the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation.
+#' @param verbo output progress to the console.
 #' @return a list with components:
 #' \item{lambda}{the optimal lambda.}
 #' \item{mcr}{the misclassification rate of the optimal lambda.}
@@ -22,7 +23,7 @@
 #' @seealso \code{\link{ElasLogistic}}
 #'
 #' @export
-CV.ElasLogistic <- function(X, Y, lambda=NULL, alpha=0.5, alpha.i=1, folds=5){
+CV.ElasLogistic <- function(X, Y, lambda=NULL, alpha=0.5, alpha.i=1, folds=5, verbo = FALSE){
 
   if(is.null(lambda)) lambda = lambda.e
   n = nrow(X); p = ncol(X);
@@ -33,7 +34,7 @@ CV.ElasLogistic <- function(X, Y, lambda=NULL, alpha=0.5, alpha.i=1, folds=5){
   tMSE = matrix(0, 1, length(lambda))
   #-------------------------------------------- Main Loop ----------------------------------------
   for(f in 1:folds){
-    cat("CrossValidation: ",f, "/", folds, "\n")
+    if(verbo) cat("CrossValidation: ",f, "/", folds, "\n")
     index = c(1: ceiling(n/folds)) + (f-1)*ceiling(n/folds)
     test = rs[intersect(index, seq(1,n,1))]
 
@@ -47,7 +48,8 @@ CV.ElasLogistic <- function(X, Y, lambda=NULL, alpha=0.5, alpha.i=1, folds=5){
     if(alpha.i != -1) b0 = initiation(x, y, alpha.i)
     n.x = nrow(x)
     for(i in 1:length(lambda)){ #Elastic net
-      b = run.elastic(x, y, lambda[i], b0, alpha, n.x, p)
+      # b = run.elastic(x, y, lambda[i], b0, alpha, n.x, p)
+      b = RunElastic(x, y, lambda[i], b0, alpha, n.x, p)
       tMSE[1,i] = tMSE[1,i] + validation(b, x2, y2, n)
     }
   }
@@ -93,7 +95,8 @@ ElasLogistic <- function(X, Y, lambda, alpha=0.5, alpha.i=1, folds=5){
   x = scale(x, scale = apply(x, 2, function(t) stats::sd(t)*sqrt((n-1)/n)))
   x = cbind(rep(1,n), x)
   b0 = initiation(x, y, alpha.i)
-  b = run.elastic(x, y, lambda, b0, alpha, n, p)
+  # b = run.elastic(x, y, lambda, b0, alpha, n, p)
+  b = RunElastic(x, y, lambda, b0, alpha, n, p)
 }
 
 run.elastic <- function(x, y, lambda, b, alpha, n, p){

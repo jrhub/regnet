@@ -25,3 +25,37 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// RunMCP
+arma::vec RunMCP(arma::mat& x, arma::vec& y, double lambda, arma::vec b, double r, int n, int p);
+RcppExport SEXP regnet_RunMCP(SEXP xSEXP, SEXP ySEXP, SEXP lambdaSEXP, SEXP bSEXP, SEXP rSEXP, SEXP nSEXP, SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< double >::type r(rSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(RunMCP(x, y, lambda, b, r, n, p));
+    return rcpp_result_gen;
+END_RCPP
+}
+// RunElastic
+arma::vec RunElastic(arma::mat& x, arma::vec& y, double lambda, arma::vec b, double alpha, int n, int p);
+RcppExport SEXP regnet_RunElastic(SEXP xSEXP, SEXP ySEXP, SEXP lambdaSEXP, SEXP bSEXP, SEXP alphaSEXP, SEXP nSEXP, SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(RunElastic(x, y, lambda, b, alpha, n, p));
+    return rcpp_result_gen;
+END_RCPP
+}

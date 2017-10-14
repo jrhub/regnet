@@ -13,6 +13,7 @@
 #' lasso penalty, and alpha.i=0 is the ridge penalty. If alpha.i is assigned to be -1, the program will use zeroes
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation.
+#' @param verbo output progress to the console.
 #' @return a list with components:
 #' \item{lambda}{the optimal lambda.}
 #' \item{mcr}{the misclassification rate of the optimal lambda.}
@@ -21,7 +22,7 @@
 #' @seealso \code{\link{McpLogistic}}
 #'
 #' @export
-CV.McpLogistic <- function(X, Y, lambda=NULL, r=5, alpha.i=1, folds=5){
+CV.McpLogistic <- function(X, Y, lambda=NULL, r=5, alpha.i=1, folds=5, verbo = FALSE){
 
   if(is.null(lambda)) lambda = lambda.m
   n = nrow(X); p = ncol(X);
@@ -32,7 +33,7 @@ CV.McpLogistic <- function(X, Y, lambda=NULL, r=5, alpha.i=1, folds=5){
   tMSE = matrix(0, 1, length(lambda))
   #------------------------------------------ Main Loop ----------------------------------------------
   for(f in 1:folds){
-      cat("CrossValidation: ",f, "/", folds, "\n")
+      if(verbo) cat("CrossValidation: ",f, "/", folds, "\n")
       index = c(1: ceiling(n/folds)) + (f-1)*ceiling(n/folds)
       test = rs[intersect(index, seq(1,n,1))]
 
@@ -48,10 +49,10 @@ CV.McpLogistic <- function(X, Y, lambda=NULL, r=5, alpha.i=1, folds=5){
       n.x = nrow(x)
 
       for(i in 1:length(lambda)){# MCP
-        b = run.mcp(x, y, lambda[i], b0, r, n.x, p)
+        # b = run.mcp(x, y, lambda[i], b0, r, n.x, p)
+        b = RunMCP(x, y, lambda[i], b0, r, n.x, p)
         tMSE[1,i] = tMSE[1,i] + validation(b, x2, y2, n)
       }
-        #graph(lambda, mse.mcp, "Log MCP ",f, "/", "folds")
   }
 
   mcr = min(tMSE)
@@ -96,7 +97,8 @@ McpLogistic <- function(X, Y, lambda, r=5, alpha.i=1, folds=5){
   x = cbind(rep(1,n), x)
   if(alpha.i != -1) b0 = initiation(x, y, alpha.i)
   else b0 = rep(0, p+1)
-  b = run.mcp(x, y, lambda, b0, r, n, p)
+  # b = run.mcp(x, y, lambda, b0, r, n, p)
+  b = RunMCP(x, y, lambda, b0, r, n, p)
 }
 
 run.mcp <- function(x, y, lambda, b, r, n, p){

@@ -5,3 +5,11 @@ RunNet <- function(x, y, lam1, lam2, b, r, a, n, p) {
     .Call('regnet_RunNet', PACKAGE = 'regnet', x, y, lam1, lam2, b, r, a, n, p)
 }
 
+RunMCP <- function(x, y, lambda, b, r, n, p) {
+    .Call('regnet_RunMCP', PACKAGE = 'regnet', x, y, lambda, b, r, n, p)
+}
+
+RunElastic <- function(x, y, lambda, b, alpha, n, p) {
+    .Call('regnet_RunElastic', PACKAGE = 'regnet', x, y, lambda, b, alpha, n, p)
+}
+
