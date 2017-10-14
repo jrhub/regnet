@@ -38,6 +38,10 @@ tp = length(intersect(inds, sel))
 fp = length(sel) - tp
 list(tp=tp, fp=fp)
 }
+\references{
+Zou H, Hastie T. (2005). Regularization and variable selection via the elastic net.
+J.R. Statist.Soc.B, 67(2):301–20.
+}
 \seealso{
 \code{\link{CV.ElasLogistic}}
 }

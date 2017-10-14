@@ -36,6 +36,10 @@ a list with components:
 This function does k-fold cross-validation for the MCP logistic regression and returns
 the optimal value of lambda.
 }
+\references{
+zhang, CH. (2010). Nearly unbiased variable selection under minimax concave penalty.
+Annals of Statistics, 38(2):894-942.
+}
 \seealso{
 \code{\link{McpLogistic}}
 }

@@ -20,6 +20,9 @@
 #' \item{mcr}{the misclassification rate of the optimal lambda.}
 #' \item{MCR}{a matrix of the misclassification rates for all the values of lambda tested.}
 #'
+#' @references Zou H, Hastie T. (2005). Regularization and variable selection via the elastic net.
+#' J.R. Statist.Soc.B, 67(2):301–20.
+#'
 #' @seealso \code{\link{ElasLogistic}}
 #'
 #' @export
@@ -78,6 +81,9 @@ CV.ElasLogistic <- function(X, Y, lambda=NULL, alpha=0.5, alpha.i=1, folds=5, ve
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation.
 #' @return the estimated coefficients vector.
+#'
+#' @references Zou H, Hastie T. (2005). Regularization and variable selection via the elastic net.
+#' J.R. Statist.Soc.B, 67(2):301–20.
 #'
 #' @seealso \code{\link{CV.ElasLogistic}}
 #'

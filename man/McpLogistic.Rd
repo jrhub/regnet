@@ -38,6 +38,10 @@ tp = length(intersect(inds, sel))
 fp = length(sel) - tp
 list(tp=tp, fp=fp)
 }
+\references{
+zhang, CH. (2010). Nearly unbiased variable selection under minimax concave penalty.
+Annals of Statistics, 38(2):894-942.
+}
 \seealso{
 \code{\link{CV.McpLogistic}}
 }

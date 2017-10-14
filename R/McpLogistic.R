@@ -19,6 +19,9 @@
 #' \item{mcr}{the misclassification rate of the optimal lambda.}
 #' \item{MCR}{a matrix of the misclassification rates for all the values of lambda tested.}
 #'
+#' @references zhang, CH. (2010). Nearly unbiased variable selection under minimax concave penalty.
+#' Annals of Statistics, 38(2):894-942.
+#'
 #' @seealso \code{\link{McpLogistic}}
 #'
 #' @export
@@ -79,6 +82,9 @@ CV.McpLogistic <- function(X, Y, lambda=NULL, r=5, alpha.i=1, folds=5, verbo = F
 #' as initial coefficients.
 #' @param folds the number of folds for cross-validation.
 #' @return the estimated coefficients vector.
+#'
+#' @references zhang, CH. (2010). Nearly unbiased variable selection under minimax concave penalty.
+#' Annals of Statistics, 38(2):894-942.
 #'
 #' @seealso \code{\link{CV.McpLogistic}}
 #'

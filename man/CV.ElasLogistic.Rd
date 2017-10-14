@@ -37,6 +37,10 @@ a list with components:
 This function does k-fold cross-validation for the Elastic-Net logistic regression and returns
 the optimal value of lambda.
 }
+\references{
+Zou H, Hastie T. (2005). Regularization and variable selection via the elastic net.
+J.R. Statist.Soc.B, 67(2):301–20.
+}
 \seealso{
 \code{\link{ElasLogistic}}
 }
