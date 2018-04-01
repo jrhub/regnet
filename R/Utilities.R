@@ -5,31 +5,41 @@ lambda.m = rev(exp(seq(1,45,1)/5 -7))
 lambda.e = rev(exp(seq(1,45,1)/4 -9))
 lambda.l = rev(exp(seq(1,45,1)/4 -9))
 
-initiation <- function(x, y, alpha){
-  lasso.cv <- glmnet::cv.glmnet(x,y, family="binomial", alpha=alpha, nfolds=5)       #compute lambda by crossvalidation
+initiation <- function(x, y, alpha, family){
+  lasso.cv <- glmnet::cv.glmnet(x,y, family="binomial", alpha=alpha, nfolds=5, intercept=FALSE)
   lambda <- lasso.cv$lambda.min
   #cat("initiation lambda: ", lambda, "\n")
-  lasso.fit <- glmnet::glmnet(x,y,"binomial", alpha=alpha, nlambda=50)
-  coef0 <- as.vector(stats::predict(lasso.fit, s=lambda, type="coefficients"))[-2]    #initialize the coefficients vector
+  lasso.fit <- glmnet::glmnet(x,y,"binomial", alpha=alpha, nlambda=50, intercept=FALSE)
+  coef0 <- as.vector(stats::predict(lasso.fit, s=lambda, type="coefficients"))[-2]
 }
 
-validation <- function(b, x2, y2, n){
-  yi = x2 %*% b
-  yi=1/(1+exp(-yi))
-  y = ifelse(yi>0.5, 1, 0)
-  sum(abs(y2 - y))/n
+initiation_cox <- function(x, y0, d){
+  y = cbind(time = y0, status = d)
+  lasso.cv = glmnet::cv.glmnet(x, y, alpha=1, family="cox", nfolds=5, standardize=FALSE)
+  alpha = 2*(lasso.cv$lambda.min)
+  lasso.fit = glmnet::glmnet(x,y,family="cox", alpha=1, nlambda=100, standardize=FALSE)
+  coef0 = as.numeric(stats::predict(lasso.fit, s=alpha, type="coefficients"))
 }
 
-Soft <- function(z, lambda){
-  if (z > lambda) z - lambda
-  else if (z < -lambda) z + lambda
-  else 0
-}
-
-TruePositive <- function(b, b.true){
+TruePos <- function(b, b.true){
   index = which(b.true != 0)
   pos = which(b != 0)
   tp = length(intersect(index, pos))
   fp = length(pos) - tp
   list(tp=tp, fp=fp)
+}
+
+Adjacency = function(x, alpha=5)
+{
+  n = nrow(x)
+  p = ncol(x)
+  r0 = stats::cor(x)
+  r = r0; r[which(r==1)] = 1 - 0.01
+  z = 0.5*log((1+r[upper.tri(r)])/(1-r[upper.tri(r)]))
+  c0 = mean(sqrt(n-3)*z) + 2*stats::sd(sqrt(n-3)*z)
+  cutoff = (exp(2*c0/sqrt(n-3))-1)/(exp(2*c0/sqrt(n-3))+1)
+  r = r0
+  A = (r)^alpha*(abs(r)>cutoff)
+  diag(A) = 0
+  A
 }

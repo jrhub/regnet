@@ -1,15 +1,15 @@
 Package: regnet
 Type: Package
 Title: Network-Based Regularization for Generalized Linear Models
-Version: 0.2.0
+Version: 0.3.0
 Author: Jie Ren, Luann C. Jung, Yinhao Du, Cen Wu, Yu Jiang, Junhao Liu
 Maintainer: Jie Ren <jieren@ksu.edu>
 Description: Network-based regularization has achieved success in variable selection for 
     high-dimensional biological data due to its ability to incorporate correlations 
     between genomic features. This package provides procedures for fitting network-based 
     regularization, minimax concave penalty (MCP) and lasso penalty for generalized linear 
-    models. This current version, regnet0.2.0, focuses on binary outcomes. Functions for 
-    continuous, survival outcomes and other regularization methods will be included in the 
+    models. This current version, regnet0.3.0, focuses on binary and survival outcomes. 
+    Functions for continuous and other regularization methods will be included in the 
     forthcoming upgraded versions. 
 Depends: R (>= 3.1.0)
 License: GPL-2

@@ -1,6 +1,7 @@
 #include<RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 #include"LogitCD.h"
+#include"Utilities.h"
 
 using namespace Rcpp;
 using namespace arma;
@@ -65,10 +66,4 @@ arma::vec Elastic(arma::mat& x, arma::vec& y, double lambda, arma::vec b, double
     t -= x.col(k) * (b(k) - bold);
   }
   return(b);
-}
-
-double Soft(double z, double lambda){
-  if(z > lambda) return(z - lambda);
-  else if(z < -lambda) return(z + lambda);
-  else return(0);
 }

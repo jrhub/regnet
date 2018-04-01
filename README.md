@@ -3,9 +3,11 @@
 regnet
 ======
 
-[![Travis-CI Build Status](https://travis-ci.org/jrhub/regnet.svg?branch=master)](https://travis-ci.org/jrhub/regnet) [![CRAN](https://www.r-pkg.org/badges/version/regnet)](https://cran.r-project.org/package=regnet)
+[![Travis-CI Build Status](https://travis-ci.org/jrhub/regnet.svg?branch=master)](https://travis-ci.org/jrhub/regnet)
 
-Network-based regularization has achieved success in variable selections for high-dimensional biological data, due to its ability to incorporate the correlations among genomic features.This package provides procedures for fitting network-based regularization, minimax concave penalty (MCP) and lasso penalty for generalized linear models. This current version, regnet0.2.0, focuses on binary outcomes. Functions for continuous, survival outcomes and other regularization methods will be included in the forthcoming upgraded version.
+[![CRAN](https://www.r-pkg.org/badges/version/regnet)](https://cran.r-project.org/package=regnet)
+
+Network-based regularization has achieved success in variable selection for high-dimensional biological data due to its ability to incorporate correlations between genomic features. This package provides procedures for fitting network-based regularization, minimax concave penalty (MCP) and lasso penalty for generalized linear models. This current version, regnet0.3.0, focuses on binary and survival outcomes. Functions for continuous and other regularization methods will be included in the forthcoming upgraded versions.
 
 How to install
 --------------
@@ -22,23 +24,35 @@ How to install
 Examples
 --------
 
-### Example.1 (CV.NetLogistic)
+### Survival response
 
-    result = CV.NetLogistic(regnet$X, regnet$Y, r = 4.5)  
-    result$lambda  
-    b = NetLogistic(regnet$X, regnet$Y, result$lambda[1,1], result$lambda[1,2])  
-    index = which(regnet$beta != 0)  
+#### Example.1 (Robust Network)
+
+    data(SurvExample)
+    X = rgn.surv$X
+    Y = rgn.surv$Y
+    clv = c(1:5) # variable 1 to 5 are clinical variables, we choose not to penalize them here.
+    out = cv.regnet(X, Y, response="survival", penalty="network", clv=clv, robust=TRUE, verbo = TRUE)
+    out$lambda
+
+    b = regnet(X, Y, "survival", "network", out$lambda[1,1], out$lambda[1,2], clv=clv, robust=TRUE)  
+    index = which(rgn.surv$beta != 0)  
     pos = which(b != 0)  
     tp = length(intersect(index, pos))  
     fp = length(pos) - tp  
     list(tp=tp, fp=fp)  
 
-### Example.2 (CV.McpLogistic)
+### Binary response
 
-    result = CV.McpLogistic(regnet$X, regnet$Y, r = 4.5)  
-    result$lambda  
-    b = McpLogistic(regnet$X, regnet$Y, result$lambda[1])  
-    index = which(regnet$beta != 0)  
+#### Example.2 (Network Logistic)
+
+    data(LogisticExample)
+    X = rgn.logi$X
+    Y = rgn.logi$Y
+    out = cv.regnet(X, Y, response="binary", penalty="network", folds=5, r = 4.5)  
+    out$lambda  
+    b = regnet(X, Y, "binary", "network", out$lambda[1,1], out$lambda[1,2], r = 4.5)
+    index = which(rgn.logi$beta != 0)  
     pos = which(b != 0)  
     tp = length(intersect(index, pos))  
     fp = length(pos) - tp  
