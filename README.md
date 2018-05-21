@@ -3,9 +3,7 @@
 regnet
 ======
 
-[![Travis-CI Build Status](https://travis-ci.org/jrhub/regnet.svg?branch=master)](https://travis-ci.org/jrhub/regnet)
-
-[![CRAN](https://www.r-pkg.org/badges/version/regnet)](https://cran.r-project.org/package=regnet)
+[![Travis-CI Build Status](https://travis-ci.org/jrhub/regnet.svg?branch=master)](https://travis-ci.org/jrhub/regnet) [![CRAN](https://www.r-pkg.org/badges/version/regnet)](https://cran.r-project.org/package=regnet)
 
 Network-based regularization has achieved success in variable selection for high-dimensional biological data due to its ability to incorporate correlations between genomic features. This package provides procedures for fitting network-based regularization, minimax concave penalty (MCP) and lasso penalty for generalized linear models. This current version, regnet0.3.0, focuses on binary and survival outcomes. Functions for continuous and other regularization methods will be included in the forthcoming upgraded versions.
 
@@ -34,7 +32,6 @@ Examples
     clv = c(1:5) # variable 1 to 5 are clinical variables, we choose not to penalize them here.
     out = cv.regnet(X, Y, response="survival", penalty="network", clv=clv, robust=TRUE, verbo = TRUE)
     out$lambda
-
     b = regnet(X, Y, "survival", "network", out$lambda[1,1], out$lambda[1,2], clv=clv, robust=TRUE)  
     index = which(rgn.surv$beta != 0)  
     pos = which(b != 0)  
@@ -50,7 +47,7 @@ Examples
     X = rgn.logi$X
     Y = rgn.logi$Y
     out = cv.regnet(X, Y, response="binary", penalty="network", folds=5, r = 4.5)  
-    out$lambda  
+    out$lambda 
     b = regnet(X, Y, "binary", "network", out$lambda[1,1], out$lambda[1,2], r = 4.5)
     index = which(rgn.logi$beta != 0)  
     pos = which(b != 0)  

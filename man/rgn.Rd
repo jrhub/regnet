@@ -6,14 +6,14 @@
 \alias{rgn.logi}
 \alias{rgn.surv}
 \title{simulated data for demonstrating the features of regnet}
-\format{Each dataset consists of three components: X, Y, and beta; beta is the
-true coefficient used to generated Y.}
+\format{Each data consists of three components: X, Y, and beta; beta is a vector of the
+true coefficients used to generate Y.}
 \usage{
 data("LogisticExample")
 data("SurvExample")
 }
 \description{
-Simple simulated data for demonstrating the features of regnet.
+Simulated data for demonstrating the features of regnet.
 }
 \examples{
 data("LogisticExample")

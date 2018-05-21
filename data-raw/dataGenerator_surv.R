@@ -18,7 +18,7 @@ source("./data-raw/correlation6.R")
 #res <- try(sourceCpp("./WMRcpp/CD_WMR_HF.cpp", rebuild = T))
 # sourceCpp(paste("./src/SurvCD.cpp", sep=""), rebuild = T)
 
-n = 300; p = 500; p.c = 5+1;
+n = 40; p = 60; p.c = 5+1;
 n.sub = 5
 #corr = 0.1
 
@@ -130,11 +130,11 @@ cat("b.true: ", b.true, "\n")
   Y = cbind(time = Y0, status = status)
   initiation = NULL
   penalty = "network"
-  robust = TRUE # TRUE FALSE
+  robust = FALSE # TRUE FALSE
 
-  X0=rgn.surv$X
-  Y=rgn.surv$Y
-  b.true=rgn.surv$beta
+  # X0=rgn.surv$X
+  # Y=rgn.surv$Y
+  # b.true=rgn.surv$beta
 
   ptm <- proc.time()
   # result = CV.NetSurv(X0, Y0, status, lamb.1=lamb.1, lamb.2=lamb.2, clv=clv, r=3, alpha.i=1, folds=5, init=NULL,

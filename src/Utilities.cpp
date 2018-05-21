@@ -15,7 +15,7 @@ double Soft(double z, double lambda){
 //Non-robust MSE
 double validation_LS(arma::mat& x, arma::vec& y, arma::vec& b){
 	//double mse = arma::accu(pow(y - x*b, 2))/y.n_elem;
-    double mse = arma::accu(pow(y - x*b, 2));
+    double mse = arma::accu(arma::square(y - x*b));
 	return(mse);
 }
 
@@ -30,4 +30,9 @@ double validation_logit(arma::mat& x0, arma::vec& y0, arma::vec& b){
     arma::uvec y = (yi > 0.5);
     double mc = arma::accu(arma::abs(y0 - y));
 	return(mc);
+}
+
+vec fastLm(const arma::vec & y, const arma::mat & X){
+    arma::colvec coef = arma::solve(X, y);    
+    return coef;
 }

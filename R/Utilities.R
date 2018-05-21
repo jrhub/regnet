@@ -5,12 +5,11 @@ lambda.m = rev(exp(seq(1,45,1)/5 -7))
 lambda.e = rev(exp(seq(1,45,1)/4 -9))
 lambda.l = rev(exp(seq(1,45,1)/4 -9))
 
-initiation <- function(x, y, alpha, family){
-  lasso.cv <- glmnet::cv.glmnet(x,y, family="binomial", alpha=alpha, nfolds=5, intercept=FALSE)
+initiation <- function(x, y, alpha, family="gaussian"){
+  lasso.cv <- glmnet::cv.glmnet(x,y, family=family, alpha=alpha, nfolds=5, intercept=FALSE)
   lambda <- lasso.cv$lambda.min
-  #cat("initiation lambda: ", lambda, "\n")
-  lasso.fit <- glmnet::glmnet(x,y,"binomial", alpha=alpha, nlambda=50, intercept=FALSE)
-  coef0 <- as.vector(stats::predict(lasso.fit, s=lambda, type="coefficients"))[-2]
+  lasso.fit <- glmnet::glmnet(x, y, family, alpha=alpha, nlambda=50, intercept=FALSE)
+  coef0 <- as.vector(stats::predict(lasso.fit, s=lambda, type="coefficients", intercept=FALSE))[-1]
 }
 
 initiation_cox <- function(x, y0, d){

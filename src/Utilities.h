@@ -11,5 +11,6 @@ double Soft(double z, double lambda);
 double validation_LS(arma::mat& x, arma::vec& y, arma::vec& b);
 double validation_LAD(arma::mat& x, arma::vec& y, arma::vec& b);
 double validation_logit(arma::mat& x0, arma::vec& y0, arma::vec& b);
+arma::vec fastLm(const arma::vec & y, const arma::mat & X);
 
 #endif

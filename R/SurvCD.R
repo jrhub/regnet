@@ -7,7 +7,7 @@ SurvCD <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=
   if(is.null(clv)){
     clv = intercept*1
   }else{
-    clv = union(1, (clv+intercept))
+    clv = setdiff(union(intercept, (clv+intercept)), 0)
   }
 
   n = nrow(X0); p.c = length(clv); p = ncol(X0)-p.c+intercept;
@@ -45,6 +45,8 @@ SurvCD <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=
   vname = colnames(X0)
   if(!is.null(vname)){
     names(b) = c("Intercept", vname[clv], vname[-clv])
+  }else if(p.c==1){
+    names(b) = c("Intercept", paste("g", seq = (1:p), sep=""))
   }else{
     names(b) = c("Intercept", paste("clv", seq = (1:(p.c-1)), sep=""), paste("g", seq = (1:p), sep=""))
   }

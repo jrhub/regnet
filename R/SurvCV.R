@@ -42,20 +42,18 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
     test = rs[intersect(index, seq(1,n,1))]
 
     x = X[-test,]; y = Y[-test];
-    x.c=x[, clv, drop = FALSE]; x.g = x[, -clv, drop = FALSE];
-
-    x2 = X[test,]; x2 = cbind(x2[,clv], x2[,-clv])
-    y2 = Y[test]
+    x2 = X[test,]; y2 = Y[test]
 
     if(init == "cox"){
       b0 = initiation_cox(out$Xo[-test,], out$Yo[-test], out$So[-test])
-      # cat("#b0: ", sum(b0 != 0), "TP FP: ", TruePos(b0)$tp, "|", TruePos(b0)$fp, " | b0: ", b0[1:100], "\n")
     } else if(init == "elnet"){
       b0 = initiation(x, y, alpha.i)
-      # cat("#b0: ", sum(b0 != 0), "TP FP: ", TruePos(b0)$tp, "|", TruePos(b0)$fp, " | b0: ", b0[1:100], "\n")
     } else{
       b0 = rep(0, (p+p.c))
     }
+
+    x.c=x[, clv, drop = FALSE]; x.g = x[, -clv, drop = FALSE];
+    x2 = cbind(x2[,clv], x2[,-clv])
 
     if(penalty == "network"){
       a = Adjacency(x.g)

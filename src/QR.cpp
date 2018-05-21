@@ -32,8 +32,3 @@ arma::vec QRWMR(arma::mat& x, arma::vec& y, arma::vec b)
   }
   return(b);
 }
-
-vec fastLm(const arma::vec & y, const arma::mat & X){
-    arma::colvec coef = arma::solve(X, y);    
-    return coef;
-}

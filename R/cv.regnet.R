@@ -6,38 +6,51 @@ NULL
 #'
 #' This function does k-fold cross-validation for regnet and returns the optimal value(s) of lambda.
 #'
+#' @keywords models
 #' @param X X matrix as in regnet.
 #' @param Y response Y as in regnet.
-#' @param response response type. regnet now supports two types of response: "binary" and "survival".
-#' @param penalty penalty type. regnet provides three choices of penalty: Network, MCP and Lasso.
-#' @param lamb.1 a user-supplied sequence of \eqn{\lambda 1} values, which serves as a tuning parameter to impose sparsity.
+#' @param response response type. regnet now supports three types of response: "binary", "continuous" and "survival".
+#' @param penalty penalty type. regnet provides three choices for the penalty function: "network", "mcp" and "lasso".
+#' @param lamb.1 a user-supplied sequence of \eqn{\lambda_{1}} values, which serves as a tuning parameter to impose sparsity.
 #' If it is left as NULL, regnet will compute its own sequence.
-#' @param lamb.2 a user-supplied sequence of \eqn{\lambda 2} values for network method. \eqn{\lambda 2} control the smoothness
+#' @param lamb.2 a user-supplied sequence of \eqn{\lambda_{2}} values for network method. \eqn{\lambda_{2}} controls the smoothness
 #' among coefficient profiles. If it is left as NULL, a default sequence will be used.
 #' @param folds the number of folds for cross-validation; default is 5.
-#' @param r the regularization parameter in MCP; default is 5.
-#' @param clv a value or a vector, indexing variables that are not subject to penalty. clv only works for survival response for now,
+#' @param r the regularization parameter in MCP; default is 5. For binary response, r should be larger than 4.
+#' @param clv a value or a vector, indexing variables that are not subject to penalty. clv only works for continuous and survival responses for now,
 #' and will be ignored for other types of responses.
-#' @param initiation method for initiating the coefficient vector. For binary response, the default is elastic-net,
+#' @param initiation the method for initiating the coefficient vector. For binary and continuous response, the default is elastic-net,
 #' and for survival response the default is zero.
 #' @param alpha.i the elastic-net mixing parameter. The program can use the elastic-net for choosing initial values of
-#' the coefficient vector. alpha.i is the elastic-net mixing parameter, with \eqn{0 \le alpha.i \le 1}. \eqn{alpha.i=1} is the
-#' lasso penalty, and \eqn{alpha.i=0} the ridge penalty. If user chooses a method other than elastic-net for initializing
-#' coefficient, alpha.i will be ignored.
-#' @param robust logical flag. Whether or not to use robust methods. Robust methods are only available for survival response.
-#' @param standardize logical flag for standardizing variables in X; default is TRUE. If variables are already in the same units,
-#' you might not wish to precede standardization.
+#' the coefficient vector. alpha.i is the elastic-net mixing parameter, with 0 \eqn{\le} alpha.i \eqn{\le} 1. alpha.i=1 is the
+#' lasso penalty, and alpha.i=0 is the ridge penalty. If the user chooses a method other than elastic-net for initializing
+#' coefficients, alpha.i will be ignored.
+#' @param robust logical flag. Whether or not to use robust methods. Robust methods are only available for survival response
+#' in the current version of regnet.
 #' @param verbo output progress to the console.
-#' @return a list with components:
+#' @return an object of class "cv.regnet" is returned, which is a list with components:
 #' \item{lambda}{the optimal values(s) of \eqn{\lambda}. More than one values will be returned, if multiple lambdas have the cross-validated error =
-#' min(cross-validated errors). If the network penalty was used, lambda contains optimal pair(s) of \eqn{\lambda 1} and \eqn{\lambda 2}.}
-#' \item{mcvm}{the cross-validated error of the optimal \eqn{\lambda}.}
-#' \item{CVM}{a matrix of the cross-validated errors of all lambdas used in the firs. The row names of CVM are the values of \eqn{\lambda 1}.
-#' If the network penalty was used, the column names are the values of \eqn{\lambda 2}.}
+#' min(cross-validated errors). If the network penalty is used, lambda contains optimal pair(s) of \eqn{\lambda_{1}} and \eqn{\lambda_{2}}.}
+#' \item{mcvm}{the cross-validated error of the optimal \eqn{\lambda}. For binary response, the error is misclassification rate. For survival response,
+#' non-robust methods use the mean squared error (MSE), and the criterion for robust methods is least absolute deviation (LAD).}
+#' \item{CVM}{a matrix of the mean cross-validated errors of all lambdas used in the fits. The row names of CVM are the values of \eqn{\lambda_{1}}.
+#' If the network penalty was used, the column names are the values of \eqn{\lambda_{2}}.}
 #'
-#' @references Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017).
+#' @references Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., and Wu, C. (2017).
 #' Network-based regularization for high dimensional SNP data in the case-control study of
-#' Type 2 diabetes. BMC Genetics, 18(1):44.
+#' Type 2 diabetes. \href{https://doi.org/10.1186/s12863-017-0495-5}{\emph{BMC Genetics}, 18(1):44}
+#'
+#' Ren, J., Du, Y., Li, S., Chu, G., Ma, S., Jiang,Y. and Wu, C. (2018). Robust network based regularization
+#' and variable selection for high dimensional genomics data in cancer prognosis.
+#'
+#' Wu, C., and Ma, S. (2015). A selective review of robust variable selection with applications in bioinformatics.
+#' \href{http://doi.org/10.1093/bib/bbu046}{\emph{Briefings in Bioinformatics}, 16(5), 873–883}
+#'
+#' Wu, C., Shi, X., Cui, Y. and Ma, S. (2015). A penalized robust semiparametric approach for gene-environment interactions.
+#' \href{https://doi.org/10.1002/sim.6609}{\emph{Statistics in Medicine}, 34 (30): 4016–4030}
+#'
+#' Wu, C, Jiang, Y, Ren, J, Cui, Y, Ma, S. (2018). Dissecting gene-environment interactions: A penalized robust approach accounting for hierarchical structures.
+#' \href{https://doi.org/10.1002/sim.7518}{\emph{Statistics in Medicine}, 37:437–456}
 #'
 #' @seealso \code{\link{regnet}}
 #'
@@ -57,9 +70,10 @@ NULL
 #' @export
 
 cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL,
-                      folds=5, r=NULL, clv=NULL, initiation=NULL, alpha.i=1, robust=TRUE, standardize=TRUE, verbo = FALSE)
+                      folds=5, r=NULL, clv=NULL, initiation=NULL, alpha.i=1, robust=TRUE, verbo = FALSE)
 {
-  intercept = TRUE
+  # intercept = TRUE
+  standardize=TRUE
   response = match.arg(response)
   penalty = match.arg(penalty)
   # method = paste(response, "_", penalty, sep = "")
@@ -68,7 +82,7 @@ cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), pena
     if(ncol(Y) != 2) stop("y should be a two-column matrix")
     Y0 = Y[,"time"]
     status = Y[,"status"]
-    if(sum(Y0<=0)>0) stop("Survival times need to be positive")
+    if(any(Y0<=0)) stop("Survival times need to be positive")
   }
   if(alpha.i>1 | alpha.i<0) stop("alpha.i should be between 0 and 1")
   folds = as.integer(folds)
@@ -82,10 +96,8 @@ cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), pena
 
   fit=switch (response,
     "binary" = CV.Logit(X, Y, penalty, lamb.1, lamb.2, folds, r, alpha, init=initiation, alpha.i, standardize, verbo),
+    "continuous" = CV.Cont(X, Y, penalty, lamb.1, lamb.2, folds, clv=clv, r, alpha, init=initiation, alpha.i, standardize, verbo),
     "survival" = CV.Surv(X, Y0, status, penalty, lamb.1, lamb.2, clv=clv, folds, r, init=initiation, alpha.i, robust, standardize, verbo)
-    # "continuous_network" = NULL,
-    # "continuous_mcp" = NULL,
-    # "continuous_lasso" = NULL
   )
   fit$call = this.call
   class(fit) = "cv.regnet"

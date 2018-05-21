@@ -4,7 +4,7 @@
 \alias{print.cv.regnet}
 \title{print a cv.glmnet object}
 \usage{
-\method{print}{cv.regnet}(x, digits = max(3, getOption("digits") - 3), ...)
+\method{print}{cv.regnet}(x, digits = max(3, getOption("digits") - 3), \dots)
 }
 \arguments{
 \item{x}{cv.glmnet object.}

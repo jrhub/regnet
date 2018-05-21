@@ -6,6 +6,30 @@
 
 using namespace Rcpp;
 
+// ContGrid
+arma::mat ContGrid(arma::mat& xc, arma::mat& xg, arma::vec& y, arma::mat& x2, arma::vec& y2, arma::vec lamb1, arma::vec lamb2, arma::vec bc0, arma::vec bg0, double r, arma::mat& a, int p, int pc, char method);
+RcppExport SEXP _regnet_ContGrid(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bc0SEXP, SEXP bg0SEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP methodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type xc(xcSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type xg(xgSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type x2(x2SEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type y2(y2SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type lamb1(lamb1SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type lamb2(lamb2SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type bc0(bc0SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type bg0(bg0SEXP);
+    Rcpp::traits::input_parameter< double >::type r(rSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< int >::type pc(pcSEXP);
+    Rcpp::traits::input_parameter< char >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(ContGrid(xc, xg, y, x2, y2, lamb1, lamb2, bc0, bg0, r, a, p, pc, method));
+    return rcpp_result_gen;
+END_RCPP
+}
 // LogitGrid
 arma::mat LogitGrid(arma::mat& x, arma::vec& y, arma::mat& x2, arma::vec& y2, arma::vec lamb1, arma::vec lamb2, arma::vec b, double r, arma::mat& a, int p, double alpha, char method);
 RcppExport SEXP _regnet_LogitGrid(SEXP xSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP alphaSEXP, SEXP methodSEXP) {
@@ -25,6 +49,28 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< char >::type method(methodSEXP);
     rcpp_result_gen = Rcpp::wrap(LogitGrid(x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method));
+    return rcpp_result_gen;
+END_RCPP
+}
+// RunCont
+arma::vec RunCont(arma::mat& xc, arma::mat& xg, arma::vec& y, double lamb1, double lamb2, arma::vec bc, arma::vec bg, double r, arma::mat& a, int p, int pc, char method);
+RcppExport SEXP _regnet_RunCont(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP methodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type xc(xcSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type xg(xgSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< double >::type lamb1(lamb1SEXP);
+    Rcpp::traits::input_parameter< double >::type lamb2(lamb2SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type bc(bcSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type bg(bgSEXP);
+    Rcpp::traits::input_parameter< double >::type r(rSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< int >::type pc(pcSEXP);
+    Rcpp::traits::input_parameter< char >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(RunCont(xc, xg, y, lamb1, lamb2, bc, bg, r, a, p, pc, method));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -228,7 +274,9 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_regnet_ContGrid", (DL_FUNC) &_regnet_ContGrid, 14},
     {"_regnet_LogitGrid", (DL_FUNC) &_regnet_LogitGrid, 12},
+    {"_regnet_RunCont", (DL_FUNC) &_regnet_RunCont, 12},
     {"_regnet_RunLogit", (DL_FUNC) &_regnet_RunLogit, 10},
     {"_regnet_RunNet", (DL_FUNC) &_regnet_RunNet, 8},
     {"_regnet_RunMCP", (DL_FUNC) &_regnet_RunMCP, 6},

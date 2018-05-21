@@ -4,6 +4,7 @@
 #include"QR.h"
 #include"Robust.h"
 #include"NonRobust.h"
+#include"Utilities.h"
 
 using namespace Rcpp;
 using namespace arma;

@@ -6,17 +6,16 @@ Author: Jie Ren, Luann C. Jung, Yinhao Du, Cen Wu, Yu Jiang, Junhao Liu
 Maintainer: Jie Ren <jieren@ksu.edu>
 Description: Network-based regularization has achieved success in variable selection for 
     high-dimensional biological data due to its ability to incorporate correlations 
-    between genomic features. This package provides procedures for fitting network-based 
-    regularization, minimax concave penalty (MCP) and lasso penalty for generalized linear 
-    models. This current version, regnet0.3.0, focuses on binary and survival outcomes. 
-    Functions for continuous and other regularization methods will be included in the 
-    forthcoming upgraded versions. 
+    among genomic features. This package provides procedures of network-based variable 
+    selection for generalized linear models. Two recent additions are the robust network 
+    regularization for the survival response and the network regularization for continuous 
+    response. Functions for other regularization methods will be included in the forthcoming 
+    upgraded versions. 
 Depends: R (>= 3.1.0)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-Imports: glmnet, stats,
-    Rcpp
+Imports: glmnet, stats, Rcpp
 URL: https://github.com/jrhub/regnet
 BugReports: https://github.com/jrhub/regnet/issues
 RoxygenNote: 6.0.1
