@@ -28,11 +28,17 @@ NULL
 #' @param robust logical flag. Whether or not to use robust methods. Robust methods are only available for survival response
 #' in the current version of regnet.
 #' @param verbo output progress to the console.
+#'
+#' @details When lamb.1 is left as NULL, regnet computes its own sequence. You can find the lamb.1 sequence used by the program in
+#' the returned CVM matrix (see the "Value" section). If you find the default sequence does not work well, you can try 1. standardize
+#' the response vector Y; or 2. provide a customized lamb.1 sequence for your data.
+#'
 #' @return an object of class "cv.regnet" is returned, which is a list with components:
 #' \item{lambda}{the optimal values(s) of \eqn{\lambda}. More than one values will be returned, if multiple lambdas have the cross-validated error =
 #' min(cross-validated errors). If the network penalty is used, lambda contains optimal pair(s) of \eqn{\lambda_{1}} and \eqn{\lambda_{2}}.}
-#' \item{mcvm}{the cross-validated error of the optimal \eqn{\lambda}. For binary response, the error is misclassification rate. For survival response,
-#' non-robust methods use the mean squared error (MSE), and the criterion for robust methods is least absolute deviation (LAD).}
+#' \item{mcvm}{the cross-validated error of the optimal \eqn{\lambda}. For binary response, the error is misclassification rate.
+#' For continuous response, mean squared error (MSE) is used. For survival response,
+#' the MSE is used for non-robust methods, and the criterion for robust methods is least absolute deviation (LAD).}
 #' \item{CVM}{a matrix of the mean cross-validated errors of all lambdas used in the fits. The row names of CVM are the values of \eqn{\lambda_{1}}.
 #' If the network penalty was used, the column names are the values of \eqn{\lambda_{2}}.}
 #'
@@ -55,6 +61,7 @@ NULL
 #' @seealso \code{\link{regnet}}
 #'
 #' @examples
+#' ## Binary response
 #' data(LogisticExample)
 #' X = rgn.logi$X
 #' Y = rgn.logi$Y

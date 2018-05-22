@@ -50,8 +50,9 @@ Typical usage is to have the cv.regnet function compute the optimal lambdas, the
 regnet function. Users could also use MCP or Lasso.
 }
 \details{
-The current version of regnet supports two types of responses: “binary” and “survival”.
+The current version of regnet supports two types of responses: “binary”, "continuous" and “survival”.
 regnet(…, response="binary", penalty="network") fits a network-based penalized logistic regression;
+regnet(…, response="continuous", penalty="network") fits a network-based least square regression;
 regnet(…, response="survival", penalty="network") fits a robust regularized AFT model using network penalty.
 Please see the references for more details of the models. By default, regnet uses robust methods for survival response.
 If users would like to use non-robust methods, simply set robust=FALSE. User could also use MCP or Lasso penalty.
@@ -61,13 +62,13 @@ The coefficients are always estimated on a standardized X matrix. regnet standar
 using the subset of variables that have non-zero coefficients.
 }
 \examples{
+## Survival response
 data(SurvExample)
 X = rgn.surv$X
 Y = rgn.surv$Y
 clv = c(1:5) # variable 1 to 5 are clinical variables which we choose not to penalize.
-lambda1 = 5*10^-4
-lambda2 = 10^-3
-b = regnet(X, Y, "survival", "network", lambda1, lambda2, clv=clv, robust=TRUE)
+penalty = "network"
+b = regnet(X, Y, "survival", penalty, rgn.surv$lamb1, rgn.surv$lamb2, clv=clv, robust=TRUE)
 index = which(rgn.surv$beta != 0)
 pos = which(b != 0)
 tp = length(intersect(index, pos))

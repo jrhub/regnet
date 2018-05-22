@@ -194,3 +194,12 @@ cat("b.true: ", b.true, "\n")
   tp = length(intersect(index, pos))
   fp = length(pos) - tp
   list(tp=tp, fp=fp)
+######################################################
+  # load("./data/SurvExample.rda")
+  # X = rgn.surv$X
+  # Y = rgn.surv$Y
+  # beta = rgn.surv$beta
+  # lamb1 = 5*10^-4
+  # lamb2 = 10^-3
+  # rgn.surv = list(X = X, Y = Y, beta = beta, lamb1=lamb1, lamb2=lamb2)
+  # save(rgn.surv, file = "./data/SurvExample.rda")
