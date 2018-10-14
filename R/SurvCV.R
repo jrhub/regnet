@@ -11,7 +11,10 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
   }
 
   n = nrow(X0); p.c = length(clv); p = ncol(X0)-p.c+intercept;
-  if(standardize) X1 = scale(X0, center = FALSE, scale = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)))
+  if(standardize){
+    V0 = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0]=1
+    X1 = scale(X0, center = FALSE, scale = V0)
+  }
   if(intercept) X1 = cbind(Intercept = rep(1, n), X1)
   Y1 = Y0
 

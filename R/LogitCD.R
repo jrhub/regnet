@@ -19,7 +19,7 @@ LogitCD <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lam
   if(!is.null(vname)){
     names(b) = c("Intercept", vname)
   }else{
-    names(b) = c("Intercept", paste("V", seq = (1:p), sep=""))
+    names(b) = c("Intercept", paste("v", seq = (1:p), sep=""))
   }
 
   return(drop(b))

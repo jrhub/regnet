@@ -79,20 +79,20 @@ b = rep(0, ncol(x))
 
 lambda.n = rev(exp(seq(1,45,1)/5 -7))
 # lambda.n = NULL
-penalty="network"
+penalty="lasso"
 r=1.5
-init = "zero"
+init = NULL; #"zero"
 lamb.2=1
 
 ptm <- proc.time()
-res = cv.regnet(x, y, response=c("continuous"), penalty=penalty, lamb.1=lambda.n, lamb.2=lamb.2, folds=5, r = r,initiation = init)
+res = cv.regnet(x, y, response=c("conti"), penalty=penalty, lamb.1=lambda.n, lamb.2=lamb.2,
+                folds=5, r = r, alpha.i = 0.5, initiation = init)
 print(proc.time() - ptm)
 res$lambda
 
-fit = regnet(x, y, response=c("continuous"), penalty=penalty, res$lambda[1], res$lambda[2], r = r, initiation = init)
-
-b.rgn = fit$b
-plot(y, fit$residual); abline(a=0, b=0, lty=2)
+b.rgn = regnet(x, y, response=c("continuous"), penalty=penalty, res$lambda[1], res$lambda[2], r = r, initiation = init)
+# b.rgn = fit$b
+# plot(y, fit$residual); abline(a=0, b=0, lty=2)
 
 # b.net = regnet(x, y, response=c("continuous"), penalty="network", 0.3290141 , 1, r = 1.5, initiation = "zero")
 counts = TruePos(b.rgn[-1]);
