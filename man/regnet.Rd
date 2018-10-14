@@ -5,8 +5,9 @@
 \title{fit a regression for given lambda with network-based regularization}
 \usage{
 regnet(X, Y, response = c("binary", "continuous", "survival"),
-  penalty = c("network", "mcp", "lasso"), lamb.1 = NULL, lamb.2 = NULL,
-  r = NULL, clv = NULL, initiation = NULL, alpha.i = 1, robust = TRUE)
+  penalty = c("network", "mcp", "lasso"), lamb.1 = NULL,
+  lamb.2 = NULL, r = NULL, clv = NULL, initiation = NULL,
+  alpha.i = 1, robust = TRUE)
 }
 \arguments{
 \item{X}{matrix of predictors without intercept. Each row should be an observation vector. A column of 1 will be added to the X matrix

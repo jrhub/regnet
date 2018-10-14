@@ -31,7 +31,7 @@ double validation_logit(arma::mat& x0, arma::vec& y0, arma::vec& b){
     double mc = arma::accu(arma::abs(y0 - y));
 	return(mc);
 }
-coeff3.subvec
+
 vec fastLm(const arma::vec & y, const arma::mat & X){
     arma::colvec coef = arma::solve(X, y);    
     return coef;

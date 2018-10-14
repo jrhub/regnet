@@ -5,9 +5,9 @@
 \title{k-folds cross-validation for regnet}
 \usage{
 cv.regnet(X, Y, response = c("binary", "continuous", "survival"),
-  penalty = c("network", "mcp", "lasso"), lamb.1 = NULL, lamb.2 = NULL,
-  folds = 5, r = NULL, clv = NULL, initiation = NULL, alpha.i = 1,
-  robust = TRUE, verbo = FALSE)
+  penalty = c("network", "mcp", "lasso"), lamb.1 = NULL,
+  lamb.2 = NULL, folds = 5, r = NULL, clv = NULL,
+  initiation = NULL, alpha.i = 1, robust = TRUE, verbo = FALSE)
 }
 \arguments{
 \item{X}{X matrix as in regnet.}

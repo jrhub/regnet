@@ -18,5 +18,5 @@ LazyData: true
 Imports: glmnet, stats, Rcpp
 URL: https://github.com/jrhub/regnet
 BugReports: https://github.com/jrhub/regnet/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 LinkingTo: Rcpp, RcppArmadillo
