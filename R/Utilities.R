@@ -42,3 +42,7 @@ Adjacency = function(x, alpha=5)
   diag(A) = 0
   A
 }
+
+.onUnload <- function (libpath) {
+  library.dynam.unload("regnet", libpath)
+}

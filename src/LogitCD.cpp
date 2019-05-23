@@ -6,7 +6,7 @@
 using namespace Rcpp;
 using namespace arma;
 
-arma::vec Network(arma::mat& x, arma::vec& y, double lam1, double lam2, arma::vec b, double r, arma::mat& a, int n, int p)
+arma::vec Network(const arma::mat& x, const arma::vec& y, double lam1, double lam2, arma::vec b, double r, const arma::mat& a, int n, int p)
 {
   arma::vec y0 = x * b;
   arma::vec pi = 1/(1+exp(-y0)), t = (y -pi)*4;
@@ -32,7 +32,7 @@ arma::vec Network(arma::mat& x, arma::vec& y, double lam1, double lam2, arma::ve
   return(b);
 }
 
-arma::vec MCP(arma::mat& x, arma::vec& y, double lambda, arma::vec b, double r, int n, int p)
+arma::vec MCP(const arma::mat& x, const arma::vec& y, double lambda, arma::vec b, double r, int n, int p)
 {
   arma::vec y0 = x * b;
   arma::vec pi = 1/(1+exp(-y0)), t = (y -pi)*4;
@@ -50,7 +50,7 @@ arma::vec MCP(arma::mat& x, arma::vec& y, double lambda, arma::vec b, double r, 
   return(b);
 }
 
-arma::vec Elastic(arma::mat& x, arma::vec& y, double lambda, arma::vec b, double alpha, int n, int p)
+arma::vec Elastic(const arma::mat& x, const arma::vec& y, double lambda, arma::vec b, double alpha, int n, int p)
 {
   arma::vec y0 = x * b;
   arma::vec pi = 1/(1+exp(-y0)), t = (y -pi)*4;

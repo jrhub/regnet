@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 ```
 # regnet
 [![Travis-CI Build Status](https://travis-ci.org/jrhub/regnet.svg?branch=master)](https://travis-ci.org/jrhub/regnet)
-<!-- [![CRAN](https://www.r-pkg.org/badges/version/regnet)](https://cran.r-project.org/package=regnet) -->
+[![CRAN](https://www.r-pkg.org/badges/version/regnet)](https://cran.r-project.org/package=regnet)
 
 Network-based regularization has achieved success in variable selection for 
     high-dimensional biological data due to its ability to incorporate correlations 
@@ -36,9 +36,9 @@ install.packages("regnet")
 
 ## Examples
 
-###Survival response
+### Survival response
 
-####Example.1 (Robust Network)
+#### Example.1 (Robust Network)
 ```
 data(SurvExample)
 X = rgn.surv$X
@@ -53,9 +53,9 @@ tp = length(intersect(index, pos))
 fp = length(pos) - tp  
 list(tp=tp, fp=fp)  
 ```
-###Binary response
+### Binary response
 
-####Example.2 (Network Logistic)
+#### Example.2 (Network Logistic)
 ```
 data(LogisticExample)
 X = rgn.logi$X
@@ -83,8 +83,7 @@ This package provides implementation for methods proposed in
 
 * Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., Wu, C. (2017). Network-based regularization for high dimensional SNP data in the case-control study of Type 2 diabetes. [BMC Genetics, 18(1):44](https://doi.org/10.1186/s12863-017-0495-5)
 
-* Ren, J., Du, Y., Li, S., Chu, G., Ma, S., Jiang,Y. and Wu, C. (2018). Robust network based regularization
-and variable selection for high dimensional genomics data in cancer prognosis.
+* Ren, J., Du, Y., Li, S., Ma, S., Jiang,Y. and Wu, C. (2019). Robust network-based regularization and variable selection for high dimensional genomics data in cancer prognosis. [Genet. Epidemiol. 43:276-291](https://doi.org/10.1002/gepi.22194)
 
 ## References
 

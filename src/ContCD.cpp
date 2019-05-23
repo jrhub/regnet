@@ -6,7 +6,7 @@
 using namespace Rcpp;
 using namespace arma;
 
-arma::vec ContNet(arma::mat& x, arma::vec& y, double lam1, double lam2, arma::vec b, double r, arma::mat& a, int n, int p)
+arma::vec ContNet(const arma::mat& x, const arma::vec& y, double lam1, double lam2, arma::vec b, double r, const arma::mat& a, int n, int p)
 {
   arma::vec t = y - x * b;
   for(int m = 0; m < p; m++){
@@ -28,7 +28,7 @@ arma::vec ContNet(arma::mat& x, arma::vec& y, double lam1, double lam2, arma::ve
   return(b);
 }
 
-arma::vec ContMCP(arma::mat& x, arma::vec& y, double lam1, arma::vec b, double r, int n, int p)
+arma::vec ContMCP(const arma::mat& x, const arma::vec& y, double lam1, arma::vec b, double r, int n, int p)
 {
   arma::vec t = y - x * b;
   for(int m = 0; m < p; m++){
@@ -46,7 +46,7 @@ arma::vec ContMCP(arma::mat& x, arma::vec& y, double lam1, arma::vec b, double r
   return(b);
 }
 
-arma::vec ContLasso(arma::mat& x, arma::vec& y, double lam1, arma::vec b, int n, int p)
+arma::vec ContLasso(const arma::mat& x, const arma::vec& y, double lam1, arma::vec b, int n, int p)
 {
   arma::vec t = y - x * b;
   for(int m = 0; m < p; m++){

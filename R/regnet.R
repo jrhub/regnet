@@ -44,8 +44,9 @@
 #' Network-based regularization for high dimensional SNP data in the case-control study of
 #' Type 2 diabetes. \href{https://doi.org/10.1186/s12863-017-0495-5}{\emph{BMC Genetics}, 18(1):44}
 #'
-#' Ren, J., Du, Y., Li, S., Chu, G., Ma, S., Jiang,Y. and Wu, C. (2018). Robust network based regularization
+#' Ren, J., Du, Y., Li, S., Ma, S., Jiang,Y. and Wu, C. (2019). Robust network-based regularization
 #' and variable selection for high dimensional genomics data in cancer prognosis.
+#'\href{https://doi.org/10.1002/gepi.22194}{\emph{Genet. Epidemiol.}, 43:276-291}
 #'
 #' @seealso \code{\link{cv.regnet}}
 #'

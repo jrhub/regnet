@@ -6,7 +6,7 @@ using namespace Rcpp;
 using namespace arma;
 
 //Robust Network
-arma::vec LadNet(arma::mat& x, arma::vec& y, double lam1, double lam2, arma::vec b, double r, arma::mat& a, int n, int p)
+arma::vec LadNet(const arma::mat& x, const arma::vec& y, double lam1, double lam2, arma::vec b, double r, const arma::mat& a, int n, int p)
 {
   arma::vec t = y - x * b;
   for(int m = 0; m < p; m++){
@@ -49,7 +49,7 @@ arma::vec LadNet(arma::mat& x, arma::vec& y, double lam1, double lam2, arma::vec
 }
 
 //Robust MCP
-arma::vec LadMCP(arma::mat& x, arma::vec& y, double lam1, arma::vec b, double r, int n, int p)
+arma::vec LadMCP(const arma::mat& x, const arma::vec& y, double lam1, arma::vec b, double r, int n, int p)
 {
   arma::vec t = y - x * b;
   for(int m = 0; m < p; m++){
@@ -84,7 +84,7 @@ arma::vec LadMCP(arma::mat& x, arma::vec& y, double lam1, arma::vec b, double r,
 }
 
 //Robust Lasso
-arma::vec LadLasso(arma::mat& x, arma::vec& y, double lam1, arma::vec b, int n, int p)
+arma::vec LadLasso(const arma::mat& x, const arma::vec& y, double lam1, arma::vec b, int n, int p)
 {
   arma::vec t = y - x * b;
   for(int m = 0; m < p; m++){

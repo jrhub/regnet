@@ -6,7 +6,6 @@
 #' @param digits significant digits in printout.
 #' @param ... other print arguments
 #' @usage \method{print}{cv.regnet}(x, digits = max(3, getOption("digits") - 3), \dots)
-#' @return the estimated coefficients vector.
 #' @seealso \code{\link{cv.regnet}}
 #' @export
 print.cv.regnet=function(x, digits = max(3, getOption("digits") - 3),...){
