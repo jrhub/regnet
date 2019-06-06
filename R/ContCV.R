@@ -55,12 +55,14 @@ CV.Cont <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lam
   CVM = CVM/n
   mcvm = min(CVM)
   inds = which(CVM == mcvm, arr.ind=TRUE)
-  lambda1 = lamb.1[inds[,1]]
+  lambda = lambda1 = lamb.1[inds[,1]]
   lambda2 = lamb.2[inds[,2]]
-  lambda = lambda1
-  if(penalty == "network") lambda = cbind(lambda1, lambda2)
+  if(length(lambda)>1) message("multiple optimal values(pairs) of lambda(s) are found.")
   rownames(CVM) = signif(lamb.1, digits = 3)
-  if(penalty == "network") colnames(CVM) = lamb.2
+  if(penalty == "network"){
+    lambda = cbind(lambda1, lambda2)
+    colnames(CVM) = lamb.2
+  }
   outlist = list(lambda=lambda, mcvm=mcvm, CVM=CVM, penalty=penalty)
   class(outlist) = "cv.cont"
   outlist

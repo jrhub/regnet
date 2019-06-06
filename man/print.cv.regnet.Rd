@@ -13,9 +13,6 @@
 
 \item{...}{other print arguments}
 }
-\value{
-the estimated coefficients vector.
-}
 \description{
 Print a summary of a cv.glmnet object
 }

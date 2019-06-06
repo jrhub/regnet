@@ -1,3 +1,9 @@
+# regnet 1.0-0 [2019-6]
+
+Based on users' feedback, we have
+* Added more checking steps for data format, which help users make sure their data are in the correct format.
+* Provided more information in the documentation for troubleshooting .
+
 # regnet 0.3.0 [2018-5-21]
 
 * Two new, easy to use, integrated interfaces: cv.regnet() and regnet().

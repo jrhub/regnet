@@ -46,7 +46,7 @@ in the current version of regnet.}
 }
 \value{
 an object of class "cv.regnet" is returned, which is a list with components:
-\item{lambda}{the optimal values(s) of \eqn{\lambda}. More than one values will be returned, if multiple lambdas have the cross-validated error =
+\item{lambda}{the optimal value(s) of \eqn{\lambda}. More than one values will be returned, if multiple lambdas have the cross-validated error =
 min(cross-validated errors). If the network penalty is used, lambda contains optimal pair(s) of \eqn{\lambda_{1}} and \eqn{\lambda_{2}}.}
 \item{mcvm}{the cross-validated error of the optimal \eqn{\lambda}. For binary response, the error is misclassification rate.
 For continuous response, mean squared error (MSE) is used. For survival response,
@@ -59,11 +59,16 @@ This function does k-fold cross-validation for regnet and returns the optimal va
 }
 \details{
 When lamb.1 is left as NULL, regnet computes its own sequence. You can find the lamb.1 sequence used by the program in
-the returned CVM matrix (see the "Value" section). If you find the default sequence does not work well, you can try 1. standardize
-the response vector Y; or 2. provide a customized lamb.1 sequence for your data.
+the returned CVM matrix (see the 'Value' section). If you find the default sequence does not work well, you can try (1) standardize
+the response vector Y; or (2) provide a customized lamb.1 sequence for your data.
+
+Sometimes multiple optimal values(pairs) of lambda(s) can be found (see 'Value'). This is usually normal when the response (Y) is binary.
+However, if the response is survival or continuous, you may want to check (1) if the sequence of lambda is too large
+(i.e. all coefficients are shrunken to zero under all values of lambda) ; or (2) if the sequence is too small
+(i.e. all coefficients are non-zero under all values of lambda). If neither, simply choose the value(pair) of lambda based on your preference.
 }
 \examples{
-## Binary response
+## Binary response using network method
 data(LogisticExample)
 X = rgn.logi$X
 Y = rgn.logi$Y
@@ -76,23 +81,36 @@ tp = length(intersect(index, pos))
 fp = length(pos) - tp
 list(tp=tp, fp=fp)
 
+\donttest{
+## Binary response using MCP method
+out = cv.regnet(X, Y, response="binary", penalty="mcp", folds=5, r = 4.5)
+out$lambda
+b = regnet(X, Y, "binary", "mcp", out$lambda[1], r = 4.5)
+index = which(rgn.logi$beta != 0)
+pos = which(b != 0)
+tp = length(intersect(index, pos))
+fp = length(pos) - tp
+list(tp=tp, fp=fp)
+}
+
 }
 \references{
+Ren, J., Du, Y., Li, S., Ma, S., Jiang,Y. and Wu, C. (2019). Robust network-based regularization
+and variable selection for high dimensional genomics data in cancer prognosis.
+\href{https://doi.org/10.1002/gepi.22194}{\emph{Genet. Epidemiol.}, 43:276-291}
+
 Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., and Wu, C. (2017).
 Network-based regularization for high dimensional SNP data in the case-control study of
 Type 2 diabetes. \href{https://doi.org/10.1186/s12863-017-0495-5}{\emph{BMC Genetics}, 18(1):44}
 
-Ren, J., Du, Y., Li, S., Chu, G., Ma, S., Jiang,Y. and Wu, C. (2018). Robust network based regularization
-and variable selection for high dimensional genomics data in cancer prognosis.
+Wu, C, Jiang, Y, Ren, J, Cui, Y, Ma, S. (2018). Dissecting gene-environment interactions: A penalized robust approach accounting for hierarchical structures.
+\href{https://doi.org/10.1002/sim.7518}{\emph{Statistics in Medicine}, 37:437–456}
 
 Wu, C., and Ma, S. (2015). A selective review of robust variable selection with applications in bioinformatics.
 \href{http://doi.org/10.1093/bib/bbu046}{\emph{Briefings in Bioinformatics}, 16(5), 873–883}
 
 Wu, C., Shi, X., Cui, Y. and Ma, S. (2015). A penalized robust semiparametric approach for gene-environment interactions.
 \href{https://doi.org/10.1002/sim.6609}{\emph{Statistics in Medicine}, 34 (30): 4016–4030}
-
-Wu, C, Jiang, Y, Ren, J, Cui, Y, Ma, S. (2018). Dissecting gene-environment interactions: A penalized robust approach accounting for hierarchical structures.
-\href{https://doi.org/10.1002/sim.7518}{\emph{Statistics in Medicine}, 37:437–456}
 }
 \seealso{
 \code{\link{regnet}}

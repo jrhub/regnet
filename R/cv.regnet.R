@@ -30,11 +30,16 @@ NULL
 #' @param verbo output progress to the console.
 #'
 #' @details When lamb.1 is left as NULL, regnet computes its own sequence. You can find the lamb.1 sequence used by the program in
-#' the returned CVM matrix (see the "Value" section). If you find the default sequence does not work well, you can try 1. standardize
-#' the response vector Y; or 2. provide a customized lamb.1 sequence for your data.
+#' the returned CVM matrix (see the 'Value' section). If you find the default sequence does not work well, you can try (1) standardize
+#' the response vector Y; or (2) provide a customized lamb.1 sequence for your data.
+#'
+#' Sometimes multiple optimal values(pairs) of lambda(s) can be found (see 'Value'). This is usually normal when the response (Y) is binary.
+#' However, if the response is survival or continuous, you may want to check (1) if the sequence of lambda is too large
+#' (i.e. all coefficients are shrunken to zero under all values of lambda) ; or (2) if the sequence is too small
+#' (i.e. all coefficients are non-zero under all values of lambda). If neither, simply choose the value(pair) of lambda based on your preference.
 #'
 #' @return an object of class "cv.regnet" is returned, which is a list with components:
-#' \item{lambda}{the optimal values(s) of \eqn{\lambda}. More than one values will be returned, if multiple lambdas have the cross-validated error =
+#' \item{lambda}{the optimal value(s) of \eqn{\lambda}. More than one values will be returned, if multiple lambdas have the cross-validated error =
 #' min(cross-validated errors). If the network penalty is used, lambda contains optimal pair(s) of \eqn{\lambda_{1}} and \eqn{\lambda_{2}}.}
 #' \item{mcvm}{the cross-validated error of the optimal \eqn{\lambda}. For binary response, the error is misclassification rate.
 #' For continuous response, mean squared error (MSE) is used. For survival response,
@@ -63,7 +68,8 @@ NULL
 #' @seealso \code{\link{regnet}}
 #'
 #' @examples
-#' ## Binary response
+#' \donttest{
+#' ## Binary response using network method
 #' data(LogisticExample)
 #' X = rgn.logi$X
 #' Y = rgn.logi$Y
@@ -75,6 +81,17 @@ NULL
 #' tp = length(intersect(index, pos))
 #' fp = length(pos) - tp
 #' list(tp=tp, fp=fp)
+#'
+#' ## Binary response using MCP method
+#' out = cv.regnet(X, Y, response="binary", penalty="mcp", folds=5, r = 4.5)
+#' out$lambda
+#' b = regnet(X, Y, "binary", "mcp", out$lambda[1], r = 4.5)
+#' index = which(rgn.logi$beta != 0)
+#' pos = which(b != 0)
+#' tp = length(intersect(index, pos))
+#' fp = length(pos) - tp
+#' list(tp=tp, fp=fp)
+#' }
 #'
 #' @export
 
@@ -88,7 +105,8 @@ cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), pena
   # method = paste(response, "_", penalty, sep = "")
   this.call = match.call()
   if(response == "survival"){
-    if(ncol(Y) != 2) stop("y should be a two-column matrix")
+    if(ncol(Y) != 2) stop("Y should be a two-column matrix")
+    if(!setequal(colnames(Y), c("time", "status"))) stop("Y should be a two-column matrix with columns named 'time' and 'status'")
     Y0 = Y[,"time"]
     status = Y[,"status"]
     if(any(Y0<=0)) stop("Survival times need to be positive")

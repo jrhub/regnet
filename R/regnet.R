@@ -79,7 +79,8 @@ regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty
 
   this.call = match.call()
   if(response == "survival"){
-    if(ncol(Y) != 2) stop("y should be a two-column matrix")
+    if(ncol(Y) != 2) stop("Y should be a two-column matrix")
+    if(!setequal(colnames(Y), c("time", "status"))) stop("Y should be a two-column matrix with columns named 'time' and 'status'")
     Y0 = Y[,"time"]
     status = Y[,"status"]
     if(sum(Y0<=0)>0) stop("Survival times need to be positive")

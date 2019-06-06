@@ -10,11 +10,13 @@ Status](https://travis-ci.org/jrhub/regnet.svg?branch=master)](https://travis-ci
 Network-based regularization has achieved success in variable selection
 for high-dimensional biological data due to its ability to incorporate
 correlations among genomic features. This package provides procedures of
-network-based variable selection for generalized linear models. Two
-recent additions are the robust network regularization for the survival
-response and the network regularization for continuous response.
-Functions for other regularization methods will be included in the
-forthcoming upgraded versions.
+network-based variable selection for generalized linear models ([Ren et
+al.(2017)](https://doi.org/10.1186/s12863-017-0495-5) and [Ren et
+al.(2019)](https://doi.org/10.1002/gepi.22194)). Two recent additions
+are the robust network regularization for the survival response and the
+network regularization for continuous response. Functions for other
+regularization methods will be included in the forthcoming upgraded
+versions.
 
 ## How to install
 
@@ -73,6 +75,14 @@ list(tp=tp, fp=fp)
 ```
 
 ## News
+
+### regnet 1.0-0 \[2019-6\]
+
+Based on users’ feedback, we have
+
+  - Added more checking steps for data format, which help users make
+    sure their data are in the correct format.
+  - Provided more information in the documentation for troubleshooting .
 
 ### regnet 0.3.0 \[2018-5-21\]
 
