@@ -36,14 +36,14 @@ versions.
 
   - Released versions of regnet are available on R CRAN
     [(link)](https://cran.r-project.org/package=regnet), and can be
-    installed within R via
+    installed within R
+via
 
 <!-- end list -->
 
     install.packages("regnet")
 
-  - [PDF
-    manual](https://cran.r-project.org/web/packages/regnet/regnet.pdf)
+<!-- * [PDF manual](https://cran.r-project.org/web/packages/regnet/regnet.pdf) -->
 
 ## Examples
 
