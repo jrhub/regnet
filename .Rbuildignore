@@ -8,3 +8,4 @@
 ^README-.*\.png$
 ^\.travis\.yml$
 ^\.pdf$
+^CRAN-RELEASE$
