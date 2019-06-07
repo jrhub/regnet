@@ -1,4 +1,4 @@
-# regnet 1.0-0 [2019-6]
+# regnet 0.4.0 [2019-6-7]
 
 Based on users' feedback, we have
 * Added more checking steps for data format, which help users make sure their data are in the correct format.

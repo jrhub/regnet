@@ -33,7 +33,7 @@ NULL
 #' the returned CVM matrix (see the 'Value' section). If you find the default sequence does not work well, you can try (1) standardize
 #' the response vector Y; or (2) provide a customized lamb.1 sequence for your data.
 #'
-#' Sometimes multiple optimal values(pairs) of lambda(s) can be found (see 'Value'). This is usually normal when the response (Y) is binary.
+#' Sometimes multiple optimal values(pairs) of lambda(s) can be found (see 'Value'). This is usually normal when the response is binary.
 #' However, if the response is survival or continuous, you may want to check (1) if the sequence of lambda is too large
 #' (i.e. all coefficients are shrunken to zero under all values of lambda) ; or (2) if the sequence is too small
 #' (i.e. all coefficients are non-zero under all values of lambda). If neither, simply choose the value(pair) of lambda based on your preference.
@@ -55,15 +55,6 @@ NULL
 #' Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., and Wu, C. (2017).
 #' Network-based regularization for high dimensional SNP data in the case-control study of
 #' Type 2 diabetes. \href{https://doi.org/10.1186/s12863-017-0495-5}{\emph{BMC Genetics}, 18(1):44}
-#'
-#' Wu, C, Jiang, Y, Ren, J, Cui, Y, Ma, S. (2018). Dissecting gene-environment interactions: A penalized robust approach accounting for hierarchical structures.
-#' \href{https://doi.org/10.1002/sim.7518}{\emph{Statistics in Medicine}, 37:437–456}
-#'
-#' Wu, C., and Ma, S. (2015). A selective review of robust variable selection with applications in bioinformatics.
-#' \href{http://doi.org/10.1093/bib/bbu046}{\emph{Briefings in Bioinformatics}, 16(5), 873–883}
-#'
-#' Wu, C., Shi, X., Cui, Y. and Ma, S. (2015). A penalized robust semiparametric approach for gene-environment interactions.
-#' \href{https://doi.org/10.1002/sim.6609}{\emph{Statistics in Medicine}, 34 (30): 4016–4030}
 #'
 #' @seealso \code{\link{regnet}}
 #'
@@ -96,7 +87,7 @@ NULL
 #' @export
 
 cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL,
-                      folds=5, r=NULL, clv=NULL, initiation=NULL, alpha.i=1, robust=TRUE, verbo = FALSE)
+                      folds=5, r=NULL, clv=NULL, initiation=NULL, alpha.i=1, robust=FALSE, verbo = FALSE)
 {
   # intercept = TRUE
   standardize=TRUE
@@ -110,6 +101,8 @@ cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), pena
     Y0 = Y[,"time"]
     status = Y[,"status"]
     if(any(Y0<=0)) stop("Survival times need to be positive")
+  }else{
+    if(robust) message("Robust methods are not available for ", response, " response.")
   }
   if(alpha.i>1 | alpha.i<0) stop("alpha.i should be between 0 and 1")
   folds = as.integer(folds)

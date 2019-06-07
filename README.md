@@ -6,6 +6,10 @@
 [![Travis-CI Build
 Status](https://travis-ci.org/jrhub/regnet.svg?branch=master)](https://travis-ci.org/jrhub/regnet)
 [![CRAN](https://www.r-pkg.org/badges/version/regnet)](https://cran.r-project.org/package=regnet)
+[![CRAN RStudio mirror
+downloads](http://cranlogs.r-pkg.org/badges/regnet)](http://www.r-pkg.org/pkg/regnet)
+
+> Network-Based Regularization for Generalized Linear Models
 
 Network-based regularization has achieved success in variable selection
 for high-dimensional biological data due to its ability to incorporate
@@ -35,6 +39,9 @@ versions.
 
     install.packages("regnet")
 
+  - [PDF
+    manual](https://cran.r-project.org/web/packages/regnet/regnet.pdf)
+
 ## Examples
 
 ### Survival response
@@ -49,8 +56,8 @@ clv = c(1:5) # variable 1 to 5 are clinical variables, we choose not to penalize
 out = cv.regnet(X, Y, response="survival", penalty="network", clv=clv, robust=TRUE, verbo = TRUE)
 out$lambda
 b = regnet(X, Y, "survival", "network", out$lambda[1,1], out$lambda[1,2], clv=clv, robust=TRUE)  
-index = which(rgn.surv$beta != 0)  
-pos = which(b != 0)  
+index = which(rgn.surv$beta[-(1:6)] != 0)  # [-(1:6)] removes the intercept and clinical variables that are not subject to selection.
+pos = which(b[-(1:6)] != 0)  
 tp = length(intersect(index, pos))  
 fp = length(pos) - tp  
 list(tp=tp, fp=fp)  
@@ -67,8 +74,8 @@ Y = rgn.logi$Y
 out = cv.regnet(X, Y, response="binary", penalty="network", folds=5, r = 4.5)  
 out$lambda 
 b = regnet(X, Y, "binary", "network", out$lambda[1,1], out$lambda[1,2], r = 4.5)
-index = which(rgn.logi$beta != 0)  
-pos = which(b != 0)  
+index = which(rgn.logi$beta[-1] != 0)   # [-1] removes the intercept
+pos = which(b[-1] != 0)  
 tp = length(intersect(index, pos))  
 fp = length(pos) - tp  
 list(tp=tp, fp=fp)  
@@ -76,7 +83,7 @@ list(tp=tp, fp=fp)
 
 ## News
 
-### regnet 1.0-0 \[2019-6\]
+### regnet 0.4.0 \[2019-6-7\]
 
 Based on users’ feedback, we have
 

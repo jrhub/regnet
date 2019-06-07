@@ -7,7 +7,7 @@
 cv.regnet(X, Y, response = c("binary", "continuous", "survival"),
   penalty = c("network", "mcp", "lasso"), lamb.1 = NULL,
   lamb.2 = NULL, folds = 5, r = NULL, clv = NULL,
-  initiation = NULL, alpha.i = 1, robust = TRUE, verbo = FALSE)
+  initiation = NULL, alpha.i = 1, robust = FALSE, verbo = FALSE)
 }
 \arguments{
 \item{X}{X matrix as in regnet.}
@@ -68,6 +68,7 @@ However, if the response is survival or continuous, you may want to check (1) if
 (i.e. all coefficients are non-zero under all values of lambda). If neither, simply choose the value(pair) of lambda based on your preference.
 }
 \examples{
+\donttest{
 ## Binary response using network method
 data(LogisticExample)
 X = rgn.logi$X
@@ -81,7 +82,6 @@ tp = length(intersect(index, pos))
 fp = length(pos) - tp
 list(tp=tp, fp=fp)
 
-\donttest{
 ## Binary response using MCP method
 out = cv.regnet(X, Y, response="binary", penalty="mcp", folds=5, r = 4.5)
 out$lambda

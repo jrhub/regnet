@@ -46,7 +46,7 @@
 #'
 #' Ren, J., Du, Y., Li, S., Ma, S., Jiang,Y. and Wu, C. (2019). Robust network-based regularization
 #' and variable selection for high dimensional genomics data in cancer prognosis.
-#'\href{https://doi.org/10.1002/gepi.22194}{\emph{Genet. Epidemiol.}, 43:276-291}
+#' \href{https://doi.org/10.1002/gepi.22194}{\emph{Genet. Epidemiol.}, 43:276-291}
 #'
 #' @seealso \code{\link{cv.regnet}}
 #'
@@ -55,7 +55,7 @@
 #' data(SurvExample)
 #' X = rgn.surv$X
 #' Y = rgn.surv$Y
-#' clv = c(1:5) # variable 1 to 5 are clinical variables which we choose not to penalize.
+#' clv = c(1:5) # variables 1 to 5 are clinical variables which we choose not to penalize.
 #' penalty = "network"
 #' b = regnet(X, Y, "survival", penalty, rgn.surv$lamb1, rgn.surv$lamb2, clv=clv, robust=TRUE)
 #' index = which(rgn.surv$beta != 0)
@@ -67,7 +67,7 @@
 #' @export
 
 regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL,
-                   r=NULL, clv=NULL, initiation=NULL, alpha.i=1, robust=TRUE)
+                   r=NULL, clv=NULL, initiation=NULL, alpha.i=1, robust=FALSE)
 {
   # intercept = TRUE
   standardize=TRUE
@@ -84,6 +84,8 @@ regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty
     Y0 = Y[,"time"]
     status = Y[,"status"]
     if(sum(Y0<=0)>0) stop("Survival times need to be positive")
+  }else{
+    if(robust) message("Robust methods are not available for ", response, " response.")
   }
   if(alpha.i>1 | alpha.i<0) stop("alpha.i should be between 0 and 1")
   if(is.null(initiation)){
@@ -96,7 +98,6 @@ regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty
               "binary" = LogitCD(X, Y, penalty, lamb.1, lamb.2, r, alpha, init=initiation, alpha.i,standardize),
               "continuous" = ContCD(X, Y, penalty, lamb.1, lamb.2, clv, r, alpha, init=initiation, alpha.i,standardize),
               "survival" = SurvCD(X, Y0, status, penalty, lamb.1, lamb.2, clv, r, init=initiation, alpha.i, robust, standardize)
-              # "continuous" = NULL
   )
   # fit$call = this.call
   # class(fit) = "regnet"

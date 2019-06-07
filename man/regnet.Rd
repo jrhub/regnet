@@ -7,7 +7,7 @@
 regnet(X, Y, response = c("binary", "continuous", "survival"),
   penalty = c("network", "mcp", "lasso"), lamb.1 = NULL,
   lamb.2 = NULL, r = NULL, clv = NULL, initiation = NULL,
-  alpha.i = 1, robust = TRUE)
+  alpha.i = 1, robust = FALSE)
 }
 \arguments{
 \item{X}{matrix of predictors without intercept. Each row should be an observation vector. A column of 1 will be added to the X matrix
@@ -67,7 +67,7 @@ using the subset of variables that have non-zero coefficients.
 data(SurvExample)
 X = rgn.surv$X
 Y = rgn.surv$Y
-clv = c(1:5) # variable 1 to 5 are clinical variables which we choose not to penalize.
+clv = c(1:5) # variables 1 to 5 are clinical variables which we choose not to penalize.
 penalty = "network"
 b = regnet(X, Y, "survival", penalty, rgn.surv$lamb1, rgn.surv$lamb2, clv=clv, robust=TRUE)
 index = which(rgn.surv$beta != 0)
