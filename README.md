@@ -3,13 +3,16 @@
 
 # regnet
 
+> Regularized Network-Based Variable Selection
+
+<!-- badges: start -->
+
 [![Travis-CI Build
 Status](https://travis-ci.org/jrhub/regnet.svg?branch=master)](https://travis-ci.org/jrhub/regnet)
 [![CRAN](https://www.r-pkg.org/badges/version/regnet)](https://cran.r-project.org/package=regnet)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/regnet)](http://www.r-pkg.org/pkg/regnet)
-
-> Network-Based Regularization for Generalized Linear Models
+<!-- badges: end -->
 
 Network-based regularization has achieved success in variable selection
 for high-dimensional biological data due to its ability to incorporate
