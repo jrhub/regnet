@@ -8,7 +8,8 @@ LogitCD <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lam
   method = substr(penalty, 1, 1)
   #---------------------------------------------- Main Loop -----------------------------------------
   if(standardize) x = scale(x, scale = apply(x, 2, function(t) stats::sd(t)*sqrt((n-1)/n)))
-  if(penalty == "network") a = Adjacency(x) else a = as.matrix(0)
+  # if(penalty == "network") a = Adjacency(x) else a = as.matrix(0)
+  a = Adjacency(x)
   x = cbind(rep(1,n), x)
   init = match.arg(init, choices = c("zero","elnet"))
   if(init == "elnet") b0 = initiation(x, y, alpha.i, "binomial")
@@ -22,5 +23,7 @@ LogitCD <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lam
     names(b) = c("Intercept", paste("v", seq = (1:p), sep=""))
   }
 
-  return(drop(b))
+  # return(drop(b))
+  sub = which(b[-1]!=0)
+  out = list(b=drop(b), Adj=a[sub,sub])
 }

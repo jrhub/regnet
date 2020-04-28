@@ -20,7 +20,8 @@ ContCD <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb
   if(init == "elnet") b0 = initiation(x, y, alpha.i, "gaussian")
 
   x.c=x[, clv, drop = FALSE]; x.g = x[, -clv, drop = FALSE]
-  if(penalty == "network") a = Adjacency(x.g) else a = as.matrix(0)
+  # if(penalty == "network") a = Adjacency(x.g) else a = as.matrix(0)
+  a = Adjacency(x.g)
 
   b = RunCont(x.c, x.g, y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method)
   # residual = y - cbind(x.c, x.g) %*% b
@@ -36,6 +37,8 @@ ContCD <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb
 
   # outlist = list(b=drop(b), residual=residual)
   # return(outlist)
-  return(drop(b))
+  # return(drop(b))
+  sub = which(utils::tail(b,p)!=0)
+  out = list(b=drop(b), Adj=a[sub,sub])
 }
 

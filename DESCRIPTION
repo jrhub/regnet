@@ -16,8 +16,8 @@ Depends: R (>= 3.5.0)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-Imports: glmnet, stats, Rcpp
+Imports: glmnet, stats, Rcpp, igraph, utils
 URL: https://github.com/jrhub/regnet
 BugReports: https://github.com/jrhub/regnet/issues
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 LinkingTo: Rcpp, RcppArmadillo

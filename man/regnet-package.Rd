@@ -29,9 +29,9 @@ clv = c(1:5) # variables 1 to 5 are treated as clinical variables, we choose not
 out = cv.regnet(X, Y, response="survival", penalty="network", clv=clv, robust=TRUE, verbo = TRUE)
 out$lambda
 
-b = regnet(X, Y, "survival", "network", out$lambda[1,1], out$lambda[1,2], clv=clv, robust=TRUE)
+fit = regnet(X, Y, "survival", "network", out$lambda[1,1], out$lambda[1,2], clv=clv, robust=TRUE)
 index = which(rgn.surv$beta[-(1:6)] != 0)  # [-(1:6)] removes the intercept and clinical variables
-pos = which(b[-(1:6)] != 0)
+pos = which(fit$coeff[-(1:6)] != 0)
 tp = length(intersect(index, pos))
 fp = length(pos) - tp
 list(tp=tp, fp=fp)

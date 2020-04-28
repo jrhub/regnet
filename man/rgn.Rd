@@ -5,15 +5,22 @@
 \alias{rgn}
 \alias{rgn.logi}
 \alias{rgn.surv}
-\title{simulated data for demonstrating the features of regnet}
-\format{Each data consists of three components: X, Y, and beta; beta is a vector of the
-true coefficients used to generate Y.}
+\alias{rgn.tcga}
+\title{Example datasets for demonstrating the features of regnet}
+\format{
+"LogisticExample" and "SurvExample" are simulated data. Each data includes three main components: X, Y, and beta; beta is a vector of the
+true coefficients used to generate Y.
+
+"ContExample" is a subset of the skin cutaneous melanoma data from the Cancer Genome Atlas (TCGA). The response variable Y is
+the log-transformed Breslow’s depth. X is a matrix of gene expression data.
+}
 \usage{
 data("LogisticExample")
 data("SurvExample")
+data("ContExample")
 }
 \description{
-Simulated data for demonstrating the features of regnet.
+Example datasets for demonstrating the features of regnet.
 }
 \examples{
 data("LogisticExample")

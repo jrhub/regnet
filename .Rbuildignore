@@ -7,5 +7,5 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^\.travis\.yml$
-^\.pdf$
+^.*[.]pdf$
 ^CRAN-RELEASE$

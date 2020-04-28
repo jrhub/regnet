@@ -32,8 +32,9 @@ SurvCD <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=
     b0 = rep(0, (p+p.c))
   }
 
+  a = Adjacency(x.g)
   if(penalty == "network"){
-    a = Adjacency(x.g)
+    # a = Adjacency(x.g)
     b = RunNetSurv(x.c, x.g, Y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust)
   }else if(penalty == "mcp"){
     b = RunMCPSurv(x.c, x.g, Y, lamb.1, b0[clv], b0[-clv], r, p, p.c, robust)
@@ -50,7 +51,12 @@ SurvCD <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=
   }else{
     names(b) = c("Intercept", paste("clv", seq = (1:(p.c-1)), sep=""), paste("g", seq = (1:p), sep=""))
   }
-  return(drop(b))
+
+  sub = which(utils::tail(b,p)!=0)
+  out = list(b=b, Adj=a[sub,sub])
+
+  # return(drop(b))
+  out
 }
 
 KMweight <- function(X1, Y1, status, robust){

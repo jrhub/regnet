@@ -36,14 +36,11 @@ versions.
 
   - Released versions of regnet are available on R CRAN
     [(link)](https://cran.r-project.org/package=regnet), and can be
-    installed within R
-via
+    installed within R via
 
 <!-- end list -->
 
     install.packages("regnet")
-
-<!-- * [PDF manual](https://cran.r-project.org/web/packages/regnet/regnet.pdf) -->
 
 ## Examples
 
@@ -83,6 +80,21 @@ tp = length(intersect(index, pos))
 fp = length(pos) - tp  
 list(tp=tp, fp=fp)  
 ```
+
+### Continuous response
+
+#### Example.3 (Network graphs)
+
+    data(ContExample)
+    X = rgn.surv$X
+    Y = rgn.surv$Y
+    clv = (1:2)
+    fit = regnet(X, Y, "continuous", "network", rgn.tcga$lamb1, rgn.tcga$lamb2, clv =clv, alpha.i=0.5)
+    plot(fit)
+    plot(fit, subnetworks = TRUE, vsize=20, labelDist = 3, theta = 6) 
+
+![](README-unnamed-chunk-2-1.png)<!-- -->
+![](README-unnamed-chunk-2-2.png)<!-- -->
 
 ## News
 

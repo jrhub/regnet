@@ -27,9 +27,9 @@
 #' @param robust logical flag. Whether or not to use robust methods. Robust methods are only available for survival response.
 #'
 #' @details The current version of regnet supports two types of responses: “binary”, "continuous" and “survival”.
-#' regnet(…, response="binary", penalty="network") fits a network-based penalized logistic regression;
-#' regnet(…, response="continuous", penalty="network") fits a network-based least square regression;
-#' regnet(…, response="survival", penalty="network") fits a robust regularized AFT model using network penalty.
+#' \emph{regnet(…, response="binary", penalty="network")} fits a network-based penalized logistic regression;
+#' \emph{regnet(…, response="continuous", penalty="network")} fits a network-based least square regression;
+#' \emph{regnet(…, response="survival", penalty="network")} fits a robust regularized AFT model using network penalty.
 #' Please see the references for more details of the models. By default, regnet uses robust methods for survival response.
 #' If users would like to use non-robust methods, simply set robust=FALSE. User could also use MCP or Lasso penalty.
 #'
@@ -37,8 +37,10 @@
 #' (using 1/n rather than 1/(n-1) formula). If the coefficients on the original scale are needed, the user can refit a standard model
 #' using the subset of variables that have non-zero coefficients.
 #'
-#' @return a vector of estimated coefficients. Please note that, if there are variables not subject to penalty (indicated by clv),
-#' the order of returned vector is c(Intercept, unpenalized coefficients of clv variables, penalized coefficients of other variables).
+#' @return an object of class "regnet" is returned, which is a list with components:
+#' \item{coeff}{a vector of estimated coefficients. Please note that, if there are variables not subject to penalty (indicated by clv),
+#' the order of returned vector is c(Intercept, unpenalized coefficients of clv variables, penalized coefficients of other variables).}
+#' \item{Adj}{a matrix of adjacency measures of the identified genetic variants. Identified genetic variants are those that have non-zero estimated coefficients.}
 #'
 #' @references Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., and Wu, C. (2017).
 #' Network-based regularization for high dimensional SNP data in the case-control study of
@@ -57,9 +59,9 @@
 #' Y = rgn.surv$Y
 #' clv = c(1:5) # variables 1 to 5 are clinical variables which we choose not to penalize.
 #' penalty = "network"
-#' b = regnet(X, Y, "survival", penalty, rgn.surv$lamb1, rgn.surv$lamb2, clv=clv, robust=TRUE)
+#' fit = regnet(X, Y, "survival", penalty, rgn.surv$lamb1, rgn.surv$lamb2, clv=clv, robust=TRUE)
 #' index = which(rgn.surv$beta != 0)
-#' pos = which(b != 0)
+#' pos = which(fit$coeff != 0)
 #' tp = length(intersect(index, pos))
 #' fp = length(pos) - tp
 #' list(tp=tp, fp=fp)
@@ -94,12 +96,13 @@ regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty
   if(is.null(r)) r = 5
   alpha = alpha.i # temporary
 
-  fit=switch (response,
+  out=switch (response,
               "binary" = LogitCD(X, Y, penalty, lamb.1, lamb.2, r, alpha, init=initiation, alpha.i,standardize),
               "continuous" = ContCD(X, Y, penalty, lamb.1, lamb.2, clv, r, alpha, init=initiation, alpha.i,standardize),
               "survival" = SurvCD(X, Y0, status, penalty, lamb.1, lamb.2, clv, r, init=initiation, alpha.i, robust, standardize)
   )
   # fit$call = this.call
-  # class(fit) = "regnet"
+  fit = list(call = this.call, coeff = out$b, Adj=out$Adj)
+  class(fit) = "regnet"
   fit
 }

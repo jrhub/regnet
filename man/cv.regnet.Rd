@@ -4,10 +4,21 @@
 \alias{cv.regnet}
 \title{k-folds cross-validation for regnet}
 \usage{
-cv.regnet(X, Y, response = c("binary", "continuous", "survival"),
-  penalty = c("network", "mcp", "lasso"), lamb.1 = NULL,
-  lamb.2 = NULL, folds = 5, r = NULL, clv = NULL,
-  initiation = NULL, alpha.i = 1, robust = FALSE, verbo = FALSE)
+cv.regnet(
+  X,
+  Y,
+  response = c("binary", "continuous", "survival"),
+  penalty = c("network", "mcp", "lasso"),
+  lamb.1 = NULL,
+  lamb.2 = NULL,
+  folds = 5,
+  r = NULL,
+  clv = NULL,
+  initiation = NULL,
+  alpha.i = 1,
+  robust = FALSE,
+  verbo = FALSE
+)
 }
 \arguments{
 \item{X}{X matrix as in regnet.}
@@ -75,9 +86,9 @@ X = rgn.logi$X
 Y = rgn.logi$Y
 out = cv.regnet(X, Y, response="binary", penalty="network", folds=5, r = 4.5)
 out$lambda
-b = regnet(X, Y, "binary", "network", out$lambda[1,1], out$lambda[1,2], r = 4.5)
+fit = regnet(X, Y, "binary", "network", out$lambda[1,1], out$lambda[1,2], r = 4.5)
 index = which(rgn.logi$beta != 0)
-pos = which(b != 0)
+pos = which(fit$coeff != 0)
 tp = length(intersect(index, pos))
 fp = length(pos) - tp
 list(tp=tp, fp=fp)
@@ -85,9 +96,9 @@ list(tp=tp, fp=fp)
 ## Binary response using MCP method
 out = cv.regnet(X, Y, response="binary", penalty="mcp", folds=5, r = 4.5)
 out$lambda
-b = regnet(X, Y, "binary", "mcp", out$lambda[1], r = 4.5)
+fit = regnet(X, Y, "binary", "mcp", out$lambda[1], r = 4.5)
 index = which(rgn.logi$beta != 0)
-pos = which(b != 0)
+pos = which(fit$coeff != 0)
 tp = length(intersect(index, pos))
 fp = length(pos) - tp
 list(tp=tp, fp=fp)

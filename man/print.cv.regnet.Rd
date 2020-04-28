@@ -2,19 +2,19 @@
 % Please edit documentation in R/print.regnet.R
 \name{print.cv.regnet}
 \alias{print.cv.regnet}
-\title{print a cv.glmnet object}
+\title{print a cv.regnet object}
 \usage{
 \method{print}{cv.regnet}(x, digits = max(3, getOption("digits") - 3), \dots)
 }
 \arguments{
-\item{x}{cv.glmnet object.}
+\item{x}{cv.regnet object.}
 
 \item{digits}{significant digits in printout.}
 
 \item{...}{other print arguments}
 }
 \description{
-Print a summary of a cv.glmnet object
+Print a summary of a cv.regnet object
 }
 \seealso{
 \code{\link{cv.regnet}}
