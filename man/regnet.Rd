@@ -63,9 +63,11 @@ regnet function. Users could also use MCP or Lasso.
 }
 \details{
 The current version of regnet supports two types of responses: “binary”, "continuous" and “survival”.
-\emph{regnet(…, response="binary", penalty="network")} fits a network-based penalized logistic regression;
-\emph{regnet(…, response="continuous", penalty="network")} fits a network-based least square regression;
-\emph{regnet(…, response="survival", penalty="network")} fits a robust regularized AFT model using network penalty.
+\enumerate{
+\item {regnet(…, response="binary", penalty="network")} fits a network-based penalized logistic regression.
+\item {regnet(…, response="continuous", penalty="network")} fits a network-based least square regression.
+\item {regnet(…, response="survival", penalty="network")} fits a robust regularized AFT model using network penalty.
+}
 Please see the references for more details of the models. By default, regnet uses robust methods for survival response.
 If users would like to use non-robust methods, simply set robust=FALSE. User could also use MCP or Lasso penalty.
 

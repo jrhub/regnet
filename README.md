@@ -34,7 +34,7 @@ versions.
     install.packages("devtools")
     devtools::install_github("jrhub/regnet")
 
-  - Released versions of regnet are available on R CRAN
+  - Released versions of regnet are available on CRAN
     [(link)](https://cran.r-project.org/package=regnet), and can be
     installed within R via
 
@@ -91,7 +91,7 @@ list(tp=tp, fp=fp)
     clv = (1:2)
     fit = regnet(X, Y, "continuous", "network", rgn.tcga$lamb1, rgn.tcga$lamb2, clv =clv, alpha.i=0.5)
     plot(fit)
-    plot(fit, subnetworks = TRUE, vsize=20, labelDist = 3, theta = 6) 
+    plot(fit, subnetworks = TRUE, vsize=20, labelDist = 3, theta = 5) 
 
 ![](README-unnamed-chunk-2-1.png)<!-- -->
 ![](README-unnamed-chunk-2-2.png)<!-- -->

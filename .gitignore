@@ -3,7 +3,6 @@
 .Rhistory
 .RData
 .Ruserdata
-*.pdf
 *.Rmd
 data-raw/*.*
 cran-comments.md
