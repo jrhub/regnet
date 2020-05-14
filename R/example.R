@@ -5,11 +5,12 @@
 #' @docType data
 #' @keywords datasets
 #' @name rgn
-#' @aliases rgn.logi rgn.surv rgn.tcga
+#' @aliases rgn.logi rgn.surv rgn.tcga rgn.htr
 #' @usage data("LogisticExample")
 #' data("SurvExample")
 #' data("ContExample")
-#' @format "LogisticExample" and "SurvExample" are simulated data. Each data includes three main components: X, Y, and beta; beta is a vector of the
+#' data("HeteroExample")
+#' @format "LogisticExample", "SurvExample" and "HeteroExample" are simulated data. Each data includes three main components: X, Y, and beta; beta is a vector of the
 #' true coefficients used to generate Y.
 #'
 #' "ContExample" is a subset of the skin cutaneous melanoma data from the Cancer Genome Atlas (TCGA). The response variable Y is

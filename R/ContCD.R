@@ -1,6 +1,6 @@
 
 ContCD <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL, clv=NULL, r=5, alpha=1,
-                    init=NULL, alpha.i=1, standardize=TRUE)
+                    init=NULL, alpha.i=1, robust=FALSE, standardize=TRUE)
 {
   intercept = TRUE
   if(is.null(clv)){
@@ -23,8 +23,12 @@ ContCD <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb
   # if(penalty == "network") a = Adjacency(x.g) else a = as.matrix(0)
   a = Adjacency(x.g)
 
-  b = RunCont(x.c, x.g, y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method)
-  # residual = y - cbind(x.c, x.g) %*% b
+  RunCont_robust
+  if(robust){
+    b = RunCont_robust(x.c, x.g, y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method)
+  }else{
+    b = RunCont(x.c, x.g, y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method)
+  }
   b = as.numeric(b)
   vname = colnames(X)
   if(!is.null(vname)){
@@ -35,9 +39,6 @@ ContCD <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb
     names(b) = c("Intercept", paste("clv", seq = (1:(p.c-1)), sep=""), paste("g", seq = (1:p), sep=""))
   }
 
-  # outlist = list(b=drop(b), residual=residual)
-  # return(outlist)
-  # return(drop(b))
   sub = which(utils::tail(b,p)!=0)
   out = list(b=drop(b), Adj=a[sub,sub])
 }

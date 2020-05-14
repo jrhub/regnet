@@ -7,6 +7,10 @@
 using namespace Rcpp;
 using namespace arma;
 
-arma::vec RunCont(arma::mat& xc, arma::mat& xg, arma::vec& y, double lamb1, double lamb2, 
-					arma::vec bc0, arma::vec bg0, double r, arma::mat& a, int p, int pc, char method);
+arma::vec RunCont(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, double lamb1, double lamb2, 
+					arma::vec bc0, arma::vec bg0, double r, arma::mat const &a, int p, int pc, char method);
+					
+arma::vec RunCont_robust(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, double lamb1, double lamb2, 
+					arma::vec bc0, arma::vec bg0, double r, arma::mat const &a, int p, int pc, char method);
+					
 #endif

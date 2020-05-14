@@ -8,8 +8,8 @@ using namespace arma;
 //using namespace R;
           
 // [[Rcpp::export()]]
-arma::mat NetGrid(arma::mat& xc, arma::mat& xg, arma::vec& y, arma::mat& x2, arma::vec& y2, arma::vec lamb1, arma::vec lamb2, 
-                    arma::vec bc, arma::vec bg, double r, arma::mat& a, int p, int pc, bool robust)
+arma::mat NetGrid(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, arma::mat const &x2, arma::vec const &y2, arma::vec lamb1, arma::vec lamb2, 
+                    arma::vec bc, arma::vec bg, double r, arma::mat const &a, int p, int pc, bool robust)
 {
 	arma::vec bnet((pc+p), fill::zeros);
     arma::mat CVM(lamb1.n_elem, lamb2.n_elem, fill::zeros);
@@ -22,6 +22,7 @@ arma::mat NetGrid(arma::mat& xc, arma::mat& xg, arma::vec& y, arma::mat& x2, arm
 			}else{
 				CVM(i, j) = validation_LS(x2, y2, bnet);
 			}
+			Rcpp::checkUserInterrupt();
 		}
         //std::cout << "bc: "<< bnet.subvec(0, pc-1) << std::endl;
 	}
@@ -31,7 +32,7 @@ arma::mat NetGrid(arma::mat& xc, arma::mat& xg, arma::vec& y, arma::mat& x2, arm
 
 
 // [[Rcpp::export()]]
-arma::vec MCPGrid(arma::mat& xc, arma::mat& xg, arma::vec& y, arma::mat& x2, arma::vec& y2, arma::vec lamb1,
+arma::vec MCPGrid(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, arma::mat const &x2, arma::vec const &y2, arma::vec lamb1,
                     arma::vec bc, arma::vec bg, double r, int p, int pc, bool robust)
 {
 	arma::vec b((pc+p), fill::zeros);
@@ -43,12 +44,13 @@ arma::vec MCPGrid(arma::mat& xc, arma::mat& xg, arma::vec& y, arma::mat& x2, arm
         }else{
             CVM(i) = validation_LS(x2, y2, b);
         }
+		Rcpp::checkUserInterrupt();
     }
     return CVM;
 }
 
 // [[Rcpp::export()]]
-arma::vec LassoGrid(arma::mat& xc, arma::mat& xg, arma::vec& y, arma::mat& x2, arma::vec& y2, arma::vec lamb1,
+arma::vec LassoGrid(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, arma::mat const &x2, arma::vec const &y2, arma::vec lamb1,
                     arma::vec bc, arma::vec bg, int p, int pc, bool robust)
 {
 	arma::vec b((pc+p), fill::zeros);
@@ -60,6 +62,7 @@ arma::vec LassoGrid(arma::mat& xc, arma::mat& xg, arma::vec& y, arma::mat& x2, a
         }else{
             CVM(i) = validation_LS(x2, y2, b);
         }
+		Rcpp::checkUserInterrupt();
     }
     return CVM;
 }

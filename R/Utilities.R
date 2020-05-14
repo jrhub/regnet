@@ -6,10 +6,10 @@ lambda.e = rev(exp(seq(1,45,1)/4 -9))
 lambda.l = rev(exp(seq(1,45,1)/4 -9))
 
 initiation <- function(x, y, alpha, family="gaussian"){
-  lasso.cv <- glmnet::cv.glmnet(x,y, family=family, alpha=alpha, nfolds=5, intercept=FALSE)
+  lasso.cv <- glmnet::cv.glmnet(x,y, family=family, alpha=alpha, nfolds=5)
   lambda <- lasso.cv$lambda.min
-  lasso.fit <- glmnet::glmnet(x, y, family, alpha=alpha, nlambda=50, intercept=FALSE)
-  coef0 <- as.vector(stats::predict(lasso.fit, s=lambda, type="coefficients", intercept=FALSE))[-1]
+  lasso.fit <- glmnet::glmnet(x, y, family, alpha=alpha, nlambda=50)
+  coef0 <- as.vector(stats::predict(lasso.fit, s=lambda, type="coefficients"))[-1]
 }
 
 initiation_cox <- function(x, y0, d){

@@ -3,7 +3,7 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
                     init=NULL, alpha.i=1, robust=TRUE, standardize=TRUE, verbo = FALSE)
 {
   intercept = TRUE
-  status = as.numeric(status)
+  # status = as.numeric(status)
   if(is.null(clv)){
     clv = intercept*1
   }else{
@@ -13,7 +13,7 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
   n = nrow(X0); p.c = length(clv); p = ncol(X0)-p.c+intercept;
   if(standardize){
     V0 = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0]=1
-    X1 = scale(X0, center = FALSE, scale = V0)
+    X1 = scale(X0, center = TRUE, scale = V0)
   }
   if(intercept) X1 = cbind(Intercept = rep(1, n), X1)
   Y1 = Y0
@@ -25,10 +25,11 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
 
   if(is.null(lamb.1)){
     u=abs(t(X) %*% Y)
+    if(!robust && penalty!="network") u=u/sqrt(n)
     LL = log(stats::quantile(u, 0.1)); UL = log(max(u))
-    lamb.1 = rev(exp(seq(LL,UL,length.out = 30)))
+    lamb.1 = rev(exp(seq(LL,UL,length.out = 35)))
   }
-  # if(penalty != "network") lamb.2 = 0
+
   if(is.null(lamb.2)){
     if(robust){
       lamb.2 = c(0.001, 0.01, 0.1, 1)
@@ -38,6 +39,14 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
   }
   rs <- sample(c(1:n))
   CVM = matrix(0, length(lamb.1), length(lamb.2));
+  if(init == "cox"){
+    b0 = initiation_cox(out$Xo, out$Yo, out$So)
+  } else if(init == "elnet"){
+    b0 = initiation(X, Y, alpha.i)
+  } else{
+    b0 = rep(0, (p+p.c))
+  }
+  a = Adjacency(X[,-clv,drop=FALSE])
   #---------------------------------------------- Main Loop -----------------------------------------
   for(f in 1:folds){
     if(verbo) cat("CrossValidation: ",f, "/", folds, "\n")
@@ -47,19 +56,19 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
     x = X[-test,]; y = Y[-test];
     x2 = X[test,]; y2 = Y[test]
 
-    if(init == "cox"){
-      b0 = initiation_cox(out$Xo[-test,], out$Yo[-test], out$So[-test])
-    } else if(init == "elnet"){
-      b0 = initiation(x, y, alpha.i)
-    } else{
-      b0 = rep(0, (p+p.c))
-    }
+    # if(init == "cox"){
+    #   b0 = initiation_cox(out$Xo[-test,], out$Yo[-test], out$So[-test])
+    # } else if(init == "elnet"){
+    #   b0 = initiation(x, y, alpha.i)
+    # } else{
+    #   b0 = rep(0, (p+p.c))
+    # }
 
     x.c=x[, clv, drop = FALSE]; x.g = x[, -clv, drop = FALSE];
     x2 = cbind(x2[,clv], x2[,-clv])
 
     if(penalty == "network"){
-      a = Adjacency(x.g)
+      # a = Adjacency(x.g)
       CVM = CVM + NetGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust)
     }else if(penalty == "mcp"){
       CVM = CVM + MCPGrid(x.c, x.g, y, x2, y2, lamb.1, b0[clv], b0[-clv], r, p, p.c, robust)

@@ -101,9 +101,9 @@ cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), pena
     Y0 = Y[,"time"]
     status = Y[,"status"]
     if(any(Y0<=0)) stop("Survival times need to be positive")
-  }else{
-    if(robust) message("Robust methods are not available for ", response, " response.")
   }
+  if(response=="binary" && robust) message("Robust methods are not available for ", response, " response.")
+  # if(any(apply(X,2,sd)==0)) stop("X has columns with 0 variance.")
   if(alpha.i>1 | alpha.i<0) stop("alpha.i should be between 0 and 1")
   folds = as.integer(folds)
   if(folds<2 | folds>ncol(X)) stop("incorrect value of folds")
@@ -116,7 +116,7 @@ cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), pena
 
   fit=switch (response,
     "binary" = CV.Logit(X, Y, penalty, lamb.1, lamb.2, folds, r, alpha, init=initiation, alpha.i, standardize, verbo),
-    "continuous" = CV.Cont(X, Y, penalty, lamb.1, lamb.2, folds, clv=clv, r, alpha, init=initiation, alpha.i, standardize, verbo),
+    "continuous" = CV.Cont(X, Y, penalty, lamb.1, lamb.2, folds, clv=clv, r, alpha, init=initiation, alpha.i, robust, standardize, verbo),
     "survival" = CV.Surv(X, Y0, status, penalty, lamb.1, lamb.2, clv=clv, folds, r, init=initiation, alpha.i, robust, standardize, verbo)
   )
   fit$call = this.call

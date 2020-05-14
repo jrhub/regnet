@@ -6,9 +6,10 @@
 \alias{rgn.logi}
 \alias{rgn.surv}
 \alias{rgn.tcga}
+\alias{rgn.htr}
 \title{Example datasets for demonstrating the features of regnet}
 \format{
-"LogisticExample" and "SurvExample" are simulated data. Each data includes three main components: X, Y, and beta; beta is a vector of the
+"LogisticExample", "SurvExample" and "HeteroExample" are simulated data. Each data includes three main components: X, Y, and beta; beta is a vector of the
 true coefficients used to generate Y.
 
 "ContExample" is a subset of the skin cutaneous melanoma data from the Cancer Genome Atlas (TCGA). The response variable Y is
@@ -18,6 +19,7 @@ the log-transformed Breslow’s depth. X is a matrix of gene expression data.
 data("LogisticExample")
 data("SurvExample")
 data("ContExample")
+data("HeteroExample")
 }
 \description{
 Example datasets for demonstrating the features of regnet.

@@ -3,7 +3,7 @@
 #include"SurvCD.h"
 #include"QR.h"
 #include"Robust.h"
-#include"NonRobust.h"
+#include"ContCD.h"
 #include"Utilities.h"
 
 using namespace Rcpp;
@@ -11,8 +11,8 @@ using namespace arma;
 //using namespace R;
 
 // [[Rcpp::export()]]
-arma::vec RunNetSurv(arma::mat& xc, arma::mat& xg, arma::vec& y, double lamb1, double lamb2, arma::vec bc0, arma::vec bg0, 
-            double r, arma::mat& a, int p, int pc, bool robust)
+arma::vec RunNetSurv(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, double lamb1, double lamb2, arma::vec bc0, arma::vec bg0, 
+            double r, arma::mat const &a, int p, int pc, bool robust)
 {
   int n = xc.n_rows, count = 0;
   arma::vec bnew(p, fill::zeros), yc, yg, bc = bc0, bg = bg0;
@@ -28,10 +28,10 @@ arma::vec RunNetSurv(arma::mat& xc, arma::mat& xg, arma::vec& y, double lamb1, d
     }else{
       bc = fastLm(yc, xc);
       yg = y - xc * bc;
-      bnew = LSNet(xg, yg, lamb1, lamb2, bg, r, a, n, p);
+      bnew = ContNet(xg, yg, lamb1, lamb2, bg, r, a, n, p);
     }
     
-    diff = arma::accu(arma::abs(bg - bnew));
+    diff = arma::accu(arma::abs(bg - bnew))/(arma::accu(bg != 0)+0.1);
     if(diff < 0.001) break;
     else{
       bg = bnew;
@@ -47,7 +47,7 @@ arma::vec RunNetSurv(arma::mat& xc, arma::mat& xg, arma::vec& y, double lamb1, d
 
 
 // [[Rcpp::export()]]
-arma::vec RunMCPSurv(arma::mat xc, arma::mat xg, arma::vec y, double lamb1, arma::vec bc, arma::vec bg, double r, int p, int pc, bool robust)
+arma::vec RunMCPSurv(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, double lamb1, arma::vec bc, arma::vec bg, double r, int p, int pc, bool robust)
 {
   int n = xc.n_rows, count = 0;
   arma::vec bnew(p, fill::zeros), yc, yg;
@@ -62,9 +62,9 @@ arma::vec RunMCPSurv(arma::mat xc, arma::mat xg, arma::vec y, double lamb1, arma
     }else{
       bc = fastLm(yc, xc);
       yg = y - xc * bc;
-      bnew = LSMCP(xg, yg, lamb1, bg, r, n, p);
+      bnew = ContMCP(xg, yg, lamb1, bg, r, n, p);
     }
-    double diff = arma::accu(arma::abs(bg - bnew));
+    double diff = arma::accu(arma::abs(bg - bnew))/(arma::accu(bg != 0)+0.1);
     //std::cout << "diff: " << diff <<std::endl;
     if(diff < 0.001) break;
     else{
@@ -80,7 +80,7 @@ arma::vec RunMCPSurv(arma::mat xc, arma::mat xg, arma::vec y, double lamb1, arma
 
 
 // [[Rcpp::export()]]
-arma::vec RunLassoSurv(arma::mat xc, arma::mat xg, arma::vec y, double lamb1, arma::vec bc, arma::vec bg, int p, int pc, bool robust)
+arma::vec RunLassoSurv(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, double lamb1, arma::vec bc, arma::vec bg, int p, int pc, bool robust)
 {
   int n = xc.n_rows, count = 0;
   arma::vec bnew(p, fill::zeros), yc, yg;
@@ -94,9 +94,9 @@ arma::vec RunLassoSurv(arma::mat xc, arma::mat xg, arma::vec y, double lamb1, ar
     }else{
       bc = fastLm(yc, xc);
       yg = y - xc * bc;
-      bnew = LSLasso(xg, yg, lamb1, bg, n, p);
+      bnew = ContLasso(xg, yg, lamb1, bg, n, p);
     }
-    double diff = arma::accu(arma::abs(bg - bnew));
+    double diff = arma::accu(arma::abs(bg - bnew))/(arma::accu(bg != 0)+0.1);
     //std::cout << "diff: " << diff <<std::endl;
     if(diff < 0.001) break;
     else{

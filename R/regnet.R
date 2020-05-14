@@ -86,11 +86,10 @@ regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty
     if(ncol(Y) != 2) stop("Y should be a two-column matrix")
     if(!setequal(colnames(Y), c("time", "status"))) stop("Y should be a two-column matrix with columns named 'time' and 'status'")
     Y0 = Y[,"time"]
-    status = Y[,"status"]
+    status = as.numeric(Y[,"status"])
     if(sum(Y0<=0)>0) stop("Survival times need to be positive")
-  }else{
-    if(robust) message("Robust methods are not available for ", response, " response.")
   }
+  if(response=="binary" && robust) message("Robust methods are not available for ", response, " response.")
   if(alpha.i>1 | alpha.i<0) stop("alpha.i should be between 0 and 1")
   if(is.null(initiation)){
     if(response == "survival") initiation = "zero" else initiation = "elnet"
@@ -100,7 +99,7 @@ regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty
 
   out=switch (response,
               "binary" = LogitCD(X, Y, penalty, lamb.1, lamb.2, r, alpha, init=initiation, alpha.i,standardize),
-              "continuous" = ContCD(X, Y, penalty, lamb.1, lamb.2, clv, r, alpha, init=initiation, alpha.i,standardize),
+              "continuous" = ContCD(X, Y, penalty, lamb.1, lamb.2, clv, r, alpha, init=initiation, alpha.i, robust, standardize),
               "survival" = SurvCD(X, Y0, status, penalty, lamb.1, lamb.2, clv, r, init=initiation, alpha.i, robust, standardize)
   )
   # fit$call = this.call

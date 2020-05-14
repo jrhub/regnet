@@ -6,7 +6,7 @@ using namespace Rcpp;
 using namespace arma;
 
 
-arma::vec QRWMR(const arma::mat& x, const arma::vec& y, arma::vec b)
+arma::vec QRWMR(arma::mat const &x, arma::vec const &y, arma::vec b)
 {
   int p = x.n_cols, n = x.n_rows;
   arma::vec t = y - x * b;
