@@ -1,3 +1,6 @@
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::depends(RcppThread)]]
+#include <RcppThread.h>
 #include<RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 #include"ContCD.h"
@@ -15,7 +18,7 @@ arma::vec RunCont(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, 
 {
   int count = 0, n = xc.n_rows;
   arma::vec bnew(p, fill::none), yc, yg; // bc = bc0, bg = bg0;
-  
+
   while(count < 20){
 	yc = y - xg * bg;
 	bc = fastLm(yc, xc);
@@ -48,7 +51,7 @@ arma::vec RunCont_robust(arma::mat const &xc, arma::mat const &xg, arma::vec con
 {
   int count = 0, n = xc.n_rows;
   arma::vec bnew(p, fill::none), yc, yg; // bc = bc0, bg = bg0;
-  
+
   while(count < 20){
 	yc = y - xg * bg;
 	bc = QRWMR(xc, yc, bc);

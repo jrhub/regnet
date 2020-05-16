@@ -20,4 +20,4 @@ Imports: glmnet, stats, Rcpp, igraph, utils
 URL: https://github.com/jrhub/regnet
 BugReports: https://github.com/jrhub/regnet/issues
 RoxygenNote: 7.1.0
-LinkingTo: Rcpp, RcppArmadillo
+LinkingTo: Rcpp, RcppArmadillo, RcppThread

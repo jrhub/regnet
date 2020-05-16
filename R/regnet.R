@@ -27,7 +27,7 @@
 #' @param robust logical flag. Whether or not to use robust methods. Robust methods are only available for survival response.
 #'
 #' @details The current version of regnet supports two types of responses: “binary”, "continuous" and “survival”.
-#' \enumerate{
+#' \itemize{
 #' \item {regnet(…, response="binary", penalty="network")} fits a network-based penalized logistic regression.
 #' \item {regnet(…, response="continuous", penalty="network")} fits a network-based least square regression.
 #' \item {regnet(…, response="survival", penalty="network")} fits a robust regularized AFT model using network penalty.
@@ -88,8 +88,12 @@ regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty
     Y0 = Y[,"time"]
     status = as.numeric(Y[,"status"])
     if(sum(Y0<=0)>0) stop("Survival times need to be positive")
+    if(!all(status%in% c(0,1))) stop("status has to be a binary variable of 1 and 0.")
   }
-  if(response=="binary" && robust) message("Robust methods are not available for ", response, " response.")
+  if(response=="binary"){
+    if(!all(Y%in% c(0,1))) stop("Y has to be a binary variable of 1 and 0.")
+    if(robust) message("Robust methods are not available for ", response, " response.")
+  }
   if(alpha.i>1 | alpha.i<0) stop("alpha.i should be between 0 and 1")
   if(is.null(initiation)){
     if(response == "survival") initiation = "zero" else initiation = "elnet"

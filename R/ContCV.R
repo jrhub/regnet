@@ -1,13 +1,7 @@
 
 CV.Cont <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL, folds=5, clv=NULL,
-                    r=5, alpha=1, init=NULL, alpha.i=1, robust=FALSE, standardize=TRUE, verbo = FALSE)
+                    r=5, alpha=1, init=NULL, alpha.i=1, robust=FALSE, standardize=TRUE, ncores=1, verbo = FALSE)
 {
-  # if(is.null(lamb.1)){
-  #   lamb.1 = switch (penalty,
-  #                    "network" = lambda.n,
-  #                    "mcp" = lambda.m,
-  #                    "lasso" = lambda.l)
-  # }
   intercept = TRUE
   if(is.null(clv)){
     clv = intercept*1
@@ -41,6 +35,10 @@ CV.Cont <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lam
   CVM = matrix(0, length(lamb.1), length(lamb.2))
   method = substr(penalty, 1, 1)
   if(penalty == "network") a = Adjacency(cbind(1, X)[,-clv,drop=FALSE]) else a = as.matrix(0)
+
+  # # OpenMP
+  # Sys.setenv("PKG_CXXFLAGS" = "-fopenmp")
+  # Sys.setenv("PKG_LIBS" = "-fopenmp")
   #---------------------------------------------- Main Loop -----------------------------------------
   for(f in 1:folds){
     if(verbo) cat("CrossValidation: ",f, "/", folds, "\n")
@@ -61,8 +59,11 @@ CV.Cont <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lam
     x.c=x[, clv, drop = FALSE]; x.g = x[, -clv, drop = FALSE];
     x2 = cbind(x2[,clv, drop = FALSE], x2[,-clv, drop = FALSE])
     # if(penalty == "network") a = Adjacency(x.g) else a = as.matrix(0)
-    CVM = CVM + ContGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method)
-
+    if(ncores>1){
+      CVM = CVM + ContGrid_MC(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, ncores)
+    }else{
+      CVM = CVM + ContGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method)
+    }
   }
   CVM = CVM/n
   mcvm = min(CVM)

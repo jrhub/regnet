@@ -39,14 +39,15 @@ plot.regnet=function(x, subnetworks=FALSE, vsize=10, labelDist=2, minVertices=2,
 
   if(!subnetworks){
     plot(net0, vertex.size=vsize, edge.color="gray40", vertex.label=NA)
-    return(net0)
+    net0
   }else{
     nets = igraph::decompose.graph(net0, mode="weak", min.vertices = minVertices)
     largest = 0
+    if(length(nets)==0) return(NULL)
     for(i in 1: length(nets)){
         plot(nets[[i]], vertex.size=vsize, vertex.label.dist=labelDist, edge.width	= theta*(igraph::E(nets[[i]])$weight),
              edge.color="gray75", main = paste("sub-network ",i))
     }
-    return(nets)
+    nets
   }
 }

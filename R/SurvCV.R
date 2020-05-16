@@ -1,9 +1,8 @@
 
-CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL, clv=NULL, folds=5, r=5,
-                    init=NULL, alpha.i=1, robust=TRUE, standardize=TRUE, verbo = FALSE)
+CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL, folds=5, clv=NULL, r=5,
+                    init=NULL, alpha.i=1, robust=TRUE, standardize=TRUE, ncores, verbo = FALSE)
 {
   intercept = TRUE
-  # status = as.numeric(status)
   if(is.null(clv)){
     clv = intercept*1
   }else{
@@ -69,11 +68,11 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
 
     if(penalty == "network"){
       # a = Adjacency(x.g)
-      CVM = CVM + NetGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust)
+      CVM = CVM + NetGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, ncores)
     }else if(penalty == "mcp"){
-      CVM = CVM + MCPGrid(x.c, x.g, y, x2, y2, lamb.1, b0[clv], b0[-clv], r, p, p.c, robust)
+      CVM = CVM + MCPGrid(x.c, x.g, y, x2, y2, lamb.1, b0[clv], b0[-clv], r, p, p.c, robust, ncores)
     }else{
-      CVM = CVM + LassoGrid(x.c, x.g, y, x2, y2, lamb.1, b0[clv], b0[-clv], p, p.c, robust)
+      CVM = CVM + LassoGrid(x.c, x.g, y, x2, y2, lamb.1, b0[clv], b0[-clv], p, p.c, robust, ncores)
     }
 
   }

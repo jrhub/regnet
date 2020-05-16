@@ -17,6 +17,7 @@ cv.regnet(
   initiation = NULL,
   alpha.i = 1,
   robust = FALSE,
+  ncores = 1,
   verbo = FALSE
 )
 }
@@ -52,6 +53,8 @@ coefficients, alpha.i will be ignored.}
 
 \item{robust}{logical flag. Whether or not to use robust methods. Robust methods are only available for survival response
 in the current version of regnet.}
+
+\item{ncores}{the number of cores to be used for parallelization.}
 
 \item{verbo}{output progress to the console.}
 }

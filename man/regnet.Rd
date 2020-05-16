@@ -63,7 +63,7 @@ regnet function. Users could also use MCP or Lasso.
 }
 \details{
 The current version of regnet supports two types of responses: “binary”, "continuous" and “survival”.
-\enumerate{
+\itemize{
 \item {regnet(…, response="binary", penalty="network")} fits a network-based penalized logistic regression.
 \item {regnet(…, response="continuous", penalty="network")} fits a network-based least square regression.
 \item {regnet(…, response="survival", penalty="network")} fits a robust regularized AFT model using network penalty.

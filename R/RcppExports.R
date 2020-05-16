@@ -5,8 +5,12 @@ ContGrid <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc0, bg0, r, a, p, pc, rob
     .Call(`_regnet_ContGrid`, xc, xg, y, x2, y2, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method)
 }
 
-LogitGrid <- function(x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method) {
-    .Call(`_regnet_LogitGrid`, x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method)
+ContGrid_MC <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method, ncores) {
+    .Call(`_regnet_ContGrid_MC`, xc, xg, y, x2, y2, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method, ncores)
+}
+
+LogitGrid <- function(x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method, ncores) {
+    .Call(`_regnet_LogitGrid`, x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method, ncores)
 }
 
 RunCont <- function(xc, xg, y, lamb1, lamb2, bc, bg, r, a, p, pc, method) {
@@ -45,15 +49,15 @@ RunLassoSurv <- function(xc, xg, y, lamb1, bc, bg, p, pc, robust) {
     .Call(`_regnet_RunLassoSurv`, xc, xg, y, lamb1, bc, bg, p, pc, robust)
 }
 
-NetGrid <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust) {
-    .Call(`_regnet_NetGrid`, xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust)
+NetGrid <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, ncores) {
+    .Call(`_regnet_NetGrid`, xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, ncores)
 }
 
-MCPGrid <- function(xc, xg, y, x2, y2, lamb1, bc, bg, r, p, pc, robust) {
-    .Call(`_regnet_MCPGrid`, xc, xg, y, x2, y2, lamb1, bc, bg, r, p, pc, robust)
+MCPGrid <- function(xc, xg, y, x2, y2, lamb1, bc, bg, r, p, pc, robust, ncores) {
+    .Call(`_regnet_MCPGrid`, xc, xg, y, x2, y2, lamb1, bc, bg, r, p, pc, robust, ncores)
 }
 
-LassoGrid <- function(xc, xg, y, x2, y2, lamb1, bc, bg, p, pc, robust) {
-    .Call(`_regnet_LassoGrid`, xc, xg, y, x2, y2, lamb1, bc, bg, p, pc, robust)
+LassoGrid <- function(xc, xg, y, x2, y2, lamb1, bc, bg, p, pc, robust, ncores) {
+    .Call(`_regnet_LassoGrid`, xc, xg, y, x2, y2, lamb1, bc, bg, p, pc, robust, ncores)
 }
 
