@@ -18,8 +18,7 @@
 #' @param r the regularization parameter in MCP. For binary response, r should be larger than 4.
 #' @param clv a value or a vector, indexing variables that are not subject to penalty. clv only works for continuous and survival responses
 #' for now, and will be ignored for other types of responses.
-#' @param initiation method for initiating the coefficient vector. For binary and continuous response, the default is elastic-net,
-#' and for survival response the default is zero.
+#' @param initiation method for initiating the coefficient vector. The default method is elastic-net.
 #' @param alpha.i the elastic-net mixing parameter. The program can use the elastic-net for choosing initial values of
 #' the coefficient vector. alpha.i is the elastic-net mixing parameter, with 0 \eqn{\le} alpha.i \eqn{\le} 1. alpha.i=1 is the
 #' lasso penalty, and alpha.i=0 is the ridge penalty. If the user chooses a method other than elastic-net for initializing
@@ -95,9 +94,9 @@ regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty
     if(robust) message("Robust methods are not available for ", response, " response.")
   }
   if(alpha.i>1 | alpha.i<0) stop("alpha.i should be between 0 and 1")
-  if(is.null(initiation)){
-    if(response == "survival") initiation = "zero" else initiation = "elnet"
-  }
+  # if(is.null(initiation)){
+  #   if(response == "survival") initiation = "zero" else initiation = "elnet"
+  # }
   if(is.null(r)) r = 5
   alpha = alpha.i # temporary
 

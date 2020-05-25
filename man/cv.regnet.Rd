@@ -43,8 +43,7 @@ among coefficient profiles. If it is left as NULL, a default sequence will be us
 \item{clv}{a value or a vector, indexing variables that are not subject to penalty. clv only works for continuous and survival responses for now,
 and will be ignored for other types of responses.}
 
-\item{initiation}{the method for initiating the coefficient vector. For binary and continuous response, the default is elastic-net,
-and for survival response the default is zero.}
+\item{initiation}{the method for initiating the coefficient vector. The default method is elastic-net.}
 
 \item{alpha.i}{the elastic-net mixing parameter. The program can use the elastic-net for choosing initial values of
 the coefficient vector. alpha.i is the elastic-net mixing parameter, with 0 \eqn{\le} alpha.i \eqn{\le} 1. alpha.i=1 is the

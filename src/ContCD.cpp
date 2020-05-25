@@ -11,7 +11,8 @@ arma::vec ContNet(arma::mat const &x, arma::vec const &y, double lam1, double la
   arma::vec t = y - x * b;
   for(int m = 0; m < p; m++){
     t += x.col(m) * b(m);
-    double inp = arma::accu(square(x.col(m)))/n, net1 = 0, net2 = 0;
+    // double inp = arma::accu(square(x.col(m)))/n, net1 = 0, net2 = 0;
+	double inp = arma::dot(x.col(m),x.col(m))/n, net1 = 0, net2 = 0;
     if(m < p-1){
       net1 = lam2 * as_scalar(a.row(m).subvec(m+1, p-1) * b.subvec(m+1, p-1));
       net2 = lam2 * arma::accu(arma::abs(a.row(m).subvec(m+1, p-1)));

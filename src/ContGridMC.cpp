@@ -31,7 +31,6 @@ arma::mat ContGrid_MC(arma::mat const &xc, arma::mat const &xg, arma::vec const 
 			btmp = RunCont(xc, xg, y, lamb1(i), lamb2(j), bc0, bg0, r, a, p, pc, method);
 			CVM(i, j) = validation_LS(x2, y2, btmp);
 		}
-		if(ncores == 1) RcppThread::checkUserInterrupt();
     }
 	// RcppThread::checkUserInterrupt();
   }

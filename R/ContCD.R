@@ -16,14 +16,13 @@ ContCD <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb
   #---------------------------------------------- Main Loop -----------------------------------------
   if(standardize) x = scale(x, scale = apply(x, 2, function(t) stats::sd(t)*sqrt((n-1)/n)))
   x = cbind(1, x)
-  init = match.arg(init, choices = c("zero","elnet"))
+  init = match.arg(init, choices = c("elnet","zero"))
   if(init == "elnet") b0 = initiation(x, y, alpha.i, "gaussian")
 
   x.c=x[, clv, drop = FALSE]; x.g = x[, -clv, drop = FALSE]
   # if(penalty == "network") a = Adjacency(x.g) else a = as.matrix(0)
   a = Adjacency(x.g)
 
-  RunCont_robust
   if(robust){
     b = RunCont_robust(x.c, x.g, y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method)
   }else{

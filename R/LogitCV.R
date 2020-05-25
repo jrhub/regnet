@@ -9,7 +9,7 @@ CV.Logit <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, la
                      "lasso" = lambda.l)
   }
   if(is.null(lamb.2)) lamb.2 = c(0.1, 1, 10)
-  init = match.arg(init, choices = c("zero","elnet"))
+  init = match.arg(init, choices = c("elnet","zero"))
 
   n = nrow(X); p = ncol(X);
   X = as.matrix(X); Y = as.matrix(Y)

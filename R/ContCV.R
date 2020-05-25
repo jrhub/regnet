@@ -29,7 +29,7 @@ CV.Cont <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lam
     lamb.1 = rev(exp(seq(LL,UL,length.out = 50)))
   }
 
-  init = match.arg(init, choices = c("zero","elnet"))
+  init = match.arg(init, choices = c("elnet","zero"))
   b0 = rep(0, (p+p.c))
   rs <- sample(c(1:n))
   CVM = matrix(0, length(lamb.1), length(lamb.2))
