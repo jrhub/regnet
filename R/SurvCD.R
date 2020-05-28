@@ -22,28 +22,33 @@ SurvCD <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=
   out = KMweight(X1, Y1, status, robust)
   X = out$X + 10^-9
   Y = out$Y
-  init = match.arg(init, choices = c("zero","cox","elnet"))
+  init = match.arg(init, choices = c("zero","elnet","cox"))
 
   x.c=X[, clv, drop = FALSE]; x.g = X[, -clv, drop = FALSE]
 
-  if(init == "cox"){
-    b0 = initiation_cox(out$Xo, out$Yo, out$So)
-    # cat("#b0: ", sum(b0 != 0), "TP FP: ", TruePos(b0)$tp, "|", TruePos(b0)$fp, " | b0: ", b0[1:100], "\n")
+  if(init == "zero"){
+    b0 = rep(0, (p+p.c))
   } else if(init == "elnet"){
     b0 = initiation(X, Y, alpha.i)
-    # cat("#b0: ", sum(b0 != 0), "TP FP: ", TruePos(b0)$tp, "|", TruePos(b0)$fp, " | b0: ", b0[1:100], "\n")
   } else{
-    b0 = rep(0, (p+p.c))
+    b0 = initiation_cox(out$Xo, out$Yo, out$So)
   }
 
   a = Adjacency(x.g)
-  if(penalty == "network"){
-    # a = Adjacency(x.g)
-    b = RunNetSurv(x.c, x.g, Y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust)
-  }else if(penalty == "mcp"){
-    b = RunMCPSurv(x.c, x.g, Y, lamb.1, b0[clv], b0[-clv], r, p, p.c, robust)
+  method = substr(penalty, 1, 1)
+  # if(penalty == "network"){
+  #   # a = Adjacency(x.g)
+  #   b = RunNetSurv(x.c, x.g, Y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust)
+  # }else if(penalty == "mcp"){
+  #   b = RunMCPSurv(x.c, x.g, Y, lamb.1, b0[clv], b0[-clv], r, p, p.c, robust)
+  # }else{
+  #   b = RunLassoSurv(x.c, x.g, Y, lamb.1, b0[clv], b0[-clv], p, p.c, robust)
+  # }
+
+  if(robust){
+    b = RunSurv_robust(x.c, x.g, Y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method)
   }else{
-    b = RunLassoSurv(x.c, x.g, Y, lamb.1, b0[clv], b0[-clv], p, p.c, robust)
+    b = RunSurv(x.c, x.g, Y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method)
   }
 
   b = as.numeric(b)
@@ -58,9 +63,7 @@ SurvCD <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=
 
   sub = which(utils::tail(b,p)!=0)
   out = list(b=b, Adj=a[sub,sub])
-
-  # return(drop(b))
-  out
+  # out
 }
 
 KMweight <- function(X1, Y1, status, robust){

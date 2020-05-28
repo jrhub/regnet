@@ -20,13 +20,24 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
   out = KMweight(X1, Y1, status, robust)
   X = out$X + 10^-9
   Y = out$Y
-  init = match.arg(init, choices = c("zero","cox","elnet"))
+  init = match.arg(init, choices = c("zero","elnet","cox"))
+
+  # cat("var(Y): ", stats::var(Y), "\n")
+  # if(is.null(lamb.1)){
+  #   u=abs(t(X) %*% Y)
+  #   if(!robust && penalty!="network") u=u/sqrt(n)
+  #   LL = log(stats::quantile(u, 0.1)); UL = log(max(u))
+  #   lamb.1 = rev(exp(seq(LL,UL,length.out = 35)))
+  #   cat("XtY: ", range(lamb.1), "\n")
+  #   # lamb.1=NULL
+  # }
 
   if(is.null(lamb.1)){
-    u=abs(t(X) %*% Y)
-    if(!robust && penalty!="network") u=u/sqrt(n)
-    LL = log(stats::quantile(u, 0.1)); UL = log(max(u))
-    lamb.1 = rev(exp(seq(LL,UL,length.out = 35)))
+    lasso.fit = glmnet::glmnet(X, Y, family="gaussian", nlambda=10)
+    LL = log(min(lasso.fit$lambda)); UL = log(max(lasso.fit$lambda))
+    lamb.1 = rev(exp(seq(LL,UL,length.out = 35))) * max(1,log10(1/stats::var(Y)))
+    # cat("glm: ", range(rev(exp(seq(LL,UL,length.out = 35)))), "\n")
+    # cat("glm: ", range(lamb.1), "\n")
   }
 
   if(is.null(lamb.2)){
@@ -38,42 +49,55 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
   }
   rs <- sample(c(1:n))
   CVM = matrix(0, length(lamb.1), length(lamb.2));
-  if(init == "cox"){
-    b0 = initiation_cox(out$Xo, out$Yo, out$So)
+
+  if(init == "zero"){
+    b0 = rep(0, (p+p.c))
   } else if(init == "elnet"){
     b0 = initiation(X, Y, alpha.i)
   } else{
-    b0 = rep(0, (p+p.c))
+    b0 = initiation_cox(out$Xo, out$Yo, out$So)
   }
   a = Adjacency(X[,-clv,drop=FALSE])
+  method = substr(penalty, 1, 1)
+  L = floor(n/folds); mod = n%%folds; start=1
   #---------------------------------------------- Main Loop -----------------------------------------
   for(f in 1:folds){
     if(verbo) cat("CrossValidation: ",f, "/", folds, "\n")
-    index = c(1: ceiling(n/folds)) + (f-1)*ceiling(n/folds)
-    test = rs[intersect(index, seq(1,n,1))]
+    if(f<=(folds-mod)){
+      index = (start:(start+L-1))
+      start = start + L;
+    }else{
+      index = (start:(start+L))
+      start = start + L + 1;
+    }
+    test = rs[index]
 
-    x = X[-test,]; y = Y[-test];
+    x = X[-test,]; y = Y[-test]
     x2 = X[test,]; y2 = Y[test]
 
-    # if(init == "cox"){
-    #   b0 = initiation_cox(out$Xo[-test,], out$Yo[-test], out$So[-test])
-    # } else if(init == "elnet"){
-    #   b0 = initiation(x, y, alpha.i)
-    # } else{
-    #   b0 = rep(0, (p+p.c))
+    # if(!robust){
+    #   x = scale(x, center = TRUE, scale = FALSE)
+    #   x2 = scale(x2, center = TRUE, scale = FALSE)
     # }
+    # if(init == "elnet") b0 = initiation(x, y, alpha.i)
 
     x.c=x[, clv, drop = FALSE]; x.g = x[, -clv, drop = FALSE];
     x2 = cbind(x2[,clv], x2[,-clv])
 
-    if(penalty == "network"){
-      # a = Adjacency(x.g)
-      CVM = CVM + NetGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, ncores)
-    }else if(penalty == "mcp"){
-      CVM = CVM + MCPGrid(x.c, x.g, y, x2, y2, lamb.1, b0[clv], b0[-clv], r, p, p.c, robust, ncores)
+    if(ncores>1){
+      CVM = CVM + SurvGrid_MC(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, ncores)
     }else{
-      CVM = CVM + LassoGrid(x.c, x.g, y, x2, y2, lamb.1, b0[clv], b0[-clv], p, p.c, robust, ncores)
+      CVM = CVM + SurvGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method)
     }
+
+    # if(penalty == "network"){
+    #   # a = Adjacency(x.g)
+    #   CVM = CVM + NetGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, ncores)
+    # }else if(penalty == "mcp"){
+    #   CVM = CVM + MCPGrid(x.c, x.g, y, x2, y2, lamb.1, b0[clv], b0[-clv], r, p, p.c, robust, ncores)
+    # }else{
+    #   CVM = CVM + LassoGrid(x.c, x.g, y, x2, y2, lamb.1, b0[clv], b0[-clv], p, p.c, robust, ncores)
+    # }
 
   }
   CVM = CVM/n
@@ -81,7 +105,13 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
   inds = which(CVM == mcvm, arr.ind=TRUE)
   lambda = lambda1 = lamb.1[inds[,1]]
   lambda2 = lamb.2[inds[,2]]
-  if(length(lambda)>1) message("multiple optimal values(pairs) of lambda(s) are found.")
+  if(length(lambda)>1){
+    message("multiple optimal values(pairs) of lambda(s) are found. Lambda sequence (lamb.1/lamb.2) may need to be adjusted.")
+  }else if(lambda==lamb.1[1]){
+    message("Values of the lambda sequence (lamb.1) maybe too small.")
+  }else if(lambda==lamb.1[length(lamb.1)]){
+    message("Values of the lambda sequence (lamb.1) maybe too large.")
+  }
   rownames(CVM) = signif(lamb.1, digits = 3)
   if(penalty == "network"){
     lambda = cbind(lambda1, lambda2)

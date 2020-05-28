@@ -37,27 +37,23 @@ RunElastic <- function(x, y, lambda, b, alpha, p) {
     .Call(`_regnet_RunElastic`, x, y, lambda, b, alpha, p)
 }
 
-RunNetSurv <- function(xc, xg, y, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust) {
-    .Call(`_regnet_RunNetSurv`, xc, xg, y, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust)
+RunSurv_robust <- function(xc, xg, y, lamb1, lamb2, bc, bg, r, a, p, pc, method) {
+    .Call(`_regnet_RunSurv_robust`, xc, xg, y, lamb1, lamb2, bc, bg, r, a, p, pc, method)
 }
 
-RunMCPSurv <- function(xc, xg, y, lamb1, bc, bg, r, p, pc, robust) {
-    .Call(`_regnet_RunMCPSurv`, xc, xg, y, lamb1, bc, bg, r, p, pc, robust)
+RunSurv <- function(xc, xg, y, lamb1, lamb2, bc, bg, r, a, p, pc, method) {
+    .Call(`_regnet_RunSurv`, xc, xg, y, lamb1, lamb2, bc, bg, r, a, p, pc, method)
 }
 
-RunLassoSurv <- function(xc, xg, y, lamb1, bc, bg, p, pc, robust) {
-    .Call(`_regnet_RunLassoSurv`, xc, xg, y, lamb1, bc, bg, p, pc, robust)
+SurvCV <- function(Xc, Xg, Y, folds, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method, ncores) {
+    .Call(`_regnet_SurvCV`, Xc, Xg, Y, folds, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method, ncores)
 }
 
-NetGrid <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, ncores) {
-    .Call(`_regnet_NetGrid`, xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, ncores)
+SurvGrid <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, method) {
+    .Call(`_regnet_SurvGrid`, xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, method)
 }
 
-MCPGrid <- function(xc, xg, y, x2, y2, lamb1, bc, bg, r, p, pc, robust, ncores) {
-    .Call(`_regnet_MCPGrid`, xc, xg, y, x2, y2, lamb1, bc, bg, r, p, pc, robust, ncores)
-}
-
-LassoGrid <- function(xc, xg, y, x2, y2, lamb1, bc, bg, p, pc, robust, ncores) {
-    .Call(`_regnet_LassoGrid`, xc, xg, y, x2, y2, lamb1, bc, bg, p, pc, robust, ncores)
+SurvGrid_MC <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, method, ncores) {
+    .Call(`_regnet_SurvGrid_MC`, xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, method, ncores)
 }
 

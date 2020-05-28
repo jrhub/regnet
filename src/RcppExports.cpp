@@ -194,9 +194,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// RunNetSurv
-arma::vec RunNetSurv(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, double lamb1, double lamb2, arma::vec bc0, arma::vec bg0, double r, arma::mat const& a, int p, int pc, bool robust);
-RcppExport SEXP _regnet_RunNetSurv(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bc0SEXP, SEXP bg0SEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP robustSEXP) {
+// RunSurv_robust
+arma::vec RunSurv_robust(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, double lamb1, double lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const& a, int p, int pc, char method);
+RcppExport SEXP _regnet_RunSurv_robust(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -205,20 +205,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::vec const& >::type y(ySEXP);
     Rcpp::traits::input_parameter< double >::type lamb1(lamb1SEXP);
     Rcpp::traits::input_parameter< double >::type lamb2(lamb2SEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type bc0(bc0SEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type bg0(bg0SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type bc(bcSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type bg(bgSEXP);
     Rcpp::traits::input_parameter< double >::type r(rSEXP);
     Rcpp::traits::input_parameter< arma::mat const& >::type a(aSEXP);
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type pc(pcSEXP);
-    Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
-    rcpp_result_gen = Rcpp::wrap(RunNetSurv(xc, xg, y, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust));
+    Rcpp::traits::input_parameter< char >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(RunSurv_robust(xc, xg, y, lamb1, lamb2, bc, bg, r, a, p, pc, method));
     return rcpp_result_gen;
 END_RCPP
 }
-// RunMCPSurv
-arma::vec RunMCPSurv(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, double lamb1, arma::vec bc, arma::vec bg, double r, int p, int pc, bool robust);
-RcppExport SEXP _regnet_RunMCPSurv(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP lamb1SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP robustSEXP) {
+// RunSurv
+arma::vec RunSurv(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, double lamb1, double lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const& a, int p, int pc, char method);
+RcppExport SEXP _regnet_RunSurv(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -226,48 +226,56 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::mat const& >::type xg(xgSEXP);
     Rcpp::traits::input_parameter< arma::vec const& >::type y(ySEXP);
     Rcpp::traits::input_parameter< double >::type lamb1(lamb1SEXP);
+    Rcpp::traits::input_parameter< double >::type lamb2(lamb2SEXP);
     Rcpp::traits::input_parameter< arma::vec >::type bc(bcSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type bg(bgSEXP);
     Rcpp::traits::input_parameter< double >::type r(rSEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type a(aSEXP);
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type pc(pcSEXP);
-    Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
-    rcpp_result_gen = Rcpp::wrap(RunMCPSurv(xc, xg, y, lamb1, bc, bg, r, p, pc, robust));
+    Rcpp::traits::input_parameter< char >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(RunSurv(xc, xg, y, lamb1, lamb2, bc, bg, r, a, p, pc, method));
     return rcpp_result_gen;
 END_RCPP
 }
-// RunLassoSurv
-arma::vec RunLassoSurv(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, double lamb1, arma::vec bc, arma::vec bg, int p, int pc, bool robust);
-RcppExport SEXP _regnet_RunLassoSurv(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP lamb1SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP robustSEXP) {
+// SurvCV
+arma::mat SurvCV(arma::mat const& Xc, arma::mat const& Xg, arma::vec const& Y, unsigned int folds, arma::vec lamb1, arma::vec lamb2, arma::vec const& bc0, arma::vec const& bg0, double r, arma::mat const& a, int p, int pc, bool robust, char method, int ncores);
+RcppExport SEXP _regnet_SurvCV(SEXP XcSEXP, SEXP XgSEXP, SEXP YSEXP, SEXP foldsSEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bc0SEXP, SEXP bg0SEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP robustSEXP, SEXP methodSEXP, SEXP ncoresSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat const& >::type xc(xcSEXP);
-    Rcpp::traits::input_parameter< arma::mat const& >::type xg(xgSEXP);
-    Rcpp::traits::input_parameter< arma::vec const& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< double >::type lamb1(lamb1SEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type bc(bcSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type bg(bgSEXP);
-    Rcpp::traits::input_parameter< int >::type p(pSEXP);
-    Rcpp::traits::input_parameter< int >::type pc(pcSEXP);
-    Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
-    rcpp_result_gen = Rcpp::wrap(RunLassoSurv(xc, xg, y, lamb1, bc, bg, p, pc, robust));
-    return rcpp_result_gen;
-END_RCPP
-}
-// NetGrid
-arma::mat NetGrid(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, arma::mat const& x2, arma::vec const& y2, arma::vec lamb1, arma::vec lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const& a, int p, int pc, bool robust, int ncores);
-RcppExport SEXP _regnet_NetGrid(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP robustSEXP, SEXP ncoresSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat const& >::type xc(xcSEXP);
-    Rcpp::traits::input_parameter< arma::mat const& >::type xg(xgSEXP);
-    Rcpp::traits::input_parameter< arma::vec const& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< arma::mat const& >::type x2(x2SEXP);
-    Rcpp::traits::input_parameter< arma::vec const& >::type y2(y2SEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type Xc(XcSEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type Xg(XgSEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type folds(foldsSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type lamb1(lamb1SEXP);
     Rcpp::traits::input_parameter< arma::vec >::type lamb2(lamb2SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type bc0(bc0SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type bg0(bg0SEXP);
+    Rcpp::traits::input_parameter< double >::type r(rSEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< int >::type pc(pcSEXP);
+    Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
+    Rcpp::traits::input_parameter< char >::type method(methodSEXP);
+    Rcpp::traits::input_parameter< int >::type ncores(ncoresSEXP);
+    rcpp_result_gen = Rcpp::wrap(SurvCV(Xc, Xg, Y, folds, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method, ncores));
+    return rcpp_result_gen;
+END_RCPP
+}
+// SurvGrid
+arma::mat SurvGrid(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, arma::mat const& x2, arma::vec const& y2, arma::vec const& lamb1, arma::vec const& lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const& a, int p, int pc, bool robust, char method);
+RcppExport SEXP _regnet_SurvGrid(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP robustSEXP, SEXP methodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat const& >::type xc(xcSEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type xg(xgSEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type x2(x2SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type y2(y2SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type lamb1(lamb1SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type lamb2(lamb2SEXP);
     Rcpp::traits::input_parameter< arma::vec >::type bc(bcSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type bg(bgSEXP);
     Rcpp::traits::input_parameter< double >::type r(rSEXP);
@@ -275,14 +283,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type pc(pcSEXP);
     Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
-    Rcpp::traits::input_parameter< int >::type ncores(ncoresSEXP);
-    rcpp_result_gen = Rcpp::wrap(NetGrid(xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, ncores));
+    Rcpp::traits::input_parameter< char >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(SurvGrid(xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, method));
     return rcpp_result_gen;
 END_RCPP
 }
-// MCPGrid
-arma::vec MCPGrid(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, arma::mat const& x2, arma::vec const& y2, arma::vec lamb1, arma::vec bc, arma::vec bg, double r, int p, int pc, bool robust, int ncores);
-RcppExport SEXP _regnet_MCPGrid(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP robustSEXP, SEXP ncoresSEXP) {
+// SurvGrid_MC
+arma::mat SurvGrid_MC(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, arma::mat const& x2, arma::vec const& y2, arma::vec const& lamb1, arma::vec const& lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const& a, int p, int pc, bool robust, char method, int ncores);
+RcppExport SEXP _regnet_SurvGrid_MC(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP robustSEXP, SEXP methodSEXP, SEXP ncoresSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -291,37 +299,18 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::vec const& >::type y(ySEXP);
     Rcpp::traits::input_parameter< arma::mat const& >::type x2(x2SEXP);
     Rcpp::traits::input_parameter< arma::vec const& >::type y2(y2SEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type lamb1(lamb1SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type lamb1(lamb1SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type lamb2(lamb2SEXP);
     Rcpp::traits::input_parameter< arma::vec >::type bc(bcSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type bg(bgSEXP);
     Rcpp::traits::input_parameter< double >::type r(rSEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type a(aSEXP);
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type pc(pcSEXP);
     Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
+    Rcpp::traits::input_parameter< char >::type method(methodSEXP);
     Rcpp::traits::input_parameter< int >::type ncores(ncoresSEXP);
-    rcpp_result_gen = Rcpp::wrap(MCPGrid(xc, xg, y, x2, y2, lamb1, bc, bg, r, p, pc, robust, ncores));
-    return rcpp_result_gen;
-END_RCPP
-}
-// LassoGrid
-arma::vec LassoGrid(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, arma::mat const& x2, arma::vec const& y2, arma::vec lamb1, arma::vec bc, arma::vec bg, int p, int pc, bool robust, int ncores);
-RcppExport SEXP _regnet_LassoGrid(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP robustSEXP, SEXP ncoresSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat const& >::type xc(xcSEXP);
-    Rcpp::traits::input_parameter< arma::mat const& >::type xg(xgSEXP);
-    Rcpp::traits::input_parameter< arma::vec const& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< arma::mat const& >::type x2(x2SEXP);
-    Rcpp::traits::input_parameter< arma::vec const& >::type y2(y2SEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type lamb1(lamb1SEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type bc(bcSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type bg(bgSEXP);
-    Rcpp::traits::input_parameter< int >::type p(pSEXP);
-    Rcpp::traits::input_parameter< int >::type pc(pcSEXP);
-    Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
-    Rcpp::traits::input_parameter< int >::type ncores(ncoresSEXP);
-    rcpp_result_gen = Rcpp::wrap(LassoGrid(xc, xg, y, x2, y2, lamb1, bc, bg, p, pc, robust, ncores));
+    rcpp_result_gen = Rcpp::wrap(SurvGrid_MC(xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, method, ncores));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -336,12 +325,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_regnet_RunNet", (DL_FUNC) &_regnet_RunNet, 8},
     {"_regnet_RunMCP", (DL_FUNC) &_regnet_RunMCP, 6},
     {"_regnet_RunElastic", (DL_FUNC) &_regnet_RunElastic, 6},
-    {"_regnet_RunNetSurv", (DL_FUNC) &_regnet_RunNetSurv, 12},
-    {"_regnet_RunMCPSurv", (DL_FUNC) &_regnet_RunMCPSurv, 10},
-    {"_regnet_RunLassoSurv", (DL_FUNC) &_regnet_RunLassoSurv, 9},
-    {"_regnet_NetGrid", (DL_FUNC) &_regnet_NetGrid, 15},
-    {"_regnet_MCPGrid", (DL_FUNC) &_regnet_MCPGrid, 13},
-    {"_regnet_LassoGrid", (DL_FUNC) &_regnet_LassoGrid, 12},
+    {"_regnet_RunSurv_robust", (DL_FUNC) &_regnet_RunSurv_robust, 12},
+    {"_regnet_RunSurv", (DL_FUNC) &_regnet_RunSurv, 12},
+    {"_regnet_SurvCV", (DL_FUNC) &_regnet_SurvCV, 15},
+    {"_regnet_SurvGrid", (DL_FUNC) &_regnet_SurvGrid, 15},
+    {"_regnet_SurvGrid_MC", (DL_FUNC) &_regnet_SurvGrid_MC, 16},
     {NULL, NULL, 0}
 };
 

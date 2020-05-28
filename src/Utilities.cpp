@@ -19,9 +19,19 @@ double validation_LS(arma::mat const &x, arma::vec const &y, arma::vec const &b)
 	return(mse);
 }
 
+double validation_LS(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, arma::vec const &b, int p, int pc){
+    double mse = arma::accu(arma::square(y - xc*b.subvec(0, pc-1)-xg*b.subvec(pc, pc+p-1)));
+	return(mse);
+}
+
 double validation_LAD(arma::mat const &x, arma::vec const &y, arma::vec const &b){
 	//double lad = arma::accu(arma::abs(y - x*b))/y.n_elem;
     double lad = arma::accu(arma::abs(y - x*b));
+	return(lad);
+}
+
+double validation_LAD(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, arma::vec const &bc, arma::vec const &bg){
+    double lad = arma::accu(arma::abs(y - xc*bc - xg*bg));
 	return(lad);
 }
 
