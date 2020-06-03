@@ -12,6 +12,16 @@ double Soft(double z, double lambda){
   else return(0);
 }
 
+arma::vec TriRowAbsSums(arma::mat const &a){
+	int p = a.n_rows;
+	arma::vec rowSums(p, fill::zeros);
+	for(int m = 0; m < (p-1); m++){
+		// rowSums(m) = arma::accu(arma::abs(a.row(m).subvec(m+1, p-1)));
+		rowSums(m) = arma::accu(arma::abs(a.submat(m, m+1, m, p-1)));
+	}
+	return(rowSums);
+}
+
 //Non-robust MSE
 double validation_LS(arma::mat const &x, arma::vec const &y, arma::vec const &b){
 	//double mse = arma::accu(pow(y - x*b, 2))/y.n_elem;
@@ -42,7 +52,7 @@ double validation_logit(arma::mat const &x0, arma::vec const &y0, arma::vec cons
 	return(mc);
 }
 
-vec fastLm(arma::vec const &y, arma::mat const &X){
+arma::vec fastLm(arma::vec const &y, arma::mat const &X){
     arma::colvec coef = arma::solve(X, y);    
     return coef;
 }

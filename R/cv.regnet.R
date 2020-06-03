@@ -115,7 +115,11 @@ cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), pena
   #   if(response == "survival") initiation = "zero" else initiation = "elnet"
   # }
   if(is.null(r)) r = 5
-  if(penalty != "network") lamb.2 = 0
+  if(penalty != "network"){
+    lamb.2 = 0
+  }else{
+    if(ncol(X)<2) stop("too less variables for network penalty.")
+  }
   alpha = alpha.i # temporarily
   ncores = as.integer(ncores)
 

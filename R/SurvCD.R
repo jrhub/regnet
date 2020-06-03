@@ -36,19 +36,12 @@ SurvCD <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=
 
   a = Adjacency(x.g)
   method = substr(penalty, 1, 1)
-  # if(penalty == "network"){
-  #   # a = Adjacency(x.g)
-  #   b = RunNetSurv(x.c, x.g, Y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust)
-  # }else if(penalty == "mcp"){
-  #   b = RunMCPSurv(x.c, x.g, Y, lamb.1, b0[clv], b0[-clv], r, p, p.c, robust)
-  # }else{
-  #   b = RunLassoSurv(x.c, x.g, Y, lamb.1, b0[clv], b0[-clv], p, p.c, robust)
-  # }
 
   if(robust){
     b = RunSurv_robust(x.c, x.g, Y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method)
   }else{
-    b = RunSurv(x.c, x.g, Y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method)
+    triRowAbsSums = rowSums(abs(a*upper.tri(a, diag = FALSE)))
+    b = RunSurv(x.c, x.g, Y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, triRowAbsSums, p, p.c, method)
   }
 
   b = as.numeric(b)

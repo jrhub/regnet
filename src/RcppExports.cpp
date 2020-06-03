@@ -81,8 +81,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // RunCont
-arma::vec RunCont(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, double lamb1, double lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const& a, int p, int pc, char method);
-RcppExport SEXP _regnet_RunCont(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP methodSEXP) {
+arma::vec RunCont(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, double lamb1, double lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const& a, arma::vec const& triRowAbsSums, int p, int pc, char method);
+RcppExport SEXP _regnet_RunCont(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP aSEXP, SEXP triRowAbsSumsSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -95,10 +95,11 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::vec >::type bg(bgSEXP);
     Rcpp::traits::input_parameter< double >::type r(rSEXP);
     Rcpp::traits::input_parameter< arma::mat const& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type triRowAbsSums(triRowAbsSumsSEXP);
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type pc(pcSEXP);
     Rcpp::traits::input_parameter< char >::type method(methodSEXP);
-    rcpp_result_gen = Rcpp::wrap(RunCont(xc, xg, y, lamb1, lamb2, bc, bg, r, a, p, pc, method));
+    rcpp_result_gen = Rcpp::wrap(RunCont(xc, xg, y, lamb1, lamb2, bc, bg, r, a, triRowAbsSums, p, pc, method));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -217,8 +218,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // RunSurv
-arma::vec RunSurv(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, double lamb1, double lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const& a, int p, int pc, char method);
-RcppExport SEXP _regnet_RunSurv(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP methodSEXP) {
+arma::vec RunSurv(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, double lamb1, double lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const& a, arma::vec const& triRowAbsSums, int p, int pc, char method);
+RcppExport SEXP _regnet_RunSurv(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP aSEXP, SEXP triRowAbsSumsSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -231,10 +232,11 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::vec >::type bg(bgSEXP);
     Rcpp::traits::input_parameter< double >::type r(rSEXP);
     Rcpp::traits::input_parameter< arma::mat const& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type triRowAbsSums(triRowAbsSumsSEXP);
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type pc(pcSEXP);
     Rcpp::traits::input_parameter< char >::type method(methodSEXP);
-    rcpp_result_gen = Rcpp::wrap(RunSurv(xc, xg, y, lamb1, lamb2, bc, bg, r, a, p, pc, method));
+    rcpp_result_gen = Rcpp::wrap(RunSurv(xc, xg, y, lamb1, lamb2, bc, bg, r, a, triRowAbsSums, p, pc, method));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -319,14 +321,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_regnet_ContGrid", (DL_FUNC) &_regnet_ContGrid, 15},
     {"_regnet_ContGrid_MC", (DL_FUNC) &_regnet_ContGrid_MC, 16},
     {"_regnet_LogitGrid", (DL_FUNC) &_regnet_LogitGrid, 13},
-    {"_regnet_RunCont", (DL_FUNC) &_regnet_RunCont, 12},
+    {"_regnet_RunCont", (DL_FUNC) &_regnet_RunCont, 13},
     {"_regnet_RunCont_robust", (DL_FUNC) &_regnet_RunCont_robust, 12},
     {"_regnet_RunLogit", (DL_FUNC) &_regnet_RunLogit, 10},
     {"_regnet_RunNet", (DL_FUNC) &_regnet_RunNet, 8},
     {"_regnet_RunMCP", (DL_FUNC) &_regnet_RunMCP, 6},
     {"_regnet_RunElastic", (DL_FUNC) &_regnet_RunElastic, 6},
     {"_regnet_RunSurv_robust", (DL_FUNC) &_regnet_RunSurv_robust, 12},
-    {"_regnet_RunSurv", (DL_FUNC) &_regnet_RunSurv, 12},
+    {"_regnet_RunSurv", (DL_FUNC) &_regnet_RunSurv, 13},
     {"_regnet_SurvCV", (DL_FUNC) &_regnet_SurvCV, 15},
     {"_regnet_SurvGrid", (DL_FUNC) &_regnet_SurvGrid, 15},
     {"_regnet_SurvGrid_MC", (DL_FUNC) &_regnet_SurvGrid_MC, 16},

@@ -34,6 +34,7 @@
 plot.regnet=function(x, subnetworks=FALSE, vsize=10, labelDist=2, minVertices=2, theta=1, ...){
 
   adjacency = x$Adj
+  if(nrow(adjacency)==0) return(NULL)
   net0 <- igraph::graph.adjacency(adjacency, mode="undirected", weighted=TRUE, diag=FALSE)
   igraph::V(net0)$color = "skyblue"
 

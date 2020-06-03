@@ -76,7 +76,11 @@ regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty
   standardize=TRUE
   response = match.arg(response)
   penalty = match.arg(penalty)
-  if(penalty != "network") lamb.2 = 0
+  if(penalty != "network"){
+    lamb.2 = 0
+  }else{
+    if(ncol(X)<2) stop("too less variables for network penalty.")
+  }
   if(missing(lamb.1)) stop("Both lambda1 and lambda2 need to be provided")
   if(missing(lamb.2)) stop("Lambda2 needs to be provided for network method")
 
