@@ -13,11 +13,13 @@ CV.Logit <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, la
 
   n = nrow(X); p = ncol(X);
   X = as.matrix(X); Y = as.matrix(Y)
+  X = scale(X, center = TRUE, scale = FALSE)
 
   b0 = rep(0, p+1)
   rs <- sample(c(1:n))
   CVM = matrix(0, length(lamb.1), length(lamb.2))
   method = substr(penalty, 1, 1)
+  if(penalty == "network") a = Adjacency(X) else a = as.matrix(0)
   #---------------------------------------------- Main Loop -----------------------------------------
   for(f in 1:folds){
     if(verbo) cat("CrossValidation: ",f, "/", folds, "\n")
@@ -32,12 +34,16 @@ CV.Logit <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, la
       x = scale(x, center = FALSE, scale = V1 )
       x2 = scale(x2, center = FALSE, scale = V2)
     }
-    if(penalty == "network") a = Adjacency(x) else a = as.matrix(0)
+    # if(penalty == "network") a = Adjacency(x) else a = as.matrix(0)
 
     x = cbind(1, x); x2 = cbind(1, x2)
     if(init == "elnet") b0 = initiation(x, y, alpha.i, "binomial")
 
-    CVM = CVM + LogitGrid(x, y, x2, y2, lamb.1, lamb.2, b0, r, a, p, alpha, method, ncores)
+    if(ncores>1){
+      CVM = CVM + LogitGrid_MC(x, y, x2, y2, lamb.1, lamb.2, b0, r, a, p, alpha, method, ncores)
+    }else{
+      CVM = CVM + LogitGrid(x, y, x2, y2, lamb.1, lamb.2, b0, r, a, p, alpha, method)
+    }
 
   }
   CVM = CVM/n

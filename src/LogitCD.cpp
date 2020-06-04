@@ -6,6 +6,34 @@
 using namespace Rcpp;
 using namespace arma;
 
+arma::vec Network(arma::mat const &x, arma::vec const &y, double lam1, double lam2, arma::vec b, double r, arma::mat const &a, arma::vec const &u, int n, int p)
+{
+  arma::vec y0 = x * b;
+  arma::vec pi = 1/(1+exp(-y0)), t = (y -pi)*4;
+  int _p = p - 1, m;
+  double bold, l, z;
+  
+  for(int k = 0; k < (p+1); k++){
+    bold = b(k);
+    l = arma::accu(x.col(k) % t)/n + b(k);
+    if(k == 0) b(k) = l;
+    else{
+      m = k;
+      if(k > _p) m = _p;
+      z = l*0.25 + lam2 * arma::as_scalar(a.row(k-1).subvec(m, _p) * b.subvec(m+1, p));
+      // double u = 0.25 + lam2 * arma::accu(abs(a.row(k-1).subvec(m, _p)));
+      if(std::abs(z) > (r*lam1*u(k-1))){
+        b(k) = z/u(k-1);
+      }
+      else{
+        b(k) = Soft(z, lam1)/(u(k-1) - 1/r);
+      }
+    }
+    t -= x.col(k) * (b(k) - bold);
+  }
+  return(b);
+}
+
 arma::vec Network(const arma::mat& x, const arma::vec& y, double lam1, double lam2, arma::vec b, double r, const arma::mat& a, int n, int p)
 {
   arma::vec y0 = x * b;
@@ -32,7 +60,7 @@ arma::vec Network(const arma::mat& x, const arma::vec& y, double lam1, double la
   return(b);
 }
 
-arma::vec MCP(const arma::mat& x, const arma::vec& y, double lambda, arma::vec b, double r, int n, int p)
+arma::vec MCP(arma::mat const &x, arma::vec const &y, double lambda, arma::vec b, double r, int n, int p)
 {
   arma::vec y0 = x * b;
   arma::vec pi = 1/(1+exp(-y0)), t = (y -pi)*4;
@@ -50,7 +78,7 @@ arma::vec MCP(const arma::mat& x, const arma::vec& y, double lambda, arma::vec b
   return(b);
 }
 
-arma::vec Elastic(const arma::mat& x, const arma::vec& y, double lambda, arma::vec b, double alpha, int n, int p)
+arma::vec Elastic(arma::mat const &x, arma::vec const &y, double lambda, arma::vec b, double alpha, int n, int p)
 {
   arma::vec y0 = x * b;
   arma::vec pi = 1/(1+exp(-y0)), t = (y -pi)*4;

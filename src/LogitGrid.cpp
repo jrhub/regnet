@@ -13,23 +13,34 @@ using namespace arma;
 //using namespace R;
 
 // [[Rcpp::export()]]
-arma::mat LogitGrid(arma::mat& x, arma::vec& y, arma::mat& x2, arma::vec& y2, arma::vec lamb1, arma::vec lamb2, arma::vec b, double r, arma::mat& a, int p, double alpha, char method, int ncores)
+arma::mat LogitGrid(arma::mat const &x, arma::vec const &y, arma::mat const &x2, arma::vec const &y2, arma::vec const &lamb1, arma::vec const &lamb2, arma::vec b, double r, arma::mat const &a, int p, double alpha, char method)
 {
-	arma::vec btmp;
+	arma::vec btmp, triRowAbsSums;
     arma::mat CVM(lamb1.n_elem, lamb2.n_elem, fill::zeros);
-	RcppThread::checkUserInterrupt();
+	if(method == 'n') triRowAbsSums = TriRowAbsSums(a);
+	
+	for(unsigned int j=0; j<lamb2.n_elem ; j++){
+		for(unsigned int i=0; i<lamb1.n_elem ; i++){
+			btmp = RunLogit(x, y, lamb1(i), lamb2(j), b, r, a, triRowAbsSums, p, alpha, method);
+            CVM(i, j) = validation_logit(x2, y2, btmp);
+			RcppThread::checkUserInterrupt();
+		}
+	}
+    return CVM;
+}
+
+// [[Rcpp::export()]]
+arma::mat LogitGrid_MC(arma::mat const &x, arma::vec const &y, arma::mat const &x2, arma::vec const &y2, arma::vec const &lamb1, arma::vec const &lamb2, arma::vec b, double r, arma::mat const &a, int p, double alpha, char method, int ncores)
+{
+	arma::vec btmp, triRowAbsSums;
+    arma::mat CVM(lamb1.n_elem, lamb2.n_elem, fill::zeros);
+	if(method == 'n') triRowAbsSums = TriRowAbsSums(a);
 	
 	omp_set_num_threads(ncores);
 	#pragma omp parallel for collapse(2) private(btmp)
 	for(unsigned int j=0; j<lamb2.n_elem ; j++){
 		for(unsigned int i=0; i<lamb1.n_elem ; i++){
-            if(method == 'n'){
-                btmp = RunNet(x, y, lamb1(i), lamb2(j), b, r, a, p);
-            }else if(method == 'm'){
-                btmp = RunMCP(x, y, lamb1(i), b, r, p);
-            }else{
-                btmp = RunElastic(x, y, lamb1(i), b, alpha, p);
-            }
+			btmp = RunLogit(x, y, lamb1(i), lamb2(j), b, r, a, triRowAbsSums, p, alpha, method);
             CVM(i, j) = validation_logit(x2, y2, btmp);
 		}
 	}

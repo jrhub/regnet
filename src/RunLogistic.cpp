@@ -7,20 +7,21 @@ using namespace Rcpp;
 using namespace arma;
 
 // [[Rcpp::export]]
-arma::vec RunLogit(arma::mat& x, arma::vec& y, double lamb1, double lamb2, arma::vec b, double r, arma::mat& a, int p, 
-                    double alpha, char method)
+arma::vec RunLogit(arma::mat const &x, arma::vec const &y, double lamb1, double lamb2, arma::vec b, double r, arma::mat const &a, arma::vec const &triRowAbsSums, int p, double alpha, char method)
 {
   int count = 0, n = x.n_rows;
-  arma::vec bnew;
+  arma::vec bnew, u;
+  if(method == 'n') u = 0.25 + lamb2 * triRowAbsSums;
+  
   while(count < 20){
     if(method == 'n'){
-        bnew = Network(x, y, lamb1, lamb2, b, r, a, n, p);
+        bnew = Network(x, y, lamb1, lamb2, b, r, a, u, n, p);
     }else if(method == 'm'){
         bnew = MCP(x, y, lamb1, b, r, n, p);
     }else{
         bnew = Elastic(x, y, lamb1, b, alpha, n, p);
     }
-    double dif = arma::accu(arma::abs(b - bnew))/n;
+    double dif = arma::accu(arma::abs(b - bnew))/(arma::accu(b != 0)+0.1);
     if(dif < 0.001) break;
     else{
       b = bnew;
@@ -37,7 +38,7 @@ arma::vec RunNet(arma::mat& x, arma::vec& y, double lamb1, double lamb2, arma::v
   arma::vec bnew;
   while(count < 20){
     bnew = Network(x, y, lamb1, lamb2, b, r, a, n, p);
-    double dif = arma::accu(arma::abs(b - bnew))/n;
+    double dif = arma::accu(arma::abs(b - bnew))/p;
     if(dif < 0.001) break;
     else{
       b = bnew;
@@ -54,7 +55,7 @@ arma::vec RunMCP(arma::mat& x, arma::vec& y, double lambda, arma::vec b, double 
   arma::vec bnew;
   while(count < 20){
     bnew = MCP(x, y, lambda, b, r, n, p);
-    double dif = arma::accu(arma::abs(b - bnew))/n;
+    double dif = arma::accu(arma::abs(b - bnew))/p;
     if(dif < 0.001) break;
     else{
       b = bnew;
@@ -71,7 +72,7 @@ arma::vec RunElastic(arma::mat& x, arma::vec& y, double lambda, arma::vec b, dou
   arma::vec bnew;
   while(count < 20){
     bnew = Elastic(x, y, lambda, b, alpha, n, p);
-    double dif = arma::accu(arma::abs(b - bnew))/n;
+    double dif = arma::accu(arma::abs(b - bnew))/p;
     if(dif < 0.001) break;
     else{
       b = bnew;

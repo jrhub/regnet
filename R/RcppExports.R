@@ -9,8 +9,12 @@ ContGrid_MC <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc0, bg0, r, a, p, pc, 
     .Call(`_regnet_ContGrid_MC`, xc, xg, y, x2, y2, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method, ncores)
 }
 
-LogitGrid <- function(x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method, ncores) {
-    .Call(`_regnet_LogitGrid`, x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method, ncores)
+LogitGrid <- function(x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method) {
+    .Call(`_regnet_LogitGrid`, x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method)
+}
+
+LogitGrid_MC <- function(x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method, ncores) {
+    .Call(`_regnet_LogitGrid_MC`, x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method, ncores)
 }
 
 RunCont <- function(xc, xg, y, lamb1, lamb2, bc, bg, r, a, triRowAbsSums, p, pc, method) {
@@ -21,8 +25,8 @@ RunCont_robust <- function(xc, xg, y, lamb1, lamb2, bc, bg, r, a, p, pc, method)
     .Call(`_regnet_RunCont_robust`, xc, xg, y, lamb1, lamb2, bc, bg, r, a, p, pc, method)
 }
 
-RunLogit <- function(x, y, lamb1, lamb2, b, r, a, p, alpha, method) {
-    .Call(`_regnet_RunLogit`, x, y, lamb1, lamb2, b, r, a, p, alpha, method)
+RunLogit <- function(x, y, lamb1, lamb2, b, r, a, triRowAbsSums, p, alpha, method) {
+    .Call(`_regnet_RunLogit`, x, y, lamb1, lamb2, b, r, a, triRowAbsSums, p, alpha, method)
 }
 
 RunNet <- function(x, y, lamb1, lamb2, b, r, a, p) {

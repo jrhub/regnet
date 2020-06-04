@@ -1,5 +1,5 @@
 test_that("cv.regnet_data_format_cont", {
-  n = 25; p = 3;
+  n = 27; p = 3;
   X = scale(matrix(rnorm(n*p,0,5), n, p), scale=TRUE)
   Y= 5 + X%*%c(0,3,0) + rnorm(n)
   expect_error(cv.regnet(X[,1], Y, "c", "n"), "too less variables for network penalty")
@@ -28,7 +28,7 @@ test_that("cv.regnet_data_format_cont", {
 })
 
 test_that("cv.regnet_data_format_surv", {
-  n = 25; p = 3;
+  n = 27; p = 3;
   X = scale(matrix(rnorm(n*p,0,1), n, p), scale=TRUE)
   Y0= exp(2 + X%*%c(0,3,0) + rnorm(n)); Y1 = sample(rep(c(0,1,1,1),n/2),n)
   Y = data.frame(time=(Y0+Y0*(Y1-1)*0.2), status=Y1)
@@ -51,7 +51,7 @@ test_that("cv.regnet_data_format_surv", {
 })
 
 test_that("cv.regnet_data_format_logit", {
-  n = 50; p = 3; Y = rep(0,n)
+  n = 52; p = 3; Y = rep(0,n)
   X = scale(matrix(rnorm(n*p,0,5), n, p), scale=TRUE)
   Y0 = 1/(1+exp(-X%*%c(0,5,0)))
   Y = rbinom(n,1,Y0);

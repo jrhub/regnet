@@ -58,25 +58,47 @@ BEGIN_RCPP
 END_RCPP
 }
 // LogitGrid
-arma::mat LogitGrid(arma::mat& x, arma::vec& y, arma::mat& x2, arma::vec& y2, arma::vec lamb1, arma::vec lamb2, arma::vec b, double r, arma::mat& a, int p, double alpha, char method, int ncores);
-RcppExport SEXP _regnet_LogitGrid(SEXP xSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP alphaSEXP, SEXP methodSEXP, SEXP ncoresSEXP) {
+arma::mat LogitGrid(arma::mat const& x, arma::vec const& y, arma::mat const& x2, arma::vec const& y2, arma::vec const& lamb1, arma::vec const& lamb2, arma::vec b, double r, arma::mat const& a, int p, double alpha, char method);
+RcppExport SEXP _regnet_LogitGrid(SEXP xSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP alphaSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type x2(x2SEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type y2(y2SEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type lamb1(lamb1SEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type lamb2(lamb2SEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type x2(x2SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type y2(y2SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type lamb1(lamb1SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type lamb2(lamb2SEXP);
     Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
     Rcpp::traits::input_parameter< double >::type r(rSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< char >::type method(methodSEXP);
+    rcpp_result_gen = Rcpp::wrap(LogitGrid(x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method));
+    return rcpp_result_gen;
+END_RCPP
+}
+// LogitGrid_MC
+arma::mat LogitGrid_MC(arma::mat const& x, arma::vec const& y, arma::mat const& x2, arma::vec const& y2, arma::vec const& lamb1, arma::vec const& lamb2, arma::vec b, double r, arma::mat const& a, int p, double alpha, char method, int ncores);
+RcppExport SEXP _regnet_LogitGrid_MC(SEXP xSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP alphaSEXP, SEXP methodSEXP, SEXP ncoresSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat const& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type x2(x2SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type y2(y2SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type lamb1(lamb1SEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type lamb2(lamb2SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< double >::type r(rSEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type a(aSEXP);
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< char >::type method(methodSEXP);
     Rcpp::traits::input_parameter< int >::type ncores(ncoresSEXP);
-    rcpp_result_gen = Rcpp::wrap(LogitGrid(x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method, ncores));
+    rcpp_result_gen = Rcpp::wrap(LogitGrid_MC(x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method, ncores));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -126,22 +148,23 @@ BEGIN_RCPP
 END_RCPP
 }
 // RunLogit
-arma::vec RunLogit(arma::mat& x, arma::vec& y, double lamb1, double lamb2, arma::vec b, double r, arma::mat& a, int p, double alpha, char method);
-RcppExport SEXP _regnet_RunLogit(SEXP xSEXP, SEXP ySEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP alphaSEXP, SEXP methodSEXP) {
+arma::vec RunLogit(arma::mat const& x, arma::vec const& y, double lamb1, double lamb2, arma::vec b, double r, arma::mat const& a, arma::vec const& triRowAbsSums, int p, double alpha, char method);
+RcppExport SEXP _regnet_RunLogit(SEXP xSEXP, SEXP ySEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bSEXP, SEXP rSEXP, SEXP aSEXP, SEXP triRowAbsSumsSEXP, SEXP pSEXP, SEXP alphaSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< arma::vec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type y(ySEXP);
     Rcpp::traits::input_parameter< double >::type lamb1(lamb1SEXP);
     Rcpp::traits::input_parameter< double >::type lamb2(lamb2SEXP);
     Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
     Rcpp::traits::input_parameter< double >::type r(rSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< arma::mat const& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< arma::vec const& >::type triRowAbsSums(triRowAbsSumsSEXP);
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< char >::type method(methodSEXP);
-    rcpp_result_gen = Rcpp::wrap(RunLogit(x, y, lamb1, lamb2, b, r, a, p, alpha, method));
+    rcpp_result_gen = Rcpp::wrap(RunLogit(x, y, lamb1, lamb2, b, r, a, triRowAbsSums, p, alpha, method));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -320,10 +343,11 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_regnet_ContGrid", (DL_FUNC) &_regnet_ContGrid, 15},
     {"_regnet_ContGrid_MC", (DL_FUNC) &_regnet_ContGrid_MC, 16},
-    {"_regnet_LogitGrid", (DL_FUNC) &_regnet_LogitGrid, 13},
+    {"_regnet_LogitGrid", (DL_FUNC) &_regnet_LogitGrid, 12},
+    {"_regnet_LogitGrid_MC", (DL_FUNC) &_regnet_LogitGrid_MC, 13},
     {"_regnet_RunCont", (DL_FUNC) &_regnet_RunCont, 13},
     {"_regnet_RunCont_robust", (DL_FUNC) &_regnet_RunCont_robust, 12},
-    {"_regnet_RunLogit", (DL_FUNC) &_regnet_RunLogit, 10},
+    {"_regnet_RunLogit", (DL_FUNC) &_regnet_RunLogit, 11},
     {"_regnet_RunNet", (DL_FUNC) &_regnet_RunNet, 8},
     {"_regnet_RunMCP", (DL_FUNC) &_regnet_RunMCP, 6},
     {"_regnet_RunElastic", (DL_FUNC) &_regnet_RunElastic, 6},
