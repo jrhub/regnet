@@ -6,7 +6,7 @@ lambda.e = rev(exp(seq(1,45,1)/4 -9))
 lambda.l = rev(exp(seq(1,45,1)/4 -9))
 
 initiation <- function(x, y, alpha, family="gaussian"){
-  lasso.cv <- glmnet::cv.glmnet(x,y, family=family, alpha=alpha, nfolds=5, nlambda=50)
+  lasso.cv <- suppressWarnings(glmnet::cv.glmnet(x,y, family=family, alpha=alpha, nfolds=5, nlambda=50))
   lambda <- lasso.cv$lambda.min
   lasso.fit <- glmnet::glmnet(x, y, family, alpha=alpha, nlambda=50)
   coef0 <- as.vector(stats::predict(lasso.fit, s=lambda, type="coefficients"))[-1]
@@ -14,7 +14,7 @@ initiation <- function(x, y, alpha, family="gaussian"){
 
 initiation_cox <- function(x, y0, d){
   y = cbind(time = y0, status = d)
-  lasso.cv = glmnet::cv.glmnet(x, y, alpha=1, family="cox", nfolds=5, nlambda=30, standardize=FALSE)
+  lasso.cv = suppressWarnings(glmnet::cv.glmnet(x, y, alpha=1, family="cox", nfolds=5, nlambda=30, standardize=FALSE))
   alpha = 2*(lasso.cv$lambda.min)
   lasso.fit = glmnet::glmnet(x,y,family="cox", alpha=1, nlambda=30, standardize=FALSE)
   coef0 = as.numeric(stats::predict(lasso.fit, s=alpha, type="coefficients"))

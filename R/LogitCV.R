@@ -24,11 +24,11 @@ CV.Logit <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, la
     index = c(1: ceiling(n/folds)) + (f-1)*ceiling(n/folds)
     test = rs[intersect(index, seq(1,n,1))]
 
-    x = X[-test,]; y = Y[-test]
-    x2 = X[test,]; y2 = Y[test]
+    x = X[-test,,drop=FALSE]; y = Y[-test]
+    x2 = X[test,,drop=FALSE]; y2 = Y[test]
     if(standardize){
-      V1 = apply(x, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V1[V1==0]=1
-      V2 = apply(x2, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V2[V2==0]=1
+      V1 = apply(x, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V1[V1==0|is.na(V1)]=1
+      V2 = apply(x2, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V2[V2==0|is.na(V2)]=1
       x = scale(x, center = FALSE, scale = V1 )
       x2 = scale(x2, center = FALSE, scale = V2)
     }

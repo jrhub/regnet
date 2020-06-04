@@ -11,7 +11,7 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
 
   n = nrow(X0); p.c = length(clv); p = ncol(X0)-p.c+intercept;
   if(standardize){
-    V0 = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0]=1
+    V0 = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0|is.na(V0)]=1
     X1 = scale(X0, center = TRUE, scale = V0)
   }
   if(intercept) X1 = cbind(Intercept = rep(1, n), X1)
@@ -72,8 +72,8 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
     }
     test = rs[index]
 
-    x = X[-test,]; y = Y[-test]
-    x2 = X[test,]; y2 = Y[test]
+    x = X[-test,,drop=FALSE]; y = Y[-test]
+    x2 = X[test,,drop=FALSE]; y2 = Y[test]
 
     # if(!robust){
     #   x = scale(x, center = TRUE, scale = FALSE)
@@ -82,7 +82,7 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
     # if(init == "elnet") b0 = initiation(x, y, alpha.i)
 
     x.c=x[, clv, drop = FALSE]; x.g = x[, -clv, drop = FALSE];
-    x2 = cbind(x2[,clv], x2[,-clv])
+    x2 = cbind(x2[,clv, drop = FALSE], x2[,-clv, drop = FALSE])
 
     if(ncores>1){
       CVM = CVM + SurvGrid_MC(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, ncores)

@@ -11,7 +11,7 @@ CV.Cont <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lam
   n = nrow(X); p.c = length(clv); p = ncol(X)-p.c+intercept;
   X = as.matrix(X); Y = as.matrix(Y)
 
-  V0 = apply(X, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0]=1
+  V0 = apply(X, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0|is.na(V0)]=1
   X = scale(X, center = TRUE, scale = V0)
 
   # if(is.null(lamb.2)) lamb.2 = c(0.1, 1, 10)
@@ -45,13 +45,13 @@ CV.Cont <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lam
     index = c(1: ceiling(n/folds)) + (f-1)*ceiling(n/folds)
     test = rs[intersect(index, seq(1,n,1))]
 
-    x = X[-test,]; y = Y[-test]
-    x2 = X[test,]; y2 = Y[test]
+    x = X[-test,,drop=FALSE]; y = Y[-test]
+    x2 = X[test,,drop=FALSE]; y2 = Y[test]
     if(!robust){
-      V1 = apply(x, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V1[V1==0]=1
-      V2 = apply(x2, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V2[V2==0]=1
-      x = scale(x, center = TRUE, scale = V1 )
-      x2 = scale(x2, center = TRUE, scale = V2)
+      V1 = apply(x, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V1[V1==0|is.na(V1)]=1
+      V2 = apply(x2, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V2[V2==0|is.na(V2)]=1
+      x = scale(x, center = FALSE, scale = V1 )
+      x2 = scale(x2, center = FALSE, scale = V2)
     }
     x = cbind(1, x); x2 = cbind(1, x2)
     if(init == "elnet") b0 = initiation(x, y, alpha.i, "gaussian") # which(is.na(x), arr.ind = TRUE)

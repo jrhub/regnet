@@ -16,7 +16,7 @@ ContCD <- function(X, y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb
   method = substr(penalty, 1, 1)
   #---------------------------------------------- Main Loop -----------------------------------------
   if(standardize){
-    V0 = apply(X, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0]=1
+    V0 = apply(X, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0|is.na(V0)]=1
     X = scale(X, center = TRUE, scale = V0)
   }
   X = cbind(1, X)
@@ -44,6 +44,6 @@ ContCD <- function(X, y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb
   }
 
   sub = which(utils::tail(b,p)!=0)
-  out = list(b=drop(b), Adj=a[sub,sub])
+  out = list(b=drop(b), Adj=a[sub,sub,drop=FALSE])
 }
 

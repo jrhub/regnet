@@ -12,7 +12,7 @@ SurvCD <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=
 
   n = nrow(X0); p.c = length(clv); p = ncol(X0)-p.c+intercept;
   if(standardize){
-    V0 = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0]=1
+    V0 = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0|is.na(V0)]=1
     X1 = scale(X0, center = TRUE, scale = V0)
   }
   # X1 = scale(X0, center = TRUE, scale = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)))
@@ -55,7 +55,7 @@ SurvCD <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=
   }
 
   sub = which(utils::tail(b,p)!=0)
-  out = list(b=b, Adj=a[sub,sub])
+  out = list(b=b, Adj=a[sub,sub,drop=FALSE])
   # out
 }
 

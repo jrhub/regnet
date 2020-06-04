@@ -92,36 +92,44 @@ cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), pena
   standardize=TRUE
   response = match.arg(response)
   penalty = match.arg(penalty)
-
   this.call = match.call()
+  X = as.matrix(X)
+
   if(response == "survival"){
     if(ncol(Y) != 2) stop("Y should be a two-column matrix")
     if(!setequal(colnames(Y), c("time", "status"))) stop("Y should be a two-column matrix with columns named 'time' and 'status'")
     Y0 = Y[,"time"]
     status = as.numeric(Y[,"status"])
-    if(any(Y0<=0)) stop("Survival times need to be positive")
-    if(!all(status%in% c(0,1))) stop("status has to be a binary variable of 1 and 0.")
+    if(any(Y0<=0)) stop("survival times need to be positive")
+    if(length(Y0) != nrow(X))  stop("the number of rows of Y does not match the number of rows of X");
+    if(!all(status%in% c(0,1))) stop("status has to be a binary variable of 1 and 0")
+  }else{
+    if(length(Y) != nrow(X))  stop("length of Y does not match the number of rows of X");
   }
+
   if(response=="binary"){
-    if(!all(Y%in% c(0,1))) stop("Y has to be a binary variable of 1 and 0.")
-    if(robust) message("Robust methods are not available for ", response, " response.")
+    if(!all(Y%in% c(0,1))) stop("Y must be a binary variable of 1 and 0")
+    if(robust) message("robust methods are not available for ", response, " response.")
   }
-  # if(any(apply(X,2,sd)==0)) stop("X has columns with 0 variance.")
-  if(nrow(X)<folds) stop("sample size too small for ", folds, "-fold cross-validation.")
-  if(alpha.i>1 | alpha.i<0) stop("alpha.i should be between 0 and 1")
+
   folds = as.integer(folds)
-  if(folds<2 | folds>ncol(X)) stop("incorrect value of folds")
+  if(nrow(X)<folds) stop("sample size too small for ", folds, "-fold cross-validation.")
+  if(folds<2) stop("incorrect value of folds")
+
+  if(alpha.i>1 | alpha.i<0) stop("alpha.i should be between 0 and 1")
   # if(is.null(initiation)){
   #   if(response == "survival") initiation = "zero" else initiation = "elnet"
   # }
+
   if(is.null(r)) r = 5
   if(penalty != "network"){
     lamb.2 = 0
   }else{
-    if(ncol(X)<2) stop("too less variables for network penalty.")
+    if(ncol(X)<3) stop("too less variables for network penalty.")
   }
   alpha = alpha.i # temporarily
   ncores = as.integer(ncores)
+  if(ncores<1) stop("incorrect value of ncores")
 
   fit=switch (response,
     "binary" = CV.Logit(X, Y, penalty, lamb.1, lamb.2, folds, r, alpha, init=initiation, alpha.i, standardize, ncores, verbo),
