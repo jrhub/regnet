@@ -1,3 +1,9 @@
+## usethis namespace: start
+#' @useDynLib regnet, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
+## usethis namespace: end
+NULL
+
 #' @docType package
 #' @keywords overview
 #' @name regnet-package

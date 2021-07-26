@@ -52,6 +52,14 @@ double validation_logit(arma::mat const &x0, arma::vec const &y0, arma::vec cons
 	return(mc);
 }
 
+arma::vec validation_logit2(arma::mat const &x0, arma::vec const &y0, arma::vec const &b){
+    arma::vec yi = 1/(1 + arma::exp(x0*b*-1)), mc(2);
+    mc(1) = arma::accu(arma::abs(y0 - yi));
+	arma::uvec y = (yi > 0.5);
+    mc(0) = arma::accu(arma::abs(y0 - y));
+	return(mc);
+}
+
 arma::vec fastLm(arma::vec const &y, arma::mat const &X){
     arma::colvec coef = arma::solve(X, y);    
     return coef;

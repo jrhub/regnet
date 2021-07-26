@@ -121,6 +121,18 @@ test_that("example_logit", {
   expect_gt(tp,10)
   expect_lt(fp,100)
 
+  out = cv.regnet(X, Y, response="binary", penalty="m", folds=5, r = 4.5)
+  par(mfrow=c(2,2)); for(i in 1:ncol(out$CVM)){plot(out$CVM[,i])}
+  fit = regnet(X, Y, "binary", penalty="l", out$lambda[1], NULL, r = 4.5)
+  index = which(rgn.logi$beta[-1] != 0)   # [-1] removes the intercept
+  par(mfrow=c(2,2)); for(i in 1:ncol(out$CVM)){plot(out$CVM[,i])}
+  pos = which(fit$coeff[-1] != 0)
+  tp = length(intersect(index, pos))
+  fp = length(pos) - tp
+  list(tp=tp, fp=fp)
+  expect_gt(tp,1)
+  expect_lt(fp,100)
+
   fit = regnet(X, Y, "binary", penalty=penalty, 0.055, 1, r = 4.5)
   index = which(rgn.logi$beta[-1] != 0)   # [-1] removes the intercept
   pos = which(fit$coeff[-1] != 0)

@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // ContGrid
 arma::mat ContGrid(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, arma::mat const& x2, arma::vec const& y2, arma::vec lamb1, arma::vec lamb2, arma::vec bc0, arma::vec bg0, double r, arma::mat const& a, int p, int pc, bool robust, char method);
 RcppExport SEXP _regnet_ContGrid(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bc0SEXP, SEXP bg0SEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP robustSEXP, SEXP methodSEXP) {
@@ -58,7 +63,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // LogitGrid
-arma::mat LogitGrid(arma::mat const& x, arma::vec const& y, arma::mat const& x2, arma::vec const& y2, arma::vec const& lamb1, arma::vec const& lamb2, arma::vec b, double r, arma::mat const& a, int p, double alpha, char method);
+Rcpp::List LogitGrid(arma::mat const& x, arma::vec const& y, arma::mat const& x2, arma::vec const& y2, arma::vec const& lamb1, arma::vec const& lamb2, arma::vec b, double r, arma::mat const& a, int p, double alpha, char method);
 RcppExport SEXP _regnet_LogitGrid(SEXP xSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP alphaSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

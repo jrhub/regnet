@@ -18,7 +18,8 @@ cv.regnet(
   alpha.i = 1,
   robust = FALSE,
   ncores = 1,
-  verbo = FALSE
+  verbo = FALSE,
+  debugging = FALSE
 )
 }
 \arguments{
@@ -56,6 +57,8 @@ in the current version of regnet.}
 \item{ncores}{the number of cores to be used for parallelization.}
 
 \item{verbo}{output progress to the console.}
+
+\item{debugging}{logical flag. If TRUE, extra information will be returned.}
 }
 \value{
 an object of class "cv.regnet" is returned, which is a list with components:

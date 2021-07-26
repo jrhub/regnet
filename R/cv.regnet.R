@@ -1,7 +1,3 @@
-#' @useDynLib regnet, .registration = TRUE
-#' @importFrom Rcpp sourceCpp
-NULL
-
 #' k-folds cross-validation for regnet
 #'
 #' This function does k-fold cross-validation for regnet and returns the optimal value(s) of lambda.
@@ -28,6 +24,7 @@ NULL
 #' in the current version of regnet.
 #' @param ncores the number of cores to be used for parallelization.
 #' @param verbo output progress to the console.
+#' @param debugging logical flag. If TRUE, extra information will be returned.
 #'
 #' @details When lamb.1 is left as NULL, regnet computes its own sequence. You can find the lamb.1 sequence used by the program in
 #' the returned CVM matrix (see the 'Value' section). If you find the default sequence does not work well, you can try (1) standardize
@@ -87,7 +84,7 @@ NULL
 #' @export
 
 cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL,
-                      folds=5, r=NULL, clv=NULL, initiation=NULL, alpha.i=1, robust=FALSE, ncores=1, verbo = FALSE)
+                      folds=5, r=NULL, clv=NULL, initiation=NULL, alpha.i=1, robust=FALSE, ncores=1, verbo = FALSE, debugging = FALSE)
 {
   standardize=TRUE
   response = match.arg(response)
@@ -132,8 +129,8 @@ cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), pena
   if(ncores<1) stop("incorrect value of ncores")
 
   fit=switch (response,
-    "binary" = CV.Logit(X, Y, penalty, lamb.1, lamb.2, folds, r, alpha, init=initiation, alpha.i, standardize, ncores, verbo),
-    "continuous" = CV.Cont(X, Y, penalty, lamb.1, lamb.2, folds, clv=clv, r, alpha, init=initiation, alpha.i, robust, standardize, ncores, verbo),
+    "binary" = CV.Logit(X, Y, penalty, lamb.1, lamb.2, folds, r, alpha, init=initiation, alpha.i, standardize, ncores, verbo, debugging),
+    "continuous" = CV.Cont(X, Y, penalty, lamb.1, lamb.2, folds, clv=clv, r, alpha, init=initiation, alpha.i, robust, standardize, ncores, verbo, debugging),
     "survival" = CV.Surv(X, Y0, status, penalty, lamb.1, lamb.2, folds, clv=clv, r, init=initiation, alpha.i, robust, standardize, ncores, verbo)
   )
   fit$call = this.call

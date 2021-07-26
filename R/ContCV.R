@@ -1,6 +1,6 @@
 
 CV.Cont <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL, folds=5, clv=NULL,
-                    r=5, alpha=1, init=NULL, alpha.i=1, robust=FALSE, standardize=TRUE, ncores=1, verbo = FALSE)
+                    r=5, alpha=1, init=NULL, alpha.i=1, robust=FALSE, standardize=TRUE, ncores=1, verbo = FALSE, debugging = FALSE)
 {
   intercept = TRUE
   if(is.null(clv)){
