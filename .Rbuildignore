@@ -10,3 +10,4 @@
 ^.*[.]pdf$
 ^CRAN-RELEASE$
 ^codecov\.yml$
+^\.github$
