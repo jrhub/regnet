@@ -8,9 +8,10 @@ LogitCD <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lam
   b0 = rep(0, p+1)
   method = substr(penalty, 1, 1)
   #---------------------------------------------- Main Loop -----------------------------------------
-  # if(standardize) x = scale(x, scale = apply(x, 2, function(t) stats::sd(t)*sqrt((n-1)/n)))
+  V0 = apply(x, 2, function(t) stats::sd(t)*sqrt((n-1)/n));
+  if(any(V0==0) & (penalty == "network")) stop("X columns have standard deviation equal zero");
   if(standardize){
-    V0 = apply(x, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0|is.na(V0)]=1
+    V0[V0==0|is.na(V0)]=1
     x = scale(x, center = TRUE, scale = V0)
   }
 

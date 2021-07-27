@@ -13,7 +13,14 @@ CV.Logit <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, la
 
   n = nrow(X); p = ncol(X);
   X = as.matrix(X); Y = as.matrix(Y)
-  X = scale(X, center = TRUE, scale = FALSE)
+  # X = scale(X, center = TRUE, scale = FALSE)
+  
+  V0 = apply(X, 2, function(t) stats::sd(t)*sqrt((n-1)/n));
+  if(any(V0==0) & (penalty == "network")) stop("X columns have standard deviation equal zero");
+  if(standardize){
+    V0[V0==0|is.na(V0)]=1
+    X = scale(X, center = TRUE, scale = V0)
+  }
 
   if(is.null(lamb.1)){
   # if(TRUE){

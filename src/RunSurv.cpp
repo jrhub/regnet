@@ -12,7 +12,7 @@ using namespace arma;
 
 
 // [[Rcpp::export]]
-arma::vec RunSurv_robust(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, double lamb1, double lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const &a, int p, int pc, char method)
+arma::vec RunSurv_robust(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, double lamb1, double lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const &a, int p, int pc, char method, bool debugging)
 {
   int count = 0, n = xc.n_rows;
   arma::vec bold(p, fill::none), yc, yg;
@@ -28,11 +28,11 @@ arma::vec RunSurv_robust(arma::mat const &xc, arma::mat const &xg, arma::vec con
 	yg = y - xc * bc;
 	bold = bg;
     if(method == 'n'){
-      LadNet(xg, yg, lamb1, lamb2, bg, Wg, r, a, n, p);
+      LadNet(xg, yg, lamb1, lamb2, bg, Wg, r, a, n, p, debugging);
     }else if(method == 'm'){
-      LadMCP(xg, yg, lamb1, bg, r, n, p);
+      LadMCP(xg, yg, lamb1, bg, r, n, p, debugging);
     }else{
-      LadLasso(xg, yg, lamb1, bg, n, p);
+      LadLasso(xg, yg, lamb1, bg, n, p, debugging);
     }
     double diff = arma::accu(arma::abs(bg - bold))/(arma::accu(bg != 0)+0.1);
 	// double diff = arma::accu(arma::abs(bg - bold));
@@ -66,12 +66,12 @@ void RunSurv_robust_warm(arma::mat const &xc, arma::mat const &xg, arma::vec con
 	yg = y - xc * bc;
 	bold = bg;
     if(method == 'n'){
-      LadNet(xg, yg, lamb1, lamb2, bg, Wg, r, a, n, p);
+      LadNet(xg, yg, lamb1, lamb2, bg, Wg, r, a, n, p, false);
 	  // LadNet(xg, yg, lamb1, lamb2, bg, r, a, n, p);
     }else if(method == 'm'){
-      LadMCP(xg, yg, lamb1, bg, r, n, p);
+      LadMCP(xg, yg, lamb1, bg, r, n, p, false);
     }else{
-      LadLasso(xg, yg, lamb1, bg, n, p);
+      LadLasso(xg, yg, lamb1, bg, n, p, false);
     }
     double diff = arma::accu(arma::abs(bg - bold))/(arma::accu(bg != 0)+0.1);
 	// RcppThread::Rcout << "diff: " << diff <<std::endl;

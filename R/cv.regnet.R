@@ -131,7 +131,7 @@ cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), pena
   fit=switch (response,
     "binary" = CV.Logit(X, Y, penalty, lamb.1, lamb.2, folds, r, alpha, init=initiation, alpha.i, standardize, ncores, verbo, debugging),
     "continuous" = CV.Cont(X, Y, penalty, lamb.1, lamb.2, folds, clv=clv, r, alpha, init=initiation, alpha.i, robust, standardize, ncores, verbo, debugging),
-    "survival" = CV.Surv(X, Y0, status, penalty, lamb.1, lamb.2, folds, clv=clv, r, init=initiation, alpha.i, robust, standardize, ncores, verbo)
+    "survival" = CV.Surv(X, Y0, status, penalty, lamb.1, lamb.2, folds, clv=clv, r, init=initiation, alpha.i, robust, standardize, ncores, verbo, debugging)
   )
   fit$call = this.call
   class(fit) = "cv.regnet"

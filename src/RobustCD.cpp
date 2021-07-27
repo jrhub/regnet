@@ -6,7 +6,7 @@ using namespace Rcpp;
 using namespace arma;
 
 //Robust Network
-void LadNet(arma::mat const &x, arma::vec const &y, double lam1, double lam2, arma::vec &b, arma::mat &Wg, double r, arma::mat const &a, int n, int p)
+void LadNet(arma::mat const &x, arma::vec const &y, double lam1, double lam2, arma::vec &b, arma::mat &Wg, double r, arma::mat const &a, int n, int p, bool debugging)
 {
   arma::vec t = y - x * b;
   arma::uvec index;
@@ -22,7 +22,8 @@ void LadNet(arma::mat const &x, arma::vec const &y, double lam1, double lam2, ar
 	  u.subvec(n+1, n+p-m-1) = arma::sign(a.submat(m, m+1, m, p-1)).t() % b.subvec(m+1, p-1);
 	  Wg.submat(n+1, m, n+p-m-1, m) = arma::abs(a.submat(m, m+1, m, p-1)).t() * lam2;
     }
-
+	
+	if(debugging) u.replace(datum::nan, 0);
     index = arma::sort_index(u);
     double halfWeight = arma::accu(Wg.col(m))*0.5, SUM = 0;
     int j = 0;
@@ -35,7 +36,7 @@ void LadNet(arma::mat const &x, arma::vec const &y, double lam1, double lam2, ar
   }
 }
 
-void LadNet(arma::mat const &x, arma::vec const &y, double lam1, double lam2, arma::vec &b, double r, arma::mat const &a, int n, int p)
+void LadNet(arma::mat const &x, arma::vec const &y, double lam1, double lam2, arma::vec &b, double r, arma::mat const &a, int n, int p, bool debugging)
 {
   arma::vec t = y - x * b;
   arma::uvec index;
@@ -54,6 +55,7 @@ void LadNet(arma::mat const &x, arma::vec const &y, double lam1, double lam2, ar
       w.subvec(n+1, n+p-m-1) = arma::abs(a.row(m).subvec(m+1, p-1)).t() * lam2;
     }
 
+	if(debugging) u.replace(datum::nan, 0);
     index = arma::sort_index(u);
     double TotalWeight = arma::accu(w), SUM = 0;
     int j = 0;
@@ -68,7 +70,7 @@ void LadNet(arma::mat const &x, arma::vec const &y, double lam1, double lam2, ar
 
 
 //Robust MCP
-void LadMCP(arma::mat const &x, arma::vec const &y, double lam1, arma::vec &b, double r, int n, int p)
+void LadMCP(arma::mat const &x, arma::vec const &y, double lam1, arma::vec &b, double r, int n, int p, bool debugging)
 {
   arma::vec t = y - x * b;
   arma::uvec index;
@@ -77,6 +79,7 @@ void LadMCP(arma::mat const &x, arma::vec const &y, double lam1, arma::vec &b, d
   for(int m = 0; m < p; m++){
     t += x.col(m) * b(m);
     u.subvec(0,n-1) = t/x.col(m);
+	if(debugging) u.replace(datum::nan, 0);
     // u(n) = 0;
     
     w.subvec(0, n-1) = arma::abs(x.col(m))/n;
@@ -98,7 +101,7 @@ void LadMCP(arma::mat const &x, arma::vec const &y, double lam1, arma::vec &b, d
 }
 
 //Robust Lasso
-void LadLasso(arma::mat const &x, arma::vec const &y, double lam1, arma::vec &b, int n, int p)
+void LadLasso(arma::mat const &x, arma::vec const &y, double lam1, arma::vec &b, int n, int p, bool debugging)
 {
   arma::vec t = y - x * b;
   arma::uvec index;
@@ -107,6 +110,7 @@ void LadLasso(arma::mat const &x, arma::vec const &y, double lam1, arma::vec &b,
   for(int m = 0; m < p; m++){
     t += x.col(m) * b(m);
     u.subvec(0,n-1) = t/x.col(m);
+	if(debugging) u.replace(datum::nan, 0);
     // u(n) = 0;
     
     w.subvec(0, n-1) = arma::abs(x.col(m))/n;

@@ -14,7 +14,7 @@ using namespace arma;
 
 
 // [[Rcpp::export()]]
-arma::mat SurvCV(arma::mat const &Xc, arma::mat const &Xg, arma::vec const &Y, unsigned int folds, arma::vec lamb1, arma::vec lamb2, arma::vec const &bc0, arma::vec const &bg0, double r, arma::mat const &a, int p, int pc, bool robust, char method, int ncores)
+arma::mat SurvCV(arma::mat const &Xc, arma::mat const &Xg, arma::vec const &Y, unsigned int folds, arma::vec lamb1, arma::vec lamb2, arma::vec const &bc0, arma::vec const &bg0, double r, arma::mat const &a, int p, int pc, bool robust, char method, int ncores, bool debugging)
 {
 	int L = std::floor(Xc.n_rows/(double)folds), m = Xc.n_rows%folds, start=0;
     arma::mat CVM(lamb1.n_elem, lamb2.n_elem, fill::zeros), xc, xg, xc2, xg2;
@@ -83,7 +83,7 @@ arma::mat SurvCV(arma::mat const &Xc, arma::mat const &Xg, arma::vec const &Y, u
 
 
 // [[Rcpp::export()]]
-arma::mat SurvGrid(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, arma::mat const &x2, arma::vec const &y2, arma::vec const &lamb1, arma::vec const &lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const &a, int p, int pc, bool robust, char method)
+arma::mat SurvGrid(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, arma::mat const &x2, arma::vec const &y2, arma::vec const &lamb1, arma::vec const &lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const &a, int p, int pc, bool robust, char method, bool debugging)
 {
 	arma::vec btmp, triRowAbsSums;
     arma::mat CVM(lamb1.n_elem, lamb2.n_elem, fill::zeros);
@@ -91,7 +91,7 @@ arma::mat SurvGrid(arma::mat const &xc, arma::mat const &xg, arma::vec const &y,
 	if(robust){
 		for(unsigned int j=0; j<lamb2.n_elem ; j++){
 			for(unsigned int i=0; i<lamb1.n_elem ; i++){
-				btmp = RunSurv_robust(xc, xg, y, lamb1(i), lamb2(j), bc, bg, r, a, p, pc, method);
+				btmp = RunSurv_robust(xc, xg, y, lamb1(i), lamb2(j), bc, bg, r, a, p, pc, method, debugging);
 				CVM(i, j) = validation_LAD(x2, y2, btmp);
 				RcppThread::checkUserInterrupt();
 			}
@@ -111,7 +111,7 @@ arma::mat SurvGrid(arma::mat const &xc, arma::mat const &xg, arma::vec const &y,
 }
 
 // [[Rcpp::export()]]
-arma::mat SurvGrid_MC(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, arma::mat const &x2, arma::vec const &y2, arma::vec const &lamb1, arma::vec const &lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const &a, int p, int pc, bool robust, char method, int ncores)
+arma::mat SurvGrid_MC(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, arma::mat const &x2, arma::vec const &y2, arma::vec const &lamb1, arma::vec const &lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const &a, int p, int pc, bool robust, char method, int ncores, bool debugging)
 {
 	arma::vec btmp, triRowAbsSums;
     arma::mat CVM(lamb1.n_elem, lamb2.n_elem, fill::zeros);
@@ -121,7 +121,7 @@ arma::mat SurvGrid_MC(arma::mat const &xc, arma::mat const &xg, arma::vec const 
 		#pragma omp parallel for collapse(2) private(btmp)
 		for(unsigned int j=0; j<lamb2.n_elem ; j++){
 			for(unsigned int i=0; i<lamb1.n_elem ; i++){
-				btmp = RunSurv_robust(xc, xg, y, lamb1(i), lamb2(j), bc, bg, r, a, p, pc, method);
+				btmp = RunSurv_robust(xc, xg, y, lamb1(i), lamb2(j), bc, bg, r, a, p, pc, method, debugging);
 				CVM(i, j) = validation_LAD(x2, y2, btmp);
 			}
 		}

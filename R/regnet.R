@@ -24,6 +24,7 @@
 #' lasso penalty, and alpha.i=0 is the ridge penalty. If the user chooses a method other than elastic-net for initializing
 #' coefficients, alpha.i will be ignored.
 #' @param robust logical flag. Whether or not to use robust methods. Robust methods are only available for survival response.
+#' @param debugging logical flag. If TRUE, extra information will be returned.
 #'
 #' @details The current version of regnet supports two types of responses: “binary”, "continuous" and “survival”.
 #' \itemize{
@@ -70,7 +71,7 @@
 #' @export
 
 regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL,
-                   r=NULL, clv=NULL, initiation=NULL, alpha.i=1, robust=FALSE)
+                   r=NULL, clv=NULL, initiation=NULL, alpha.i=1, robust=FALSE, debugging = FALSE)
 {
   # intercept = TRUE
   standardize=TRUE
@@ -112,8 +113,8 @@ regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty
 
   out=switch (response,
               "binary" = LogitCD(X, Y, penalty, lamb.1, lamb.2, r, alpha, init=initiation, alpha.i,standardize),
-              "continuous" = ContCD(X, Y, penalty, lamb.1, lamb.2, clv, r, alpha, init=initiation, alpha.i, robust, standardize),
-              "survival" = SurvCD(X, Y0, status, penalty, lamb.1, lamb.2, clv, r, init=initiation, alpha.i, robust, standardize)
+              "continuous" = ContCD(X, Y, penalty, lamb.1, lamb.2, clv, r, alpha, init=initiation, alpha.i, robust, standardize, debugging),
+              "survival" = SurvCD(X, Y0, status, penalty, lamb.1, lamb.2, clv, r, init=initiation, alpha.i, robust, standardize, debugging)
   )
   para = list(penalty=penalty, lamb.1=lamb.1, lamb.2=lamb.2, robust=robust)
   fit = list(call = this.call, coeff = out$b, Adj=out$Adj, para=para)

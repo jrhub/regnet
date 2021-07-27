@@ -15,7 +15,8 @@ regnet(
   clv = NULL,
   initiation = NULL,
   alpha.i = 1,
-  robust = FALSE
+  robust = FALSE,
+  debugging = FALSE
 )
 }
 \arguments{
@@ -48,6 +49,8 @@ lasso penalty, and alpha.i=0 is the ridge penalty. If the user chooses a method 
 coefficients, alpha.i will be ignored.}
 
 \item{robust}{logical flag. Whether or not to use robust methods. Robust methods are only available for survival response.}
+
+\item{debugging}{logical flag. If TRUE, extra information will be returned.}
 }
 \value{
 an object of class "regnet" is returned, which is a list with components:

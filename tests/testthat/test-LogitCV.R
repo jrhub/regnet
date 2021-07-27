@@ -25,4 +25,8 @@ test_that("LogitCV", {
   expect_null(out$para$inds0)
   expect_null(dim(out$lambda))
   expect_equal(out$para$lamb.1[out$para$inds[,1]], out$lambda)
+
+  X[,1] = 0;
+  expect_error(CV.Logit(X, Y, "network"), "standard deviation equal zero")
+
 })

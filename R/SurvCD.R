@@ -1,6 +1,6 @@
 
 SurvCD <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL, clv=NULL, r=5,
-                   init=NULL, alpha.i=1, robust=TRUE, standardize=TRUE)
+                   init=NULL, alpha.i=1, robust=TRUE, standardize=TRUE, debugging=FALSE)
 {
   intercept = TRUE
   status = as.numeric(status)
@@ -11,11 +11,12 @@ SurvCD <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=
   }
 
   n = nrow(X0); p.c = length(clv); p = ncol(X0)-p.c+intercept;
+  V0 = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); 
+  if(any(V0==0) & (penalty == "network")) stop("X columns have standard deviation equal zero");
   if(standardize){
-    V0 = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0|is.na(V0)]=1
+    V0[V0==0|is.na(V0)]=1
     X1 = scale(X0, center = TRUE, scale = V0)
   }
-  # X1 = scale(X0, center = TRUE, scale = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)))
   if(intercept) X1 = cbind(Intercept = rep(1, n), X1)
   Y1 = Y0
 
@@ -38,7 +39,7 @@ SurvCD <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=
   method = substr(penalty, 1, 1)
 
   if(robust){
-    b = RunSurv_robust(x.c, x.g, Y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method)
+    b = RunSurv_robust(x.c, x.g, Y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method, debugging)
   }else{
     triRowAbsSums = rowSums(abs(a*upper.tri(a, diag = FALSE)))
     b = RunSurv(x.c, x.g, Y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, triRowAbsSums, p, p.c, method)

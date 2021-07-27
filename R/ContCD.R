@@ -1,6 +1,6 @@
 
 ContCD <- function(X, y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL, clv=NULL, r=5, alpha=1,
-                    init=NULL, alpha.i=1, robust=FALSE, standardize=TRUE)
+                    init=NULL, alpha.i=1, robust=FALSE, standardize=TRUE, debugging=FALSE)
 {
   intercept = TRUE
   if(is.null(clv)){
@@ -15,8 +15,10 @@ ContCD <- function(X, y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb
   b0 = rep(0, p+intercept)
   method = substr(penalty, 1, 1)
   #---------------------------------------------- Main Loop -----------------------------------------
+  V0 = apply(X, 2, function(t) stats::sd(t)*sqrt((n-1)/n));
+  if(any(V0==0) & (penalty == "network")) stop("X columns have standard deviation equal zero");
   if(standardize){
-    V0 = apply(X, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0|is.na(V0)]=1
+    V0[V0==0|is.na(V0)]=1
     X = scale(X, center = TRUE, scale = V0)
   }
   X = cbind(1, X)
@@ -28,7 +30,7 @@ ContCD <- function(X, y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb
   a = Adjacency(x.g)
 
   if(robust){
-    b = RunCont_robust(x.c, x.g, y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method)
+    b = RunCont_robust(x.c, x.g, y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, method, debugging)
   }else{
     triRowAbsSums = rowSums(abs(a*upper.tri(a, diag = FALSE)))
     b = RunCont(x.c, x.g, y, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, triRowAbsSums, p, p.c, method)

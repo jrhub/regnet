@@ -1,6 +1,6 @@
 
 CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL, folds=5, clv=NULL, r=5,
-                    init=NULL, alpha.i=1, robust=TRUE, standardize=TRUE, ncores, verbo = FALSE)
+                    init=NULL, alpha.i=1, robust=TRUE, standardize=TRUE, ncores, verbo = FALSE, debugging = FALSE)
 {
   intercept = TRUE
   if(is.null(clv)){
@@ -10,8 +10,10 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
   }
 
   n = nrow(X0); p.c = length(clv); p = ncol(X0)-p.c+intercept;
+  V0 = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); 
+  if(any(V0==0) & (penalty == "network")) stop("X columns have standard deviation equal zero");
   if(standardize){
-    V0 = apply(X0, 2, function(t) stats::sd(t)*sqrt((n-1)/n)); V0[V0==0|is.na(V0)]=1
+    V0[V0==0|is.na(V0)]=1
     X1 = scale(X0, center = TRUE, scale = V0)
   }
   if(intercept) X1 = cbind(Intercept = rep(1, n), X1)
@@ -85,9 +87,9 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
     x2 = cbind(x2[,clv, drop = FALSE], x2[,-clv, drop = FALSE])
 
     if(ncores>1){
-      CVM = CVM + SurvGrid_MC(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, ncores)
+      CVM = CVM + SurvGrid_MC(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, ncores, debugging)
     }else{
-      CVM = CVM + SurvGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method)
+      CVM = CVM + SurvGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, debugging)
     }
 
     # if(penalty == "network"){

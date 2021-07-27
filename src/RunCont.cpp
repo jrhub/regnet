@@ -46,7 +46,7 @@ arma::vec RunCont(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, 
 
 
 // [[Rcpp::export]]
-arma::vec RunCont_robust(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, double lamb1, double lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const &a, int p, int pc, char method)
+arma::vec RunCont_robust(arma::mat const &xc, arma::mat const &xg, arma::vec const &y, double lamb1, double lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const &a, int p, int pc, char method, bool debugging)
 {
   int count = 0, n = xc.n_rows;
   arma::vec bold(p, fill::none), yc, yg; // bc = bc0, bg = bg0;
@@ -60,11 +60,11 @@ arma::vec RunCont_robust(arma::mat const &xc, arma::mat const &xg, arma::vec con
 	yg = y - xc * bc;
 	bold = bg;
     if(method == 'n'){
-      LadNet(xg, yg, lamb1, lamb2, bg, r, a, n, p);
+      LadNet(xg, yg, lamb1, lamb2, bg, r, a, n, p, debugging);
     }else if(method == 'm'){
-      LadMCP(xg, yg, lamb1, bg, r, n, p);
+      LadMCP(xg, yg, lamb1, bg, r, n, p, debugging);
     }else{
-      LadLasso(xg, yg, lamb1, bg, n, p);
+      LadLasso(xg, yg, lamb1, bg, n, p, debugging);
     }
     double diff = arma::accu(arma::abs(bg - bold))/(arma::accu(bg != 0)+0.1);
 	//std::cout << "diff: " << diff <<std::endl;
