@@ -25,20 +25,20 @@ NULL
 #' @references
 #' Ren, J., Du, Y., Li, S., Ma, S., Jiang,Y. and Wu, C. (2019). Robust network-based regularization
 #' and variable selection for high dimensional genomics data in cancer prognosis.
-#' \href{https://doi.org/10.1002/gepi.22194}{\emph{Genet. Epidemiol.}, 43:276-291}
+#' {\emph{Genet. Epidemiol.}, 43:276-291} \doi{10.1002/gepi.22194}
 #'
 #' Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., and Wu, C. (2017).
 #' Network-based regularization for high dimensional SNP data in the case-control study of
-#' Type 2 diabetes. \href{https://doi.org/10.1186/s12863-017-0495-5}{\emph{BMC Genetics}, 18(1):44}
+#' Type 2 diabetes. {\emph{BMC Genetics}, 18(1):44} \doi{10.1186/s12863-017-0495-5}
 #'
 #' Wu, C, Jiang, Y, Ren, J, Cui, Y, Ma, S. (2018). Dissecting gene-environment interactions: A penalized robust approach accounting for hierarchical structures.
-#' \href{https://doi.org/10.1002/sim.7518}{\emph{Statistics in Medicine}, 37:437–456}
+#' {\emph{Statistics in Medicine}, 37:437–456} \doi{10.1002/sim.7518}
 #'
 #' Wu, C., and Ma, S. (2015). A selective review of robust variable selection with applications in bioinformatics.
-#' \href{http://doi.org/10.1093/bib/bbu046}{\emph{Briefings in Bioinformatics}, 16(5), 873–883}
+#' {\emph{Briefings in Bioinformatics}, 16(5), 873–883} \doi{10.1093/bib/bbu046}
 #'
 #' Wu, C., Shi, X., Cui, Y. and Ma, S. (2015). A penalized robust semiparametric approach for gene-environment interactions.
-#' \href{https://doi.org/10.1002/sim.6609}{\emph{Statistics in Medicine}, 34 (30): 4016–4030}
+#' {\emph{Statistics in Medicine}, 34 (30): 4016–4030} \doi{10.1002/sim.6609}
 #'
 #' @examples
 #' \donttest{
