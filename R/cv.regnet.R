@@ -22,7 +22,6 @@
 #' coefficients, alpha.i will be ignored.
 #' @param robust logical flag. Whether or not to use robust methods. Robust methods are only available for survival response
 #' in the current version of regnet.
-#' @param ncores the number of cores to be used for parallelization.
 #' @param verbo output progress to the console.
 #' @param debugging logical flag. If TRUE, extra information will be returned.
 #'
@@ -84,7 +83,7 @@
 #' @export
 
 cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lamb.2=NULL,
-                      folds=5, r=NULL, clv=NULL, initiation=NULL, alpha.i=1, robust=FALSE, ncores=1, verbo = FALSE, debugging = FALSE)
+                      folds=5, r=NULL, clv=NULL, initiation=NULL, alpha.i=1, robust=FALSE, verbo = FALSE, debugging = FALSE)
 {
   standardize=TRUE
   response = match.arg(response)
@@ -125,9 +124,10 @@ cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), pena
     if(ncol(X)<3) stop("too less variables for network penalty.")
   }
   alpha = alpha.i # temporarily
-  ncores = as.integer(ncores)
-  if(ncores<1) stop("incorrect value of ncores")
-
+  # ncores = as.integer(ncores)
+  # if(ncores<1) stop("incorrect value of ncores")
+  ncores=1
+  
   fit=switch (response,
     "binary" = CV.Logit(X, Y, penalty, lamb.1, lamb.2, folds, r, alpha, init=initiation, alpha.i, standardize, ncores, verbo, debugging),
     "continuous" = CV.Cont(X, Y, penalty, lamb.1, lamb.2, folds, clv=clv, r, alpha, init=initiation, alpha.i, robust, standardize, ncores, verbo, debugging),

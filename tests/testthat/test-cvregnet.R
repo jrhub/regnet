@@ -7,7 +7,7 @@ test_that("cv.regnet_data_format_cont", {
   expect_error(cv.regnet(X, Y[1:4], "c", "n"), "length of Y does not match")
   expect_error(cv.regnet(X, Y, "c", "n", folds = -5), "incorrect value of folds")
   expect_error(cv.regnet(X, Y, "c", "n", alpha.i = 2), "alpha.i should be between 0 and 1")
-  expect_error(cv.regnet(X, Y, "c", "n", ncore = 0), "incorrect value of ncores")
+  # expect_error(cv.regnet(X, Y, "c", "n", ncore = 0), "incorrect value of ncores")
 
   out = cv.regnet(X, Y, "c", "n", lamb.2 = 1)
   expect_equal(ncol(out$lambda), 2)

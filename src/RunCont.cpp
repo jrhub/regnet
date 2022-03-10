@@ -1,6 +1,4 @@
-// [[Rcpp::plugins(cpp11)]]
-// [[Rcpp::depends(RcppThread)]]
-#include <RcppThread.h>
+
 #include<RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 #include"ContCD.h"

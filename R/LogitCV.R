@@ -58,14 +58,13 @@ CV.Logit <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, la
     x = cbind(1, x); x2 = cbind(1, x2)
     if(init == "elnet") b0 = initiation(x, y, alpha.i, "binomial")
 
-    if(ncores>1){
-      CVM = CVM + LogitGrid_MC(x, y, x2, y2, lamb.1, lamb.2, b0, r, a, p, alpha, method, ncores)
-    }else{
-      # CVM = CVM + LogitGrid(x, y, x2, y2, lamb.1, lamb.2, b0, r, a, p, alpha, method)
+    # if(ncores>1){
+      # CVM = CVM + LogitGrid_MC(x, y, x2, y2, lamb.1, lamb.2, b0, r, a, p, alpha, method, ncores)
+    # }else{
       CVMs = LogitGrid(x, y, x2, y2, lamb.1, lamb.2, b0, r, a, p, alpha, method)
       CVM = CVM + CVMs$CVM
       CVM2 = CVM2 + CVMs$CVM2
-    }
+    # }
 
   }
 

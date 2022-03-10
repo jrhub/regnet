@@ -66,13 +66,14 @@ versions.
     fp = length(pos) - tp  
     list(tp=tp, fp=fp)  
 
-##### The cross-validation step can run on multiple cores (OpenMP):
-
-    # detect the number of CPU cores on the current host
-    library("parallel")
-    ncores = parallel::detectCores(logical=FALSE) # ncores>2 can show significant increases in speed
-    # parallel CV 
-    out = cv.regnet(X, Y, response="s", penalty="n", clv=clv, robust=TRUE, ncores=ncores, verbo = TRUE)
+<!-- ##### The cross-validation step can run on multiple cores (OpenMP): -->
+<!-- ``` -->
+<!-- # detect the number of CPU cores on the current host -->
+<!-- library("parallel") -->
+<!-- ncores = parallel::detectCores(logical=FALSE) # ncores>2 can show significant increases in speed -->
+<!-- # parallel CV  -->
+<!-- out = cv.regnet(X, Y, response="s", penalty="n", clv=clv, robust=TRUE, ncores=ncores, verbo = TRUE) -->
+<!-- ``` -->
 
 ### Binary response
 
@@ -106,6 +107,10 @@ versions.
 ![](README-unnamed-chunk-2-2.png)<!-- -->
 
 ## News
+
+### regnet (development version) \[2021-3\]
+
+-   multiple-cores computation is removed for CRAN submission.
 
 ### regnet (development version) \[2020-5\]
 

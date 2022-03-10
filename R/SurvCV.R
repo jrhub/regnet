@@ -86,20 +86,12 @@ CV.Surv <- function(X0, Y0, status, penalty=c("network", "mcp", "lasso"), lamb.1
     x.c=x[, clv, drop = FALSE]; x.g = x[, -clv, drop = FALSE];
     x2 = cbind(x2[,clv, drop = FALSE], x2[,-clv, drop = FALSE])
 
-    if(ncores>1){
-      CVM = CVM + SurvGrid_MC(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, ncores, debugging)
-    }else{
-      CVM = CVM + SurvGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, debugging)
-    }
-
-    # if(penalty == "network"){
-    #   # a = Adjacency(x.g)
-    #   CVM = CVM + NetGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, ncores)
-    # }else if(penalty == "mcp"){
-    #   CVM = CVM + MCPGrid(x.c, x.g, y, x2, y2, lamb.1, b0[clv], b0[-clv], r, p, p.c, robust, ncores)
+    # if(ncores>1){
+      # CVM = CVM + SurvGrid_MC(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, ncores, debugging)
     # }else{
-    #   CVM = CVM + LassoGrid(x.c, x.g, y, x2, y2, lamb.1, b0[clv], b0[-clv], p, p.c, robust, ncores)
+      CVM = CVM + SurvGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, debugging)
     # }
+
 
   }
   CVM = CVM/n

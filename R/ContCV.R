@@ -61,11 +61,12 @@ CV.Cont <- function(X, Y, penalty=c("network", "mcp", "lasso"), lamb.1=NULL, lam
     x.c=x[, clv, drop = FALSE]; x.g = x[, -clv, drop = FALSE];
     x2 = cbind(x2[,clv, drop = FALSE], x2[,-clv, drop = FALSE])
     # if(penalty == "network") a = Adjacency(x.g) else a = as.matrix(0)
-    if(ncores>1){
-      CVM = CVM + ContGrid_MC(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, ncores, debugging)
-    }else{
+	
+    # if(ncores>1){
+      # CVM = CVM + ContGrid_MC(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, ncores, debugging)
+    # }else{
       CVM = CVM + ContGrid(x.c, x.g, y, x2, y2, lamb.1, lamb.2, b0[clv], b0[-clv], r, a, p, p.c, robust, method, debugging)
-    }
+    # }
   }
   CVM = CVM/n
   mcvm = min(CVM)

@@ -1,12 +1,9 @@
-// [[Rcpp::plugins(cpp11)]]
-// [[Rcpp::depends(RcppThread)]]
-#include <RcppThread.h>
+
 #include<RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 #include"RunLogistic.h"
 #include"Utilities.h"
-#include <omp.h>
-// [[Rcpp::plugins(openmp)]]
+
 
 using namespace Rcpp;
 using namespace arma;
@@ -26,7 +23,7 @@ Rcpp::List LogitGrid(arma::mat const &x, arma::vec const &y, arma::mat const &x2
 			mc = validation_logit2(x2, y2, btmp);
 			CVM(i, j) = mc(0);
 			CVM2(i, j) = mc(1);
-			RcppThread::checkUserInterrupt();
+			Rcpp::checkUserInterrupt();
 		}
 	}
     // return CVM;
@@ -34,6 +31,7 @@ Rcpp::List LogitGrid(arma::mat const &x, arma::vec const &y, arma::mat const &x2
 							  Rcpp::Named("CVM2") = CVM2);
 }
 
+/* 
 // [[Rcpp::export()]]
 arma::mat LogitGrid_MC(arma::mat const &x, arma::vec const &y, arma::mat const &x2, arma::vec const &y2, arma::vec const &lamb1, arma::vec const &lamb2, arma::vec b, double r, arma::mat const &a, int p, double alpha, char method, int ncores)
 {
@@ -51,3 +49,4 @@ arma::mat LogitGrid_MC(arma::mat const &x, arma::vec const &y, arma::mat const &
 	}
     return CVM;
 }
+ */

@@ -68,8 +68,8 @@ test_that("example_cont_nonrobust", {
   Y = rgn.htr$Y
   robust= FALSE
   penalty="n"
-  ncores = 2
-  out = cv.regnet(X, Y, response="c", penalty=penalty, folds=5, r = 1.5, robust=robust, ncores=ncores, verbo=FALSE)
+  # ncores = 2
+  out = cv.regnet(X, Y, response="c", penalty=penalty, folds=5, r = 1.5, robust=robust, verbo=FALSE)
   par(mfrow=c(2,2)); for(i in 1:ncol(out$CVM)){plot(out$CVM[,i])}
   fit = regnet(X, Y, "c", penalty, out$lambda[1,1], out$lambda[1,2], r = 1.5, robust=robust)
   index = which(rgn.htr$beta[-1] != 0)   # [-1] removes the intercept

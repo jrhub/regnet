@@ -5,16 +5,8 @@ ContGrid <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc0, bg0, r, a, p, pc, rob
     .Call(`_regnet_ContGrid`, xc, xg, y, x2, y2, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method, debugging)
 }
 
-ContGrid_MC <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method, ncores, debugging) {
-    .Call(`_regnet_ContGrid_MC`, xc, xg, y, x2, y2, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method, ncores, debugging)
-}
-
 LogitGrid <- function(x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method) {
     .Call(`_regnet_LogitGrid`, x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method)
-}
-
-LogitGrid_MC <- function(x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method, ncores) {
-    .Call(`_regnet_LogitGrid_MC`, x, y, x2, y2, lamb1, lamb2, b, r, a, p, alpha, method, ncores)
 }
 
 RunCont <- function(xc, xg, y, lamb1, lamb2, bc, bg, r, a, triRowAbsSums, p, pc, method) {
@@ -55,9 +47,5 @@ SurvCV <- function(Xc, Xg, Y, folds, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust
 
 SurvGrid <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, method, debugging) {
     .Call(`_regnet_SurvGrid`, xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, method, debugging)
-}
-
-SurvGrid_MC <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, method, ncores, debugging) {
-    .Call(`_regnet_SurvGrid_MC`, xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, method, ncores, debugging)
 }
 
