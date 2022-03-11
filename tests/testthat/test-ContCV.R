@@ -5,28 +5,28 @@ test_that("ContCV", {
   Y = X[,4:7]%*%c(3,2,3,-2)
 
   X[,1] = 0; X[c(4,8),1] = c(1, -1);
-  expect_error(CV.Cont(X, Y, "network", robust = TRUE, debugging = FALSE))
-  out = CV.Cont(X, Y, "network", robust = TRUE, debugging = TRUE)
+  # expect_error(CV.Cont(X, Y, "network", robust = TRUE, debugging = FALSE))
+  out = CV.Cont(X, Y, "network", robust = TRUE)
   expect_equal(out$penalty, "network")
   expect_equal(ncol(out$lambda), 2)
 
 
-  expect_error(CV.Cont(X, Y, "mcp", lamb.2=0, robust = TRUE, debugging = FALSE))
-  out = CV.Cont(X, Y, "mcp", lamb.2=0, robust = TRUE, debugging = TRUE)
+  # expect_error(CV.Cont(X, Y, "mcp", lamb.2=0, robust = TRUE, debugging = FALSE))
+  out = CV.Cont(X, Y, "mcp", lamb.2=0, robust = TRUE)
   expect_equal(out$penalty, "mcp")
   expect_null(ncol(out$lambda))
 
 
-  expect_error(CV.Cont(X, Y, "lasso", lamb.2=0, robust = TRUE, debugging = FALSE))
-  out = CV.Cont(X, Y, "lasso", lamb.2=0, robust = TRUE, debugging = TRUE)
+  # expect_error(CV.Cont(X, Y, "lasso", lamb.2=0, robust = TRUE, debugging = FALSE))
+  out = CV.Cont(X, Y, "lasso", lamb.2=0, robust = TRUE)
   expect_equal(out$penalty, "lasso")
 
 
   X[,1] = 0;
-  expect_error(CV.Cont(X, Y, "network", robust = TRUE, debugging = TRUE), "standard deviation equal zero")
-  out = CV.Cont(X, Y, "mcp", lamb.2=0, robust = TRUE, debugging = TRUE)
+  expect_error(CV.Cont(X, Y, "network", robust = TRUE), "standard deviation equal zero")
+  out = CV.Cont(X, Y, "mcp", lamb.2=0, robust = TRUE)
   expect_equal(out$penalty, "mcp")
-  out = CV.Cont(X, Y, "lasso", lamb.2=0, robust = TRUE, debugging = TRUE)
+  out = CV.Cont(X, Y, "lasso", lamb.2=0, robust = TRUE)
   expect_equal(out$penalty, "lasso")
 
 

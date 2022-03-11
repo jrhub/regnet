@@ -41,10 +41,6 @@ RunSurv <- function(xc, xg, y, lamb1, lamb2, bc, bg, r, a, triRowAbsSums, p, pc,
     .Call(`_regnet_RunSurv`, xc, xg, y, lamb1, lamb2, bc, bg, r, a, triRowAbsSums, p, pc, method)
 }
 
-SurvCV <- function(Xc, Xg, Y, folds, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method, ncores, debugging) {
-    .Call(`_regnet_SurvCV`, Xc, Xg, Y, folds, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method, ncores, debugging)
-}
-
 SurvGrid <- function(xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, method, debugging) {
     .Call(`_regnet_SurvGrid`, xc, xg, y, x2, y2, lamb1, lamb2, bc, bg, r, a, p, pc, robust, method, debugging)
 }

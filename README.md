@@ -13,8 +13,6 @@
 downloads](http://cranlogs.r-pkg.org/badges/regnet)](http://www.r-pkg.org/pkg/regnet)
 [![Codecov test
 coverage](https://codecov.io/gh/jrhub/regnet/branch/master/graph/badge.svg)](https://codecov.io/gh/jrhub/regnet?branch=master)
-[![Travis build
-status](https://travis-ci.com/jrhub/regnet.svg?branch=master)](https://travis-ci.com/jrhub/regnet)
 [![R-CMD-check](https://github.com/jrhub/regnet/workflows/R-CMD-check/badge.svg)](https://github.com/jrhub/regnet/actions)
 <!-- badges: end -->
 

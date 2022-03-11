@@ -222,32 +222,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// SurvCV
-arma::mat SurvCV(arma::mat const& Xc, arma::mat const& Xg, arma::vec const& Y, unsigned int folds, arma::vec lamb1, arma::vec lamb2, arma::vec const& bc0, arma::vec const& bg0, double r, arma::mat const& a, int p, int pc, bool robust, char method, int ncores, bool debugging);
-RcppExport SEXP _regnet_SurvCV(SEXP XcSEXP, SEXP XgSEXP, SEXP YSEXP, SEXP foldsSEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bc0SEXP, SEXP bg0SEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP robustSEXP, SEXP methodSEXP, SEXP ncoresSEXP, SEXP debuggingSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat const& >::type Xc(XcSEXP);
-    Rcpp::traits::input_parameter< arma::mat const& >::type Xg(XgSEXP);
-    Rcpp::traits::input_parameter< arma::vec const& >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type folds(foldsSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type lamb1(lamb1SEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type lamb2(lamb2SEXP);
-    Rcpp::traits::input_parameter< arma::vec const& >::type bc0(bc0SEXP);
-    Rcpp::traits::input_parameter< arma::vec const& >::type bg0(bg0SEXP);
-    Rcpp::traits::input_parameter< double >::type r(rSEXP);
-    Rcpp::traits::input_parameter< arma::mat const& >::type a(aSEXP);
-    Rcpp::traits::input_parameter< int >::type p(pSEXP);
-    Rcpp::traits::input_parameter< int >::type pc(pcSEXP);
-    Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
-    Rcpp::traits::input_parameter< char >::type method(methodSEXP);
-    Rcpp::traits::input_parameter< int >::type ncores(ncoresSEXP);
-    Rcpp::traits::input_parameter< bool >::type debugging(debuggingSEXP);
-    rcpp_result_gen = Rcpp::wrap(SurvCV(Xc, Xg, Y, folds, lamb1, lamb2, bc0, bg0, r, a, p, pc, robust, method, ncores, debugging));
-    return rcpp_result_gen;
-END_RCPP
-}
 // SurvGrid
 arma::mat SurvGrid(arma::mat const& xc, arma::mat const& xg, arma::vec const& y, arma::mat const& x2, arma::vec const& y2, arma::vec const& lamb1, arma::vec const& lamb2, arma::vec bc, arma::vec bg, double r, arma::mat const& a, int p, int pc, bool robust, char method, bool debugging);
 RcppExport SEXP _regnet_SurvGrid(SEXP xcSEXP, SEXP xgSEXP, SEXP ySEXP, SEXP x2SEXP, SEXP y2SEXP, SEXP lamb1SEXP, SEXP lamb2SEXP, SEXP bcSEXP, SEXP bgSEXP, SEXP rSEXP, SEXP aSEXP, SEXP pSEXP, SEXP pcSEXP, SEXP robustSEXP, SEXP methodSEXP, SEXP debuggingSEXP) {
@@ -286,7 +260,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_regnet_RunElastic", (DL_FUNC) &_regnet_RunElastic, 6},
     {"_regnet_RunSurv_robust", (DL_FUNC) &_regnet_RunSurv_robust, 13},
     {"_regnet_RunSurv", (DL_FUNC) &_regnet_RunSurv, 13},
-    {"_regnet_SurvCV", (DL_FUNC) &_regnet_SurvCV, 16},
     {"_regnet_SurvGrid", (DL_FUNC) &_regnet_SurvGrid, 16},
     {NULL, NULL, 0}
 };

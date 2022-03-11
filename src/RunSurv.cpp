@@ -36,7 +36,7 @@ arma::vec RunSurv_robust(arma::mat const &xc, arma::mat const &xg, arma::vec con
     }
     double diff = arma::accu(arma::abs(bg - bold))/(arma::accu(bg != 0)+0.1);
 	// double diff = arma::accu(arma::abs(bg - bold));
-	// RcppThread::Rcout << "diff: " << diff <<std::endl;
+	// Rcpp::Rcout << "diff: " << diff <<std::endl;
     if(diff < 0.001) break;
     else{
       count++;

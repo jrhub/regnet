@@ -65,7 +65,7 @@ arma::vec RunCont_robust(arma::mat const &xc, arma::mat const &xg, arma::vec con
       LadLasso(xg, yg, lamb1, bg, n, p, debugging);
     }
     double diff = arma::accu(arma::abs(bg - bold))/(arma::accu(bg != 0)+0.1);
-	//std::cout << "diff: " << diff <<std::endl;
+	//Rcpp::Rcout << "diff: " << diff <<std::endl;
     if(diff < 0.001) break;
     else{
       // bg = bnew;
