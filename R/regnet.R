@@ -8,7 +8,7 @@
 #' @param X matrix of predictors without intercept. Each row should be an observation vector. A column of 1 will be added to the X matrix
 #' by the program as the intercept.
 #' @param Y response variable. For response="binary", Y should be a numeric vector with zeros and ones. For response="survival", Y should be a
-#' two-column matrix with columns named 'time' and 'status'. The latter is a binary variable, with '1' indicating a event, and '0'
+#' two-column matrix with columns named 'time' and 'status'. The latter is a binary variable, with '1' indicating an event, and '0'
 #' indicating censoring.
 #' @param response response type. regnet now supports three types of response: "binary", "continuous" and "survival".
 #' @param penalty penalty type. regnet provides three choices for the penalty function: "network", "mcp" and "lasso".
@@ -32,10 +32,10 @@
 #' \item {regnet(…, response="continuous", penalty="network")} fits a network-based least square regression.
 #' \item {regnet(…, response="survival", penalty="network")} fits a robust regularized AFT model using network penalty.
 #' }
-#' Please see the references for more details of the models. By default, regnet uses robust methods for survival response.
+#' Please see the references for more details about the models. By default, regnet uses robust methods for survival response.
 #' If users would like to use non-robust methods, simply set robust=FALSE. User could also use MCP or Lasso penalty.
 #'
-#' The coefficients are always estimated on a standardized X matrix. regnet standardizes each columns of X to have unit variance
+#' The coefficients are always estimated on a standardized X matrix. regnet standardizes each column of X to have unit variance
 #' (using 1/n rather than 1/(n-1) formula). If the coefficients on the original scale are needed, the user can refit a standard model
 #' using the subset of variables that have non-zero coefficients.
 #'

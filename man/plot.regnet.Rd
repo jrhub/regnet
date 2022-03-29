@@ -17,7 +17,7 @@
 
 \item{minVertices}{the minimum number of vertices a sub-network should contain.}
 
-\item{theta}{the multiplier fro the width of the edge. Specifically, \eqn{edge.width=\theta\times adjacency}. The defualt is 1.}
+\item{theta}{the multiplier for the width of the edge. Specifically, \eqn{edge.width=\theta\times adjacency}. The default is 1.}
 
 \item{...}{other plot arguments}
 }

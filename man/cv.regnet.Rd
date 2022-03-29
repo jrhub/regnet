@@ -36,7 +36,7 @@ If it is left as NULL, regnet will compute its own sequence.}
 \item{lamb.2}{a user-supplied sequence of \eqn{\lambda_{2}} values for network method. \eqn{\lambda_{2}} controls the smoothness
 among coefficient profiles. If it is left as NULL, a default sequence will be used.}
 
-\item{folds}{the number of folds for cross-validation; default is 5.}
+\item{folds}{the number of folds for cross-validation; the default is 5.}
 
 \item{r}{the regularization parameter in MCP; default is 5. For binary response, r should be larger than 4.}
 
@@ -59,11 +59,11 @@ in the current version of regnet.}
 }
 \value{
 an object of class "cv.regnet" is returned, which is a list with components:
-\item{lambda}{the optimal value(s) of \eqn{\lambda}. More than one values will be returned, if multiple lambdas have the cross-validated error =
+\item{lambda}{the optimal value(s) of \eqn{\lambda}. More than one value will be returned, if multiple lambdas have the cross-validated error =
 min(cross-validated errors). If the network penalty is used, lambda contains optimal pair(s) of \eqn{\lambda_{1}} and \eqn{\lambda_{2}}.}
-\item{mcvm}{the cross-validated error of the optimal \eqn{\lambda}. For binary response, the error is misclassification rate.
+\item{mcvm}{the cross-validated error of the optimal \eqn{\lambda}. For binary response, the error is the misclassification rate.
 For continuous response, mean squared error (MSE) is used. For survival response,
-the MSE is used for non-robust methods, and the criterion for robust methods is least absolute deviation (LAD).}
+the MSE is used for non-robust methods, and the criterion for robust methods is the least absolute deviation (LAD).}
 \item{CVM}{a matrix of the mean cross-validated errors of all lambdas used in the fits. The row names of CVM are the values of \eqn{\lambda_{1}}.
 If the network penalty was used, the column names are the values of \eqn{\lambda_{2}}.}
 }
@@ -72,8 +72,8 @@ This function does k-fold cross-validation for regnet and returns the optimal va
 }
 \details{
 When lamb.1 is left as NULL, regnet computes its own sequence. You can find the lamb.1 sequence used by the program in
-the returned CVM matrix (see the 'Value' section). If you find the default sequence does not work well, you can try (1) standardize
-the response vector Y; or (2) provide a customized lamb.1 sequence for your data.
+the returned CVM matrix (see the 'Value' section). If you find the default sequence does not work well, you can try (1) standardizing
+the response vector Y; or (2) providing a customized lamb.1 sequence for your data.
 
 Sometimes multiple optimal values(pairs) of lambda(s) can be found (see 'Value'). This is usually normal when the response is binary.
 However, if the response is survival or continuous, you may want to check (1) if the sequence of lambda is too large

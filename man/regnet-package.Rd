@@ -5,11 +5,11 @@
 \alias{regnet-package}
 \title{Network-Based Regularization for Generalized Linear Models}
 \description{
-This package provides implementation of the network-based variable selection method proposed in Ren et al (2017) and the robust network-based method for survival response in Ren et al (2019). In addition to network penalty, regnet also allows users to use classical MCP or LASSO penalty.
+This package provides the implementation of the network-based variable selection method proposed in Ren et al (2017) and the robust network-based method for survival response in Ren et al (2019). In addition to network penalty, regnet also allows users to use classical MCP or LASSO penalty.
 }
 \details{
 The easy-to-use, integrated interfaces cv.regnet() and regnet() allow users to flexibly choose the fitting methods they prefer.
-There are three arguments control the fitting method
+There are three arguments to control the fitting method
 \tabular{rl}{
 response: \tab three types of response are supported: "binary", "continuous" \cr \tab and "survival". \cr\cr
 penalty: \tab three choices of the penalty functions are available: "network", \cr \tab"mcp" and "lasso".\cr\cr
@@ -17,7 +17,7 @@ robust: \tab whether to use robust methods for modeling (Robust methods \cr \tab
 }
 In penalized regression, the tuning parameter \eqn{\lambda_{1}} controls the sparsity of the coefficient profile. For network-based methods, an additional tuning parameter \eqn{\lambda_{2}} is needed for controlling the smoothness among coefficient profiles. Typical usage of the package is to have the cv.regnet() compute the optimal values of lambdas, then provide them to the regnet() function for estimating the coefficients
 
-If the users want to include clinical variables that are not subject to penalty in the model, the argument 'clv' can be used to indicate the positions of clinical variables in the X matrix. e.g. 'clv=(1:5)' meaning that the first five variables in X will not be penalized. It is recommended to put the clinical variables at the beginning of the X matrix in a contiguous way (see the 'Value' section of regnet() function). However, non-contiguous indices, e.g. 'clv=(2,4,6)', are also allowed.
+If the users want to include clinical variables that are not subject to the penalty in the model, the argument 'clv' can be used to indicate the positions of clinical variables in the X matrix. e.g. 'clv=(1:5)' meaning that the first five variables in X will not be penalized. It is recommended to put the clinical variables at the beginning of the X matrix in a contiguous way (see the 'Value' section of regnet() function). However, non-contiguous indices, e.g. 'clv=(2,4,6)', are also allowed.
 }
 \examples{
 \donttest{

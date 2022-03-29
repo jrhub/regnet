@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{cv.regnet object.}
 
-\item{digits}{significant digits in printout.}
+\item{digits}{significant digits in the printout.}
 
 \item{...}{other print arguments}
 }

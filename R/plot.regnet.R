@@ -7,7 +7,7 @@
 #' @param vsize the size of the vertex
 #' @param labelDist the distance of the label from the center of the vertex.
 #' @param minVertices the minimum number of vertices a sub-network should contain.
-#' @param theta the multiplier fro the width of the edge. Specifically, \eqn{edge.width=\theta\times adjacency}. The defualt is 1.
+#' @param theta the multiplier for the width of the edge. Specifically, \eqn{edge.width=\theta\times adjacency}. The default is 1.
 #' @param ... other plot arguments
 #'
 #' @details This function depends on the "igraph" package in generating the network graphs. It returns a (list of) igraph object(s),
