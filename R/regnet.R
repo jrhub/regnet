@@ -5,26 +5,26 @@
 #' regnet function. Users could also use MCP or Lasso.
 #'
 #' @keywords models
-#' @param X matrix of predictors without intercept. Each row should be an observation vector. A column of 1 will be added to the X matrix
+#' @param X a matrix of predictors without intercept. Each row should be an observation vector. A column of 1 will be added to the X matrix 
 #' by the program as the intercept.
-#' @param Y response variable. For response="binary", Y should be a numeric vector with zeros and ones. For response="survival", Y should be a
+#' @param Y the response variable. For response="binary", Y should be a numeric vector with zeros and ones. For response="survival", Y should be a
 #' two-column matrix with columns named 'time' and 'status'. The latter is a binary variable, with '1' indicating an event, and '0'
 #' indicating censoring.
-#' @param response response type. regnet now supports three types of response: "binary", "continuous" and "survival".
-#' @param penalty penalty type. regnet provides three choices for the penalty function: "network", "mcp" and "lasso".
+#' @param response the response type. regnet supports three types of response: "binary", "continuous" and "survival".
+#' @param penalty the penalty type. regnet provides three choices for the penalty function: "network", "mcp" and "lasso".
 #' @param lamb.1 the tuning parameter \eqn{\lambda_{1}} that imposes sparsity.
 #' @param lamb.2 the tuning parameter \eqn{\lambda_{2}} that controls the smoothness among coefficient profiles. \eqn{\lambda_{2}} is  needed
 #' for network penalty.
 #' @param r the regularization parameter in MCP. For binary response, r should be larger than 4.
 #' @param clv a value or a vector, indexing variables that are not subject to penalty. clv only works for continuous and survival responses
 #' for now, and will be ignored for other types of responses.
-#' @param initiation method for initiating the coefficient vector. The default method is elastic-net.
+#' @param initiation the method for initiating the coefficient vector. The default method is elastic-net.
 #' @param alpha.i the elastic-net mixing parameter. The program can use the elastic-net for choosing initial values of
 #' the coefficient vector. alpha.i is the elastic-net mixing parameter, with 0 \eqn{\le} alpha.i \eqn{\le} 1. alpha.i=1 is the
 #' lasso penalty, and alpha.i=0 is the ridge penalty. If the user chooses a method other than elastic-net for initializing
 #' coefficients, alpha.i will be ignored.
-#' @param robust logical flag. Whether or not to use robust methods. Robust methods are only available for survival response.
-#' @param debugging logical flag. If TRUE, extra information will be returned.
+#' @param robust a logical flag. Whether or not to use robust methods. Robust methods are available for survival and continuous response.
+#' @param debugging a logical flag. If TRUE, extra information will be returned.
 #'
 #' @details The current version of regnet supports two types of responses: “binary”, "continuous" and “survival”.
 #' \itemize{
@@ -32,8 +32,7 @@
 #' \item {regnet(…, response="continuous", penalty="network")} fits a network-based least square regression.
 #' \item {regnet(…, response="survival", penalty="network")} fits a robust regularized AFT model using network penalty.
 #' }
-#' Please see the references for more details about the models. By default, regnet uses robust methods for survival response.
-#' If users would like to use non-robust methods, simply set robust=FALSE. User could also use MCP or Lasso penalty.
+#' By default, regnet uses robust methods for survival response. If users want to use non-robust methods, simply set robust=FALSE. Please see the references for more details about the models. Users could also use MCP or Lasso penalty.
 #'
 #' The coefficients are always estimated on a standardized X matrix. regnet standardizes each column of X to have unit variance
 #' (using 1/n rather than 1/(n-1) formula). If the coefficients on the original scale are needed, the user can refit a standard model

@@ -5,7 +5,7 @@
 \alias{regnet-package}
 \title{Network-Based Regularization for Generalized Linear Models}
 \description{
-This package provides the implementation of the network-based variable selection method proposed in Ren et al (2017) and the robust network-based method for survival response in Ren et al (2019). In addition to network penalty, regnet also allows users to use classical MCP or LASSO penalty.
+This package provides the implementation of the network-based variable selection method in Ren et al (2017) and the robust network-based method in Ren et al (2019). In addition to network penalty, regnet allows users to use classical LASSO and MCP penalty.
 }
 \details{
 The easy-to-use, integrated interfaces cv.regnet() and regnet() allow users to flexibly choose the fitting methods they prefer.
@@ -13,11 +13,11 @@ There are three arguments to control the fitting method
 \tabular{rl}{
 response: \tab three types of response are supported: "binary", "continuous" \cr \tab and "survival". \cr\cr
 penalty: \tab three choices of the penalty functions are available: "network", \cr \tab"mcp" and "lasso".\cr\cr
-robust: \tab whether to use robust methods for modeling (Robust methods \cr \tab are only available for survival response for now).
+robust: \tab whether to use robust methods for modeling. Robust methods \cr \tab are available for survival and continuous response.
 }
 In penalized regression, the tuning parameter \eqn{\lambda_{1}} controls the sparsity of the coefficient profile. For network-based methods, an additional tuning parameter \eqn{\lambda_{2}} is needed for controlling the smoothness among coefficient profiles. Typical usage of the package is to have the cv.regnet() compute the optimal values of lambdas, then provide them to the regnet() function for estimating the coefficients
 
-If the users want to include clinical variables that are not subject to the penalty in the model, the argument 'clv' can be used to indicate the positions of clinical variables in the X matrix. e.g. 'clv=(1:5)' meaning that the first five variables in X will not be penalized. It is recommended to put the clinical variables at the beginning of the X matrix in a contiguous way (see the 'Value' section of regnet() function). However, non-contiguous indices, e.g. 'clv=(2,4,6)', are also allowed.
+If the users want to include clinical variables that are not subject to the penalty in the model, the argument 'clv' can be used to indicate the positions of clinical variables in the X matrix. e.g. 'clv=(1:5)' meaning that the first five variables in X will not be penalized. It is recommended to put the clinical variables at the beginning of the X matrix in a contiguous way (see the 'Value' section of the regnet() function). However, non-contiguous indices, e.g. 'clv=(2,4,6)', are also allowed.
 }
 \examples{
 \donttest{
@@ -43,12 +43,15 @@ Ren, J., Du, Y., Li, S., Ma, S., Jiang,Y. and Wu, C. (2019). Robust network-base
 and variable selection for high dimensional genomics data in cancer prognosis.
 {\emph{Genet. Epidemiol.}, 43:276-291} \doi{10.1002/gepi.22194}
 
+Wu, C., Zhang, Q., Jiang,Y. and Ma, S. (2018). Robust network-based analysis of the associations between (epi)genetic measurements.
+{\emph{J Multivar Anal.}, 168:119-130} \doi{10.1016/j.jmva.2018.06.009}
+
+Wu, C., Jiang, Y., Ren, J., Cui, Y. and Ma, S. (2018). Dissecting gene-environment interactions: A penalized robust approach accounting for hierarchical structures.
+{\emph{Statistics in Medicine}, 37:437–456} \doi{10.1002/sim.7518}
+
 Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., and Wu, C. (2017).
 Network-based regularization for high dimensional SNP data in the case-control study of
 Type 2 diabetes. {\emph{BMC Genetics}, 18(1):44} \doi{10.1186/s12863-017-0495-5}
-
-Wu, C, Jiang, Y, Ren, J, Cui, Y, Ma, S. (2018). Dissecting gene-environment interactions: A penalized robust approach accounting for hierarchical structures.
-{\emph{Statistics in Medicine}, 37:437–456} \doi{10.1002/sim.7518}
 
 Wu, C., and Ma, S. (2015). A selective review of robust variable selection with applications in bioinformatics.
 {\emph{Briefings in Bioinformatics}, 16(5), 873–883} \doi{10.1093/bib/bbu046}

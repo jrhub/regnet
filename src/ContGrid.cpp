@@ -67,3 +67,4 @@ arma::mat ContGrid_MC(arma::mat const &xc, arma::mat const &xg, arma::vec const 
 	return CVM;
 }
  */
+ 

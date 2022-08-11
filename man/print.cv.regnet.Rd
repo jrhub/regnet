@@ -7,7 +7,7 @@
 \method{print}{cv.regnet}(x, digits = max(3, getOption("digits") - 3), \dots)
 }
 \arguments{
-\item{x}{cv.regnet object.}
+\item{x}{a cv.regnet object.}
 
 \item{digits}{significant digits in the printout.}
 

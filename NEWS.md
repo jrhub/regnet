@@ -1,3 +1,8 @@
+# regnet 1.0.0 [2022-8-12]
+
+* Added the robust network regularization for the continuous response.
+* A generic function plot() is added for plotting the network structures among the identified genetic variants.
+
 # regnet 0.4.0 [2019-6-7]
 
 Based on users' feedback, we have

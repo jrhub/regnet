@@ -2,12 +2,12 @@
 #'
 #' plot the network structures of the identified genetic variants.
 #'
-#' @param x regnet object.
+#' @param x a regnet object.
 #' @param subnetworks whether to plot sub-networks
 #' @param vsize the size of the vertex
 #' @param labelDist the distance of the label from the center of the vertex.
 #' @param minVertices the minimum number of vertices a sub-network should contain.
-#' @param theta the multiplier for the width of the edge. Specifically, \eqn{edge.width=\theta\times adjacency}. The default is 1.
+#' @param theta the multiplier for the width of the edge. Specifically, \eqn{edge.width=\theta\times adjacency}. The default is 5.
 #' @param ... other plot arguments
 #'
 #' @details This function depends on the "igraph" package in generating the network graphs. It returns a (list of) igraph object(s),
@@ -16,7 +16,7 @@
 #' @return an object of class "igraph" is returned in default.
 #' When \emph{subnetworks=TRUE}, a list of "igraph" objects (sub-networks) is returned.
 #'
-#' @usage \method{plot}{regnet}(x, subnetworks=FALSE, vsize=10, labelDist=2, minVertices=2, theta=1, \dots)
+#' @usage \method{plot}{regnet}(x, subnetworks=FALSE, vsize=10, labelDist=2, minVertices=2, theta=5, \dots)
 #' @seealso \code{\link{regnet}}
 #'
 #' @examples
@@ -31,7 +31,7 @@
 #'
 #'
 #'@export
-plot.regnet=function(x, subnetworks=FALSE, vsize=10, labelDist=2, minVertices=2, theta=1, ...){
+plot.regnet=function(x, subnetworks=FALSE, vsize=10, labelDist=2, minVertices=2, theta=5, ...){
 
   adjacency = x$Adj
   if(nrow(adjacency)==0) return(NULL)

@@ -8,10 +8,9 @@ Description: Network-based regularization has achieved success in variable selec
     high-dimensional biological data due to its ability to incorporate correlations among 
     genomic features. This package provides procedures of network-based variable selection 
     for generalized linear models (Ren et al. (2017) <doi:10.1186/s12863-017-0495-5> and 
-    Ren et al. (2019) <doi:10.1002/gepi.22194>). Two recent additions are the robust network 
-    regularization for the survival response and the network regularization for the continuous 
-    response. Functions for other regularization methods will be included in the forthcoming 
-    upgraded versions. 
+	Ren et al.(2019) <doi:10.1002/gepi.22194>). Continuous, binary, and survival response 
+	are supported. Robust network-based methods are available for continuous and survival 
+	responses. 
 Depends: R (>= 4.0.0)
 License: GPL-2
 Encoding: UTF-8
@@ -19,7 +18,7 @@ LazyData: true
 Imports: glmnet, stats, Rcpp, igraph, utils
 URL: https://github.com/jrhub/regnet
 BugReports: https://github.com/jrhub/regnet/issues
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 LinkingTo: Rcpp, RcppArmadillo
 Suggests: 
     testthat,

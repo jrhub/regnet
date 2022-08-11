@@ -7,7 +7,7 @@
 \method{print}{regnet}(x, digits = max(3, getOption("digits") - 3), \dots)
 }
 \arguments{
-\item{x}{regnet object.}
+\item{x}{a regnet object.}
 
 \item{digits}{significant digits in the printout.}
 

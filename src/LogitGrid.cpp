@@ -50,3 +50,4 @@ arma::mat LogitGrid_MC(arma::mat const &x, arma::vec const &y, arma::mat const &
     return CVM;
 }
  */
+ 

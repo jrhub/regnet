@@ -4,10 +4,10 @@
 \alias{plot.regnet}
 \title{plot a regnet object}
 \usage{
-\method{plot}{regnet}(x, subnetworks=FALSE, vsize=10, labelDist=2, minVertices=2, theta=1, \dots)
+\method{plot}{regnet}(x, subnetworks=FALSE, vsize=10, labelDist=2, minVertices=2, theta=5, \dots)
 }
 \arguments{
-\item{x}{regnet object.}
+\item{x}{a regnet object.}
 
 \item{subnetworks}{whether to plot sub-networks}
 
@@ -17,7 +17,7 @@
 
 \item{minVertices}{the minimum number of vertices a sub-network should contain.}
 
-\item{theta}{the multiplier for the width of the edge. Specifically, \eqn{edge.width=\theta\times adjacency}. The default is 1.}
+\item{theta}{the multiplier for the width of the edge. Specifically, \eqn{edge.width=\theta\times adjacency}. The default is 5.}
 
 \item{...}{other plot arguments}
 }

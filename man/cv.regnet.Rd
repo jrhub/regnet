@@ -22,13 +22,13 @@ cv.regnet(
 )
 }
 \arguments{
-\item{X}{X matrix as in regnet.}
+\item{X}{X matrix without intercept (see \code{\link{regnet}}).}
 
-\item{Y}{response Y as in regnet.}
+\item{Y}{the response variable Y (see \code{\link{regnet}}).}
 
-\item{response}{response type. regnet now supports three types of response: "binary", "continuous" and "survival".}
+\item{response}{the response type. regnet supports three types of response: "binary", "continuous" and "survival".}
 
-\item{penalty}{penalty type. regnet provides three choices for the penalty function: "network", "mcp" and "lasso".}
+\item{penalty}{the penalty type. regnet provides three choices for the penalty function: "network", "mcp" and "lasso".}
 
 \item{lamb.1}{a user-supplied sequence of \eqn{\lambda_{1}} values, which serves as a tuning parameter to impose sparsity.
 If it is left as NULL, regnet will compute its own sequence.}
@@ -40,7 +40,7 @@ among coefficient profiles. If it is left as NULL, a default sequence will be us
 
 \item{r}{the regularization parameter in MCP; default is 5. For binary response, r should be larger than 4.}
 
-\item{clv}{a value or a vector, indexing variables that are not subject to penalty. clv only works for continuous and survival responses for now,
+\item{clv}{a value or a vector, indexing variables that are not subject to penalty. clv only works for continuous and survival responses in the current version of regnet,
 and will be ignored for other types of responses.}
 
 \item{initiation}{the method for initiating the coefficient vector. The default method is elastic-net.}
@@ -50,12 +50,11 @@ the coefficient vector. alpha.i is the elastic-net mixing parameter, with 0 \eqn
 lasso penalty, and alpha.i=0 is the ridge penalty. If the user chooses a method other than elastic-net for initializing
 coefficients, alpha.i will be ignored.}
 
-\item{robust}{logical flag. Whether or not to use robust methods. Robust methods are only available for survival response
-in the current version of regnet.}
+\item{robust}{a logical flag. Whether or not to use robust methods. Robust methods are available for survival and continuous response.}
 
 \item{verbo}{output progress to the console.}
 
-\item{debugging}{logical flag. If TRUE, extra information will be returned.}
+\item{debugging}{a logical flag. If TRUE, extra information will be returned.}
 }
 \value{
 an object of class "cv.regnet" is returned, which is a list with components:

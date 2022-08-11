@@ -21,11 +21,14 @@ for high-dimensional biological data due to its ability to incorporate
 correlations among genomic features. This package provides procedures of
 network-based variable selection for generalized linear models ([Ren et
 al.(2017)](https://doi.org/10.1186/s12863-017-0495-5) and [Ren et
-al.(2019)](https://doi.org/10.1002/gepi.22194)). Two recent additions
-are the robust network regularization for the survival response and the
-network regularization for continuous response. Functions for other
-regularization methods will be included in the forthcoming upgraded
-versions.
+al.(2019)](https://doi.org/10.1002/gepi.22194)). Continuous, binary, and
+survival response are supported. Robust network-based methods are
+available for continuous and survival responses.
+
+<!--    Two recent additions are the robust network  -->
+<!--     regularization for the survival response and the network regularization for continuous  -->
+<!--     response. Functions for other regularization methods will be included in the forthcoming  -->
+<!--     upgraded versions.  -->
 
 ## How to install
 
@@ -80,7 +83,7 @@ versions.
     data(LogisticExample)
     X = rgn.logi$X
     Y = rgn.logi$Y
-    out = cv.regnet(X, Y, response="binary", penalty="network", folds=5, r = 4.5)  
+    out = cv.regnet(X, Y, response="binary", penalty="network", folds=5, r = 4.5, robust=FALSE)  
     out$lambda 
     fit = regnet(X, Y, "binary", "network", out$lambda[1,1], out$lambda[1,2], r = 4.5)
     index = which(rgn.logi$beta[-1] != 0)   # [-1] removes the intercept
@@ -97,7 +100,7 @@ versions.
     X = rgn.tcga$X
     Y = rgn.tcga$Y
     clv = (1:2)
-    fit = regnet(X, Y, "continuous", "network", rgn.tcga$lamb1, rgn.tcga$lamb2, clv =clv, alpha.i=0.5)
+    fit = regnet(X, Y, "continuous", "network", rgn.tcga$lamb1, rgn.tcga$lamb2, clv =clv, alpha.i=0.5, robust=FALSE)
     net = plot(fit)
     subs = plot(fit, subnetworks = TRUE, vsize=20, labelDist = 3, theta = 5) 
 
@@ -106,7 +109,13 @@ versions.
 
 ## News
 
-### regnet (development version) \[2021-3\]
+### regnet 1.0.0 \[2022-8\]
+
+-   Added the robust network regularization for the continuous response.
+-   A generic function plot() is added for plotting the network
+    structures among the identified genetic variants.
+
+### regnet (development version) \[2022-3\]
 
 -   multiple-cores computation is removed for CRAN submission.
 

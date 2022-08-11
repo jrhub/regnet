@@ -20,16 +20,16 @@ regnet(
 )
 }
 \arguments{
-\item{X}{matrix of predictors without intercept. Each row should be an observation vector. A column of 1 will be added to the X matrix
+\item{X}{a matrix of predictors without intercept. Each row should be an observation vector. A column of 1 will be added to the X matrix 
 by the program as the intercept.}
 
-\item{Y}{response variable. For response="binary", Y should be a numeric vector with zeros and ones. For response="survival", Y should be a
+\item{Y}{the response variable. For response="binary", Y should be a numeric vector with zeros and ones. For response="survival", Y should be a
 two-column matrix with columns named 'time' and 'status'. The latter is a binary variable, with '1' indicating an event, and '0'
 indicating censoring.}
 
-\item{response}{response type. regnet now supports three types of response: "binary", "continuous" and "survival".}
+\item{response}{the response type. regnet supports three types of response: "binary", "continuous" and "survival".}
 
-\item{penalty}{penalty type. regnet provides three choices for the penalty function: "network", "mcp" and "lasso".}
+\item{penalty}{the penalty type. regnet provides three choices for the penalty function: "network", "mcp" and "lasso".}
 
 \item{lamb.1}{the tuning parameter \eqn{\lambda_{1}} that imposes sparsity.}
 
@@ -41,16 +41,16 @@ for network penalty.}
 \item{clv}{a value or a vector, indexing variables that are not subject to penalty. clv only works for continuous and survival responses
 for now, and will be ignored for other types of responses.}
 
-\item{initiation}{method for initiating the coefficient vector. The default method is elastic-net.}
+\item{initiation}{the method for initiating the coefficient vector. The default method is elastic-net.}
 
 \item{alpha.i}{the elastic-net mixing parameter. The program can use the elastic-net for choosing initial values of
 the coefficient vector. alpha.i is the elastic-net mixing parameter, with 0 \eqn{\le} alpha.i \eqn{\le} 1. alpha.i=1 is the
 lasso penalty, and alpha.i=0 is the ridge penalty. If the user chooses a method other than elastic-net for initializing
 coefficients, alpha.i will be ignored.}
 
-\item{robust}{logical flag. Whether or not to use robust methods. Robust methods are only available for survival response.}
+\item{robust}{a logical flag. Whether or not to use robust methods. Robust methods are available for survival and continuous response.}
 
-\item{debugging}{logical flag. If TRUE, extra information will be returned.}
+\item{debugging}{a logical flag. If TRUE, extra information will be returned.}
 }
 \value{
 an object of class "regnet" is returned, which is a list with components:
@@ -70,8 +70,7 @@ The current version of regnet supports two types of responses: “binary”, "co
 \item {regnet(…, response="continuous", penalty="network")} fits a network-based least square regression.
 \item {regnet(…, response="survival", penalty="network")} fits a robust regularized AFT model using network penalty.
 }
-Please see the references for more details about the models. By default, regnet uses robust methods for survival response.
-If users would like to use non-robust methods, simply set robust=FALSE. User could also use MCP or Lasso penalty.
+By default, regnet uses robust methods for survival response. If users want to use non-robust methods, simply set robust=FALSE. Please see the references for more details about the models. Users could also use MCP or Lasso penalty.
 
 The coefficients are always estimated on a standardized X matrix. regnet standardizes each column of X to have unit variance
 (using 1/n rather than 1/(n-1) formula). If the coefficients on the original scale are needed, the user can refit a standard model
