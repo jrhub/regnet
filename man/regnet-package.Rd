@@ -13,7 +13,7 @@ There are three arguments to control the fitting method
 \tabular{rl}{
 response: \tab three types of response are supported: "binary", "continuous" \cr \tab and "survival". \cr\cr
 penalty: \tab three choices of the penalty functions are available: "network", \cr \tab"mcp" and "lasso".\cr\cr
-robust: \tab whether to use robust methods for modeling. Robust methods \cr \tab are available for survival and continuous response.
+robust: \tab whether to use robust methods for modeling. Robust methods \cr \tab are available for survival and continuous responses.
 }
 In penalized regression, the tuning parameter \eqn{\lambda_{1}} controls the sparsity of the coefficient profile. For network-based methods, an additional tuning parameter \eqn{\lambda_{2}} is needed for controlling the smoothness among coefficient profiles. Typical usage of the package is to have the cv.regnet() compute the optimal values of lambdas, then provide them to the regnet() function for estimating the coefficients
 

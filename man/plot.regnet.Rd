@@ -33,6 +33,7 @@ This function depends on the "igraph" package in generating the network graphs. 
 on which users can do further modification on the network graphs.
 }
 \examples{
+\donttest{
 data(ContExample)
 X = rgn.tcga$X
 Y = rgn.tcga$Y
@@ -41,7 +42,7 @@ fit = regnet(X, Y, "continuous", "network", rgn.tcga$lamb1, rgn.tcga$lamb2, clv 
 
 plot(fit)
 plot(fit, subnetworks = TRUE, vsize=20, labelDist = 3, theta = 5)
-
+}
 
 }
 \seealso{

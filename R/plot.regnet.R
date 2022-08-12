@@ -20,6 +20,7 @@
 #' @seealso \code{\link{regnet}}
 #'
 #' @examples
+#' \donttest{
 #' data(ContExample)
 #' X = rgn.tcga$X
 #' Y = rgn.tcga$Y
@@ -28,7 +29,7 @@
 #'
 #' plot(fit)
 #' plot(fit, subnetworks = TRUE, vsize=20, labelDist = 3, theta = 5)
-#'
+#' }
 #'
 #'@export
 plot.regnet=function(x, subnetworks=FALSE, vsize=10, labelDist=2, minVertices=2, theta=5, ...){
