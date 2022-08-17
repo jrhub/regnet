@@ -30,7 +30,7 @@
 #' \itemize{
 #' \item {regnet(…, response="binary", penalty="network")} fits a network-based penalized logistic regression.
 #' \item {regnet(…, response="continuous", penalty="network")} fits a network-based least square regression.
-#' \item {regnet(…, response="survival", penalty="network")} fits a robust regularized AFT model using network penalty.
+#' \item {regnet(…, response="survival", penalty="network", robust=TRUE)} fits a robust regularized AFT model using network penalty.
 #' }
 #' By default, regnet uses non-robust methods for all types of responses. To use robust methods, simply set robust=TRUE. It is recommended to use robust methods for survival response. Please see the references for more details about the models. Users could also use MCP or Lasso penalty.
 #'
