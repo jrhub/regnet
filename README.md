@@ -10,9 +10,9 @@
 
 [![CRAN](https://www.r-pkg.org/badges/version/regnet)](https://cran.r-project.org/package=regnet)
 [![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/regnet)](http://www.r-pkg.org/pkg/regnet)
+downloads](https://cranlogs.r-pkg.org/badges/regnet)](https://www.r-pkg.org:443/pkg/regnet)
 [![Codecov test
-coverage](https://codecov.io/gh/jrhub/regnet/branch/master/graph/badge.svg)](https://codecov.io/gh/jrhub/regnet?branch=master)
+coverage](https://codecov.io/gh/jrhub/regnet/branch/master/graph/badge.svg)](https://app.codecov.io/gh/jrhub/regnet?branch=master)
 [![R-CMD-check](https://github.com/jrhub/regnet/workflows/R-CMD-check/badge.svg)](https://github.com/jrhub/regnet/actions)
 <!-- badges: end -->
 
@@ -166,7 +166,7 @@ This package provides implementation for methods proposed in
 
 -   Wu, C., and Ma, S. (2015). A selective review of robust variable
     selection with applications in bioinformatics. [Briefings in
-    Bioinformatics, 16(5), 873–883](http://doi.org/10.1093/bib/bbu046)
+    Bioinformatics, 16(5), 873–883](https://doi.org/10.1093/bib/bbu046)
 
 -   Wu, C., Shi, X., Cui, Y. and Ma, S. (2015). A penalized robust
     semiparametric approach for gene-environment interactions.

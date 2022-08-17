@@ -133,6 +133,7 @@ cv.regnet <- function(X, Y, response=c("binary", "continuous", "survival"), pena
     "survival" = CV.Surv(X, Y0, status, penalty, lamb.1, lamb.2, folds, clv=clv, r, init=initiation, alpha.i, robust, standardize, ncores, verbo, debugging)
   )
   fit$call = this.call
+  fit$para = list(response=response, penalty=penalty, robust=robust)
   class(fit) = "cv.regnet"
   fit
 }

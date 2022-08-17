@@ -64,13 +64,13 @@ Typical usage is to have the cv.regnet function compute the optimal lambdas, the
 regnet function. Users could also use MCP or Lasso.
 }
 \details{
-The current version of regnet supports two types of responses: “binary”, "continuous" and “survival”.
+The current version of regnet supports three types of responses: “binary”, "continuous" and “survival”.
 \itemize{
 \item {regnet(…, response="binary", penalty="network")} fits a network-based penalized logistic regression.
 \item {regnet(…, response="continuous", penalty="network")} fits a network-based least square regression.
 \item {regnet(…, response="survival", penalty="network")} fits a robust regularized AFT model using network penalty.
 }
-By default, regnet uses robust methods for survival response. If users want to use non-robust methods, simply set robust=FALSE. Please see the references for more details about the models. Users could also use MCP or Lasso penalty.
+By default, regnet uses non-robust methods for all types of responses. To use robust methods, simply set robust=TRUE. It is recommended to use robust methods for survival response. Please see the references for more details about the models. Users could also use MCP or Lasso penalty.
 
 The coefficients are always estimated on a standardized X matrix. regnet standardizes each column of X to have unit variance
 (using 1/n rather than 1/(n-1) formula). If the coefficients on the original scale are needed, the user can refit a standard model

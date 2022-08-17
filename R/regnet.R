@@ -26,13 +26,13 @@
 #' @param robust a logical flag. Whether or not to use robust methods. Robust methods are available for survival and continuous response.
 #' @param debugging a logical flag. If TRUE, extra information will be returned.
 #'
-#' @details The current version of regnet supports two types of responses: “binary”, "continuous" and “survival”.
+#' @details The current version of regnet supports three types of responses: “binary”, "continuous" and “survival”.
 #' \itemize{
 #' \item {regnet(…, response="binary", penalty="network")} fits a network-based penalized logistic regression.
 #' \item {regnet(…, response="continuous", penalty="network")} fits a network-based least square regression.
 #' \item {regnet(…, response="survival", penalty="network")} fits a robust regularized AFT model using network penalty.
 #' }
-#' By default, regnet uses robust methods for survival response. If users want to use non-robust methods, simply set robust=FALSE. Please see the references for more details about the models. Users could also use MCP or Lasso penalty.
+#' By default, regnet uses non-robust methods for all types of responses. To use robust methods, simply set robust=TRUE. It is recommended to use robust methods for survival response. Please see the references for more details about the models. Users could also use MCP or Lasso penalty.
 #'
 #' The coefficients are always estimated on a standardized X matrix. regnet standardizes each column of X to have unit variance
 #' (using 1/n rather than 1/(n-1) formula). If the coefficients on the original scale are needed, the user can refit a standard model
@@ -115,7 +115,7 @@ regnet <- function(X, Y, response=c("binary", "continuous", "survival"), penalty
               "continuous" = ContCD(X, Y, penalty, lamb.1, lamb.2, clv, r, alpha, init=initiation, alpha.i, robust, standardize, debugging),
               "survival" = SurvCD(X, Y0, status, penalty, lamb.1, lamb.2, clv, r, init=initiation, alpha.i, robust, standardize, debugging)
   )
-  para = list(penalty=penalty, lamb.1=lamb.1, lamb.2=lamb.2, robust=robust)
+  para = list(response=response, penalty=penalty, robust=robust, lamb.1=lamb.1, lamb.2=lamb.2)
   fit = list(call = this.call, coeff = out$b, Adj=out$Adj, para=para)
   class(fit) = "regnet"
   fit
