@@ -4,8 +4,9 @@
 ## usethis namespace: end
 NULL
 
-#' @docType package
 #' @keywords overview
+"_PACKAGE"
+
 #' @name regnet-package
 #' @title Network-Based Regularization for Generalized Linear Models
 #' @aliases regnet-package

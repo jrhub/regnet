@@ -5,7 +5,7 @@
 #' regnet function. Users could also use MCP or Lasso.
 #'
 #' @keywords models
-#' @param X a matrix of predictors without intercept. Each row should be an observation vector. A column of 1 will be added to the X matrix 
+#' @param X a matrix of predictors without intercept. Each row should be an observation vector. A column of 1 will be added to the X matrix
 #' by the program as the intercept.
 #' @param Y the response variable. For response="binary", Y should be a numeric vector with zeros and ones. For response="survival", Y should be a
 #' two-column matrix with columns named 'time' and 'status'. The latter is a binary variable, with '1' indicating an event, and '0'
@@ -28,9 +28,9 @@
 #'
 #' @details The current version of regnet supports three types of responses: “binary”, "continuous" and “survival”.
 #' \itemize{
-#' \item {regnet(…, response="binary", penalty="network")} fits a network-based penalized logistic regression.
-#' \item {regnet(…, response="continuous", penalty="network")} fits a network-based least square regression.
-#' \item {regnet(…, response="survival", penalty="network", robust=TRUE)} fits a robust regularized AFT model using network penalty.
+#' \item regnet(…, response="binary", penalty="network") fits a network-based penalized logistic regression.
+#' \item regnet(…, response="continuous", penalty="network") fits a network-based least square regression.
+#' \item regnet(…, response="survival", penalty="network", robust=TRUE) fits a robust regularized AFT model using network penalty.
 #' }
 #' By default, regnet uses non-robust methods for all types of responses. To use robust methods, simply set robust=TRUE. It is recommended to use robust methods for survival response. Please see the references for more details about the models. Users could also use MCP or Lasso penalty.
 #'
@@ -39,9 +39,11 @@
 #' using the subset of variables that have non-zero coefficients.
 #'
 #' @return an object of class "regnet" is returned, which is a list with components:
-#' \item{coeff}{a vector of estimated coefficients. Please note that, if there are variables not subject to penalty (indicated by clv),
-#' the order of returned vector is c(Intercept, unpenalized coefficients of clv variables, penalized coefficients of other variables).}
-#' \item{Adj}{a matrix of adjacency measures of the identified genetic variants. Identified genetic variants are those that have non-zero estimated coefficients.}
+#' \itemize{
+#' \item coeff: a vector of estimated coefficients. Please note that, if there are variables not subject to penalty (indicated by clv),
+#' the order of returned vector is c(Intercept, unpenalized coefficients of clv variables, penalized coefficients of other variables).
+#' \item Adj: a matrix of adjacency measures of the identified genetic variants. Identified genetic variants are those that have non-zero estimated coefficients.
+#' }
 #'
 #' @references Ren, J., He, T., Li, Y., Liu, S., Du, Y., Jiang, Y., and Wu, C. (2017).
 #' Network-based regularization for high dimensional SNP data in the case-control study of

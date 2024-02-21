@@ -3,8 +3,10 @@
 \docType{package}
 \name{regnet-package}
 \alias{regnet-package}
-\title{Network-Based Regularization for Generalized Linear Models}
+\title{regnet: Network-Based Regularization for Generalized Linear Models}
 \description{
+Network-based regularization has achieved success in variable selection for high-dimensional biological data due to its ability to incorporate correlations among genomic features. This package provides procedures of network-based variable selection for generalized linear models (Ren et al. (2017) \doi{10.1186/s12863-017-0495-5} and Ren et al.(2019) \doi{10.1002/gepi.22194}). Continuous, binary, and survival response are supported. Robust network-based methods are available for continuous and survival responses.
+
 This package provides the implementation of the network-based variable selection method in Ren et al (2017) and the robust network-based method in Ren et al (2019). In addition to the network penalty, regnet allows users to use classical LASSO and MCP penalties.
 }
 \details{
@@ -60,6 +62,13 @@ Wu, C., Shi, X., Cui, Y. and Ma, S. (2015). A penalized robust semiparametric ap
 {\emph{Statistics in Medicine}, 34 (30): 4016–4030} \doi{10.1002/sim.6609}
 }
 \seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/jrhub/regnet}
+  \item Report bugs at \url{https://github.com/jrhub/regnet/issues}
+}
+
+
 \code{\link{cv.regnet}} \code{\link{regnet}}
 }
 \keyword{overview}

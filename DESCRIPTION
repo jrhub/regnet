@@ -1,7 +1,7 @@
 Package: regnet
 Type: Package
 Title: Network-Based Regularization for Generalized Linear Models
-Version: 1.0.0
+Version: 1.0.1
 Author: Jie Ren, Luann C. Jung, Yinhao Du, Cen Wu, Yu Jiang, Junhao Liu
 Maintainer: Jie Ren <jieren@ksu.edu>
 Description: Network-based regularization has achieved success in variable selection for 
@@ -18,7 +18,7 @@ LazyData: true
 Imports: glmnet, stats, Rcpp, igraph, utils
 URL: https://github.com/jrhub/regnet
 BugReports: https://github.com/jrhub/regnet/issues
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.1
 LinkingTo: Rcpp, RcppArmadillo
 Suggests: 
     testthat,
