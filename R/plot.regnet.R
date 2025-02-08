@@ -16,7 +16,6 @@
 #' @return an object of class "igraph" is returned in default.
 #' When \emph{subnetworks=TRUE}, a list of "igraph" objects (sub-networks) is returned.
 #'
-#' @usage \method{plot}{regnet}(x, subnetworks=FALSE, vsize=10, labelDist=2, minVertices=2, theta=5, \dots)
 #' @seealso \code{\link{regnet}}
 #'
 #' @examples
@@ -36,14 +35,15 @@ plot.regnet=function(x, subnetworks=FALSE, vsize=10, labelDist=2, minVertices=2,
 
   adjacency = x$Adj
   if(nrow(adjacency)==0) return(NULL)
-  net0 <- igraph::graph.adjacency(adjacency, mode="undirected", weighted=TRUE, diag=FALSE)
+  # net0 <- igraph::graph.adjacency(adjacency, mode="undirected", weighted=TRUE, diag=FALSE)
+  net0 <- igraph::graph_from_adjacency_matrix(adjacency, mode="undirected", weighted=TRUE, diag=FALSE)
   igraph::V(net0)$color = "skyblue"
 
   if(!subnetworks){
     plot(net0, vertex.size=vsize, edge.color="gray40", vertex.label=NA)
     net0
   }else{
-    nets = igraph::decompose.graph(net0, mode="weak", min.vertices = minVertices)
+    nets = igraph::decompose(net0, mode="weak", min.vertices = minVertices)
     largest = 0
     if(length(nets)==0) return(NULL)
     for(i in 1: length(nets)){

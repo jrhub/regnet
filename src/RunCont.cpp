@@ -50,11 +50,11 @@ arma::vec RunCont_robust(arma::mat const &xc, arma::mat const &xg, arma::vec con
   arma::vec bold(p, fill::none), yc, yg; // bc = bc0, bg = bg0;
   arma::mat const wc = arma::abs(xc)/n;
   arma::vec const totalWeights = arma::sum(wc, 0).t();
-  
+
   while(count < 20){
 	yc = y - xg * bg;
 	// bc = QRWMR(xc, yc, bc);
-	QRWMR(xc, yc, bc, wc, totalWeights);
+	QRWMR(xc, yc, bc, wc, totalWeights, debugging);
 	yg = y - xc * bc;
 	bold = bg;
     if(method == 'n'){

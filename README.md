@@ -38,7 +38,7 @@ available for continuous and survival responses.
 <!-- -->
 
     install.packages("devtools")
-    devtools::install_github("jrhub/regnet")
+    devtools::install_github("jrhub/regnet") #v1.0.2
 
 - Released versions of regnet are available on CRAN
   [(link)](https://cran.r-project.org/package=regnet), and can be

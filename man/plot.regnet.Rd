@@ -4,7 +4,15 @@
 \alias{plot.regnet}
 \title{plot a regnet object}
 \usage{
-\method{plot}{regnet}(x, subnetworks=FALSE, vsize=10, labelDist=2, minVertices=2, theta=5, \dots)
+\method{plot}{regnet}(
+  x,
+  subnetworks = FALSE,
+  vsize = 10,
+  labelDist = 2,
+  minVertices = 2,
+  theta = 5,
+  ...
+)
 }
 \arguments{
 \item{x}{a regnet object.}

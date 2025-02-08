@@ -24,7 +24,7 @@ arma::vec RunSurv_robust(arma::mat const &xc, arma::mat const &xg, arma::vec con
   while(count < 20){
 	yc = y - xg * bg;
 	// bc = QRWMR(xc, yc, bc);
-	QRWMR(xc, yc, bc, wc, totalWeights);
+	QRWMR(xc, yc, bc, wc, totalWeights, debugging);
 	yg = y - xc * bc;
 	bold = bg;
     if(method == 'n'){
@@ -62,7 +62,7 @@ void RunSurv_robust_warm(arma::mat const &xc, arma::mat const &xg, arma::vec con
   while(count < 20){
 	yc = y - xg * bg;
 	// bc = QRWMR(xc, yc, bc);
-	QRWMR(xc, yc, bc, wc, totalWeights);
+	QRWMR(xc, yc, bc, wc, totalWeights, false);
 	yg = y - xc * bc;
 	bold = bg;
     if(method == 'n'){
