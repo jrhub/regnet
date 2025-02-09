@@ -71,4 +71,17 @@ Useful links:
 
 \code{\link{cv.regnet}} \code{\link{regnet}}
 }
+\author{
+\strong{Maintainer}: Jie Ren \email{renjie0910@gmail.com}
+
+Authors:
+\itemize{
+  \item Luann C. Jung
+  \item Yinhao Du
+  \item Cen Wu
+  \item Yu Jiang
+  \item Junhao Liu
+}
+
+}
 \keyword{overview}

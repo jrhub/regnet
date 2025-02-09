@@ -2,7 +2,14 @@ Package: regnet
 Type: Package
 Title: Network-Based Regularization for Generalized Linear Models
 Version: 1.0.2
-Author: Jie Ren, Luann C. Jung, Yinhao Du, Cen Wu, Yu Jiang, Junhao Liu
+Authors@R: c(
+  person(given = "Jie", family = "Ren", role = c("aut", "cre"),
+         email = "renjie0910@gmail.com"),
+  person(given = c("Luann", "C."), family = "Jung", role = "aut"),
+  person(given = "Yinhao", family = "Du", role = "aut"),
+  person(given = "Cen", family = "Wu", role = "aut"),
+  person(given = "Yu", family = "Jiang", role = "aut"),
+  person(given = "Junhao", family = "Liu", role = "aut"))
 Maintainer: Jie Ren <renjie0910@gmail.com>
 Description: Network-based regularization has achieved success in variable selection for 
     high-dimensional biological data due to its ability to incorporate correlations among 
