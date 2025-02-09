@@ -3,7 +3,7 @@ Type: Package
 Title: Network-Based Regularization for Generalized Linear Models
 Version: 1.0.2
 Author: Jie Ren, Luann C. Jung, Yinhao Du, Cen Wu, Yu Jiang, Junhao Liu
-Maintainer: Jie Ren <jieren@ksu.edu>
+Maintainer: Jie Ren <renjie0910@gmail.com>
 Description: Network-based regularization has achieved success in variable selection for 
     high-dimensional biological data due to its ability to incorporate correlations among 
     genomic features. This package provides procedures of network-based variable selection 

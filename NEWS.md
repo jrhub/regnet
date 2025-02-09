@@ -1,3 +1,9 @@
+# regnet 1.0.2 [2025-2-9]
+
+* Bug Fix: Fixed a bug in the C++ function `QRWMR`.
+* Maintenance: Updated Maintainer email.
+
+
 # regnet 1.0.0 [2022-8-12]
 
 * Added the robust network regularization for the continuous response.
