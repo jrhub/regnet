@@ -5,7 +5,6 @@
 #' @param x a cv.regnet object.
 #' @param digits significant digits in the printout.
 #' @param ... other print arguments
-#' @usage \method{print}{cv.regnet}(x, digits = max(3, getOption("digits") - 3), \dots)
 #' @seealso \code{\link{cv.regnet}}
 #' @export
 print.cv.regnet=function(x, digits = max(3, getOption("digits") - 3),...){
@@ -29,7 +28,6 @@ print.cv.regnet=function(x, digits = max(3, getOption("digits") - 3),...){
 #' @param x a regnet object.
 #' @param digits significant digits in the printout.
 #' @param ... other print arguments
-#' @usage \method{print}{regnet}(x, digits = max(3, getOption("digits") - 3), \dots)
 #' @seealso \code{\link{regnet}}
 #' @export
 print.regnet=function(x, digits = max(3, getOption("digits") - 3),...){

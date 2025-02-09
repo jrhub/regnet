@@ -4,7 +4,7 @@
 \alias{print.cv.regnet}
 \title{print a cv.regnet object}
 \usage{
-\method{print}{cv.regnet}(x, digits = max(3, getOption("digits") - 3), \dots)
+\method{print}{cv.regnet}(x, digits = max(3, getOption("digits") - 3), ...)
 }
 \arguments{
 \item{x}{a cv.regnet object.}

@@ -4,7 +4,7 @@
 \alias{print.regnet}
 \title{print a regnet object}
 \usage{
-\method{print}{regnet}(x, digits = max(3, getOption("digits") - 3), \dots)
+\method{print}{regnet}(x, digits = max(3, getOption("digits") - 3), ...)
 }
 \arguments{
 \item{x}{a regnet object.}
